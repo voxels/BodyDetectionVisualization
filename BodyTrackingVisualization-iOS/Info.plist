@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_body-tracking._tcp</string>
+		<string>_body-tracking._udp</string>
+	</array>
+	<key>NSHandsTrackingUsageDescription</key>
+	<string>App uses hands tracking for particle visualization</string>
+	<key>NSWorldSensingUsageDescription</key>
+	<string>App uses device location for tracking</string>
+</dict>
+</plist>
