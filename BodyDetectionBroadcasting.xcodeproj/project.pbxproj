@@ -1,0 +1,590 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1E095B712B7BA77E00147119 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 1E095B702B7BA77E00147119 /* RealityKitContent */; };
+		1E095B732B7BA77E00147119 /* BodyDetectionBroadcastingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E095B722B7BA77E00147119 /* BodyDetectionBroadcastingApp.swift */; };
+		1E095B752B7BA77E00147119 /* ShareplayContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E095B742B7BA77E00147119 /* ShareplayContentView.swift */; };
+		1E095B772B7BA77E00147119 /* ImmersiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E095B762B7BA77E00147119 /* ImmersiveView.swift */; };
+		1E095B792B7BA77F00147119 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E095B782B7BA77F00147119 /* Assets.xcassets */; };
+		1E095B7C2B7BA77F00147119 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E095B7B2B7BA77F00147119 /* Preview Assets.xcassets */; };
+		1E095B872B7BA77F00147119 /* BodyTrackingVisualizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E095B862B7BA77F00147119 /* BodyTrackingVisualizationTests.swift */; };
+		1E095B912B7BA7BE00147119 /* NearbyServiceBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E095B902B7BA7BE00147119 /* NearbyServiceBrowser.swift */; };
+		1E095B932B7BAB1D00147119 /* NearbyServiceBrowserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E095B922B7BAB1D00147119 /* NearbyServiceBrowserModel.swift */; };
+		1E4C822E2B91FA95004F75B2 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4C822D2B91FA95004F75B2 /* SessionManager.swift */; };
+		1EB50B9C2B9E2D9700FA55F2 /* MultipeerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB50B9B2B9E2D9700FA55F2 /* MultipeerContentView.swift */; };
+		1EC72AAC2B98EB760040D73B /* ContentViewShareplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC72AAB2B98EB760040D73B /* ContentViewShareplayModel.swift */; };
+		1EC72AAE2B98EBC50040D73B /* JointData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC72AAD2B98EBC50040D73B /* JointData.swift */; };
+		1EC72AB22B98F0900040D73B /* NearbyShareplayBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC72AB12B98F0900040D73B /* NearbyShareplayBrowser.swift */; };
+		1EC72AB42B991DBE0040D73B /* ShareplayImmersiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC72AB32B991DBE0040D73B /* ShareplayImmersiveView.swift */; };
+		1EC72AB92B9B3E830040D73B /* ShareplayViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC72AB82B9B3E830040D73B /* ShareplayViewContainer.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1E095B832B7BA77F00147119 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1E095B632B7BA77E00147119 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E095B6A2B7BA77E00147119;
+			remoteInfo = BodyTrackingVisualization;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1E095B6B2B7BA77E00147119 /* BodyDetectionBroadcasting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BodyDetectionBroadcasting.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E095B6F2B7BA77E00147119 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
+		1E095B722B7BA77E00147119 /* BodyDetectionBroadcastingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyDetectionBroadcastingApp.swift; sourceTree = "<group>"; };
+		1E095B742B7BA77E00147119 /* ShareplayContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareplayContentView.swift; sourceTree = "<group>"; };
+		1E095B762B7BA77E00147119 /* ImmersiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveView.swift; sourceTree = "<group>"; };
+		1E095B782B7BA77F00147119 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1E095B7B2B7BA77F00147119 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1E095B7D2B7BA77F00147119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E095B822B7BA77F00147119 /* BodyDetectionBroadcastingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BodyDetectionBroadcastingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E095B862B7BA77F00147119 /* BodyTrackingVisualizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyTrackingVisualizationTests.swift; sourceTree = "<group>"; };
+		1E095B902B7BA7BE00147119 /* NearbyServiceBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyServiceBrowser.swift; sourceTree = "<group>"; };
+		1E095B922B7BAB1D00147119 /* NearbyServiceBrowserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyServiceBrowserModel.swift; sourceTree = "<group>"; };
+		1E095B9A2B7BBB1500147119 /* BodyTrackingVisualization_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyTrackingVisualization_iOSApp.swift; sourceTree = "<group>"; };
+		1E095B9E2B7BBB1600147119 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1E095BA12B7BBB1600147119 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1E095BAB2B7BBB1700147119 /* BodyTrackingVisualization_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyTrackingVisualization_iOSTests.swift; sourceTree = "<group>"; };
+		1E095BB52B7BBB1700147119 /* BodyTrackingVisualization_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyTrackingVisualization_iOSUITests.swift; sourceTree = "<group>"; };
+		1E095BB72B7BBB1700147119 /* BodyTrackingVisualization_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyTrackingVisualization_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1E095BC52B7BBDE200147119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1E4C822D2B91FA95004F75B2 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		1EB50B9B2B9E2D9700FA55F2 /* MultipeerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerContentView.swift; sourceTree = "<group>"; };
+		1EC72AA62B98A3EF0040D73B /* BodyDetectionBroadcasting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BodyDetectionBroadcasting.entitlements; sourceTree = "<group>"; };
+		1EC72AAB2B98EB760040D73B /* ContentViewShareplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewShareplayModel.swift; sourceTree = "<group>"; };
+		1EC72AAD2B98EBC50040D73B /* JointData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JointData.swift; sourceTree = "<group>"; };
+		1EC72AB12B98F0900040D73B /* NearbyShareplayBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyShareplayBrowser.swift; sourceTree = "<group>"; };
+		1EC72AB32B991DBE0040D73B /* ShareplayImmersiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareplayImmersiveView.swift; sourceTree = "<group>"; };
+		1EC72AB82B9B3E830040D73B /* ShareplayViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareplayViewContainer.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1E095B682B7BA77E00147119 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E095B712B7BA77E00147119 /* RealityKitContent in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E095B7F2B7BA77F00147119 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1E095B622B7BA77E00147119 = {
+			isa = PBXGroup;
+			children = (
+				1E095B6D2B7BA77E00147119 /* BodyDetectionBroadcasting */,
+				1E095B6E2B7BA77E00147119 /* Packages */,
+				1E095B852B7BA77F00147119 /* BodyTrackingVisualizationTests */,
+				1E095B992B7BBB1500147119 /* BodyTrackingVisualization-iOS */,
+				1E095BAA2B7BBB1700147119 /* BodyTrackingVisualization-iOSTests */,
+				1E095BB42B7BBB1700147119 /* BodyTrackingVisualization-iOSUITests */,
+				1E095B6C2B7BA77E00147119 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1E095B6C2B7BA77E00147119 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1E095B6B2B7BA77E00147119 /* BodyDetectionBroadcasting.app */,
+				1E095B822B7BA77F00147119 /* BodyDetectionBroadcastingTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1E095B6D2B7BA77E00147119 /* BodyDetectionBroadcasting */ = {
+			isa = PBXGroup;
+			children = (
+				1EC72AA62B98A3EF0040D73B /* BodyDetectionBroadcasting.entitlements */,
+				1E095B722B7BA77E00147119 /* BodyDetectionBroadcastingApp.swift */,
+				1EC72AB82B9B3E830040D73B /* ShareplayViewContainer.swift */,
+				1EB50B9B2B9E2D9700FA55F2 /* MultipeerContentView.swift */,
+				1E095B742B7BA77E00147119 /* ShareplayContentView.swift */,
+				1E095B902B7BA7BE00147119 /* NearbyServiceBrowser.swift */,
+				1EC72AB12B98F0900040D73B /* NearbyShareplayBrowser.swift */,
+				1E095B922B7BAB1D00147119 /* NearbyServiceBrowserModel.swift */,
+				1EC72AAB2B98EB760040D73B /* ContentViewShareplayModel.swift */,
+				1E095B762B7BA77E00147119 /* ImmersiveView.swift */,
+				1EC72AB32B991DBE0040D73B /* ShareplayImmersiveView.swift */,
+				1E095B7D2B7BA77F00147119 /* Info.plist */,
+				1E4C822D2B91FA95004F75B2 /* SessionManager.swift */,
+				1EC72AAD2B98EBC50040D73B /* JointData.swift */,
+				1E095B782B7BA77F00147119 /* Assets.xcassets */,
+				1E095B7A2B7BA77F00147119 /* Preview Content */,
+			);
+			path = BodyDetectionBroadcasting;
+			sourceTree = "<group>";
+		};
+		1E095B6E2B7BA77E00147119 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				1E095B6F2B7BA77E00147119 /* RealityKitContent */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		1E095B7A2B7BA77F00147119 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				1E095B7B2B7BA77F00147119 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		1E095B852B7BA77F00147119 /* BodyTrackingVisualizationTests */ = {
+			isa = PBXGroup;
+			children = (
+				1E095B862B7BA77F00147119 /* BodyTrackingVisualizationTests.swift */,
+			);
+			path = BodyTrackingVisualizationTests;
+			sourceTree = "<group>";
+		};
+		1E095B992B7BBB1500147119 /* BodyTrackingVisualization-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				1E095BC52B7BBDE200147119 /* Info.plist */,
+				1E095B9A2B7BBB1500147119 /* BodyTrackingVisualization_iOSApp.swift */,
+				1E095B9E2B7BBB1600147119 /* Assets.xcassets */,
+				1E095BA02B7BBB1600147119 /* Preview Content */,
+			);
+			path = "BodyTrackingVisualization-iOS";
+			sourceTree = "<group>";
+		};
+		1E095BA02B7BBB1600147119 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				1E095BA12B7BBB1600147119 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		1E095BAA2B7BBB1700147119 /* BodyTrackingVisualization-iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				1E095BAB2B7BBB1700147119 /* BodyTrackingVisualization_iOSTests.swift */,
+			);
+			path = "BodyTrackingVisualization-iOSTests";
+			sourceTree = "<group>";
+		};
+		1E095BB42B7BBB1700147119 /* BodyTrackingVisualization-iOSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1E095BB52B7BBB1700147119 /* BodyTrackingVisualization_iOSUITests.swift */,
+				1E095BB72B7BBB1700147119 /* BodyTrackingVisualization_iOSUITestsLaunchTests.swift */,
+			);
+			path = "BodyTrackingVisualization-iOSUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1E095B6A2B7BA77E00147119 /* BodyDetectionBroadcasting */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E095B8A2B7BA77F00147119 /* Build configuration list for PBXNativeTarget "BodyDetectionBroadcasting" */;
+			buildPhases = (
+				1E095B672B7BA77E00147119 /* Sources */,
+				1E095B682B7BA77E00147119 /* Frameworks */,
+				1E095B692B7BA77E00147119 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BodyDetectionBroadcasting;
+			packageProductDependencies = (
+				1E095B702B7BA77E00147119 /* RealityKitContent */,
+			);
+			productName = BodyTrackingVisualization;
+			productReference = 1E095B6B2B7BA77E00147119 /* BodyDetectionBroadcasting.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1E095B812B7BA77F00147119 /* BodyDetectionBroadcastingTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E095B8D2B7BA77F00147119 /* Build configuration list for PBXNativeTarget "BodyDetectionBroadcastingTests" */;
+			buildPhases = (
+				1E095B7E2B7BA77F00147119 /* Sources */,
+				1E095B7F2B7BA77F00147119 /* Frameworks */,
+				1E095B802B7BA77F00147119 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1E095B842B7BA77F00147119 /* PBXTargetDependency */,
+			);
+			name = BodyDetectionBroadcastingTests;
+			productName = BodyTrackingVisualizationTests;
+			productReference = 1E095B822B7BA77F00147119 /* BodyDetectionBroadcastingTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1E095B632B7BA77E00147119 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					1E095B6A2B7BA77E00147119 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					1E095B812B7BA77F00147119 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 1E095B6A2B7BA77E00147119;
+					};
+				};
+			};
+			buildConfigurationList = 1E095B662B7BA77E00147119 /* Build configuration list for PBXProject "BodyDetectionBroadcasting" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1E095B622B7BA77E00147119;
+			productRefGroup = 1E095B6C2B7BA77E00147119 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1E095B6A2B7BA77E00147119 /* BodyDetectionBroadcasting */,
+				1E095B812B7BA77F00147119 /* BodyDetectionBroadcastingTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1E095B692B7BA77E00147119 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E095B7C2B7BA77F00147119 /* Preview Assets.xcassets in Resources */,
+				1E095B792B7BA77F00147119 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E095B802B7BA77F00147119 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1E095B672B7BA77E00147119 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1EC72AB42B991DBE0040D73B /* ShareplayImmersiveView.swift in Sources */,
+				1EC72AAE2B98EBC50040D73B /* JointData.swift in Sources */,
+				1EB50B9C2B9E2D9700FA55F2 /* MultipeerContentView.swift in Sources */,
+				1EC72AB92B9B3E830040D73B /* ShareplayViewContainer.swift in Sources */,
+				1E095B752B7BA77E00147119 /* ShareplayContentView.swift in Sources */,
+				1E095B732B7BA77E00147119 /* BodyDetectionBroadcastingApp.swift in Sources */,
+				1EC72AAC2B98EB760040D73B /* ContentViewShareplayModel.swift in Sources */,
+				1E4C822E2B91FA95004F75B2 /* SessionManager.swift in Sources */,
+				1EC72AB22B98F0900040D73B /* NearbyShareplayBrowser.swift in Sources */,
+				1E095B772B7BA77E00147119 /* ImmersiveView.swift in Sources */,
+				1E095B932B7BAB1D00147119 /* NearbyServiceBrowserModel.swift in Sources */,
+				1E095B912B7BA7BE00147119 /* NearbyServiceBrowser.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E095B7E2B7BA77F00147119 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E095B872B7BA77F00147119 /* BodyTrackingVisualizationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1E095B842B7BA77F00147119 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1E095B6A2B7BA77E00147119 /* BodyDetectionBroadcasting */;
+			targetProxy = 1E095B832B7BA77F00147119 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1E095B882B7BA77F00147119 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = xros;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Debug;
+		};
+		1E095B892B7BA77F00147119 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = xros;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Release;
+		};
+		1E095B8B2B7BA77F00147119 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BodyDetectionBroadcasting/BodyDetectionBroadcasting.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = FTMC23LTVL;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Body Tracking Visualization";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Body tracking uses the local network to broadcast your skeleton data to connected devices.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noisederived.BodyDetectionBroadcasting;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+			};
+			name = Debug;
+		};
+		1E095B8C2B7BA77F00147119 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BodyDetectionBroadcasting/BodyDetectionBroadcasting.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = FTMC23LTVL;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Body Tracking Visualization";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Body tracking uses the local network to broadcast your skeleton data to connected devices.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noisederived.BodyDetectionBroadcasting;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+			};
+			name = Release;
+		};
+		1E095B8E2B7BA77F00147119 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FTMC23LTVL;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noisederived.BodyTrackingVisualizationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BodyDetectionBroadcasting.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BodyDetectionBroadcasting";
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Debug;
+		};
+		1E095B8F2B7BA77F00147119 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FTMC23LTVL;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noisederived.BodyTrackingVisualizationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BodyDetectionBroadcasting.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BodyDetectionBroadcasting";
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1E095B662B7BA77E00147119 /* Build configuration list for PBXProject "BodyDetectionBroadcasting" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E095B882B7BA77F00147119 /* Debug */,
+				1E095B892B7BA77F00147119 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E095B8A2B7BA77F00147119 /* Build configuration list for PBXNativeTarget "BodyDetectionBroadcasting" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E095B8B2B7BA77F00147119 /* Debug */,
+				1E095B8C2B7BA77F00147119 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E095B8D2B7BA77F00147119 /* Build configuration list for PBXNativeTarget "BodyDetectionBroadcastingTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E095B8E2B7BA77F00147119 /* Debug */,
+				1E095B8F2B7BA77F00147119 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1E095B702B7BA77E00147119 /* RealityKitContent */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RealityKitContent;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 1E095B632B7BA77E00147119 /* Project object */;
+}

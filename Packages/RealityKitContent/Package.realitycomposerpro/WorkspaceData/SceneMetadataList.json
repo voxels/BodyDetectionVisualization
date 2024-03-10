@@ -40,9 +40,10 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
+        "characterAnchor",
         "robot_maya",
-        "biped_robot_ace_staticMesh",
-        "geom"
+        "biped_robot_ace",
+        "biped_robot_ace_staticMesh"
       ],
       {
         "isExpanded" : true,
@@ -51,7 +52,34 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "Origin"
+        "Origin",
+        "characterAnchor",
+        "biped_robot_alpha",
+        "biped_robot_ace_skeleton",
+        "biped_robot_ace_skeletonShape"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "robot_maya",
+        "biped_robot_ace_staticMesh",
+        "geom",
+        "ace_PLY"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "robot_maya",
+        "biped_robot_ace",
+        "biped_robot_ace_staticMesh"
       ],
       {
         "isExpanded" : true,
@@ -64,6 +92,30 @@
         "biped_robot_ace",
         "biped_robot_ace_staticMesh",
         "geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "biped_robot_alpha",
+        "biped_robot_ace_staticMesh",
+        "geom",
+        "ace_PLY"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor"
       ],
       {
         "isExpanded" : true,
@@ -83,9 +135,7 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "characterAnchor",
-        "robot_maya",
-        "biped_robot_ace"
+        "Origin"
       ],
       {
         "isExpanded" : true,
@@ -114,10 +164,8 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "Transform",
         "robot_maya",
-        "biped_robot_ace",
-        "biped_robot_ace_skeleton"
+        "biped_robot_ace_staticMesh"
       ],
       {
         "isExpanded" : true,
@@ -126,18 +174,10 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "biped_robot",
-        "biped_robot_ace"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "robot_maya",
-        "biped_robot_ace_skeleton"
+        "Origin",
+        "characterAnchor",
+        "biped_robot_alpha",
+        "biped_robot_ace_staticMesh"
       ],
       {
         "isExpanded" : true,
@@ -164,18 +204,9 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "Origin",
-        "characterAnchor"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
         "robot_maya",
-        "biped_robot_ace"
+        "biped_robot_ace_staticMesh",
+        "geom"
       ],
       {
         "isExpanded" : true,
@@ -196,9 +227,110 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
+        "Origin",
+        "characterAnchor",
+        "biped_robot_alpha"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "biped_robot_alpha",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "characterAnchor",
+        "robot_maya",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "biped_robot",
+        "biped_robot_ace_staticMesh"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "robot_maya",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "biped_robot_alpha",
+        "biped_robot_ace_staticMesh",
+        "geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "biped_robot",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Transform",
+        "robot_maya",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "biped_robot_alpha",
+        "Looks"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Transform",
         "robot_maya",
         "biped_robot_ace",
-        "biped_robot_ace_staticMesh"
+        "biped_robot_ace_skeleton"
       ],
       {
         "isExpanded" : true,
@@ -219,53 +351,8 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "characterAnchor",
         "robot_maya",
-        "biped_robot_ace",
-        "biped_robot_ace_staticMesh"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Transform",
-        "robot_maya",
-        "biped_robot_ace"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "robot_maya",
-        "biped_robot_ace_staticMesh",
-        "geom",
-        "ace_PLY"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "biped_robot",
-        "biped_robot_ace_staticMesh"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "robot_maya",
-        "biped_robot_ace_staticMesh"
+        "biped_robot_ace_skeleton"
       ],
       {
         "isExpanded" : true,

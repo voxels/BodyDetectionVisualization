@@ -9,20 +9,20 @@ reorder rootPrims = ["Root", "handAnchor_left", "handAnchor_right"]
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Origin", "foorAnchor_right"]
+    reorder nameChildren = ["Origin", "GhostMaterial"]
     def Xform "Origin" (
         active = true
     )
     {
-        reorder nameChildren = ["handAnchor_right", "handAnchor_left", "footAnchor_left", "foorAnchor_right", "characterAnchor"]
-        float3 xformOp:translate = (0, 0.94, 0)
+        reorder nameChildren = ["handAnchor_right", "handAnchor_left", "footAnchor_right", "footAnchor_left", "characterAnchor"]
+        float3 xformOp:translate = (0, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def Xform "characterAnchor" (
             active = true
         )
         {
-            reorder nameChildren = ["handAnchor_left", "handAnchor_right", "biped_robot", "VFXEmitter"]
+            reorder nameChildren = ["biped_robot", "VFXEmitter", "biped_robot_alpha"]
             quatf xformOp:orient = (1, 0, 0, 0)
             float3 xformOp:scale = (1, 1, 1)
             float3 xformOp:translate = (0, 0, 0)
@@ -127,6 +127,214 @@ def Xform "Root"
                     }
                 }
             }
+
+            def "biped_robot_alpha" (
+                active = true
+                references = @biped_robot.usdz@
+            )
+            {
+                float3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                over "biped_robot_ace_skeleton"
+                {
+                    over "biped_robot_ace_skeletonShape"
+                    {
+                        def Xform "biped_robot_ace_skeletonShape" (
+                            references = </Root/Origin/characterAnchor/biped_robot_alpha/biped_robot_ace_skeleton/biped_robot_ace_skeletonShape>
+                        )
+                        {
+                            quatf xformOp:orient = (1, 0, 0, 0)
+                            float3 xformOp:scale = (1, 1, 1)
+                            float3 xformOp:translate = (0, 0, 0)
+                            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                        }
+                    }
+                }
+
+                over "Looks"
+                {
+                    reorder nameChildren = ["GhostMaterial", "pxrUsdPreviewSurface3SG", "pxrUsdPreviewSurface1SG", "pxrUsdPreviewSurface2SG"]
+                    over "pxrUsdPreviewSurface3SG"
+                    {
+                        token outputs:mtlx:surface
+                        token outputs:realitykit:vertex
+                        token outputs:surface.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/armorMAT.outputs:surface>
+
+                        over "armorMAT"
+                        {
+                            color3f inputs:diffuseColor.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file290.outputs:rgba>
+                            float inputs:metallic.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file289.outputs:a>
+                            normal3f inputs:normal.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file269.outputs:rgba>
+                            float inputs:occlusion.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file291.outputs:a>
+                            float inputs:roughness.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file292.outputs:a>
+                        }
+
+                        over "file269"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file269/TexCoordReader.outputs:result>
+                        }
+
+                        over "file289"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file289/TexCoordReader.outputs:result>
+                        }
+
+                        over "file290"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file290/TexCoordReader.outputs:result>
+                        }
+
+                        over "file291"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file291/TexCoordReader.outputs:result>
+                        }
+
+                        over "file292"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file292/TexCoordReader.outputs:result>
+                        }
+                    }
+
+                    over "pxrUsdPreviewSurface1SG"
+                    {
+                        token outputs:mtlx:surface
+                        token outputs:realitykit:vertex
+                        token outputs:surface.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/infinitejointsMAT.outputs:surface>
+
+                        over "infinitejointsMAT"
+                        {
+                            color3f inputs:diffuseColor.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file260.outputs:rgba>
+                            float inputs:metallic.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file262.outputs:a>
+                            normal3f inputs:normal.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file261.outputs:rgba>
+                            float inputs:occlusion.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file268.outputs:a>
+                            float inputs:roughness.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file259.outputs:a>
+                        }
+
+                        over "file259"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file259/TexCoordReader.outputs:result>
+                        }
+
+                        over "file260"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file260/TexCoordReader.outputs:result>
+                        }
+
+                        over "file262"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file262/TexCoordReader.outputs:result>
+                        }
+
+                        over "file268"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file268/TexCoordReader.outputs:result>
+                        }
+
+                        over "file261"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file261/TexCoordReader.outputs:result>
+                        }
+                    }
+
+                    over "pxrUsdPreviewSurface2SG"
+                    {
+                        token outputs:mtlx:surface
+                        token outputs:realitykit:vertex
+                        token outputs:surface.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/rodsMAT.outputs:surface>
+
+                        over "rodsMAT"
+                        {
+                            color3f inputs:diffuseColor.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file263.outputs:rgba>
+                            float inputs:metallic.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file264.outputs:a>
+                            normal3f inputs:normal.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file265.outputs:rgba>
+                            float inputs:occlusion.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file266.outputs:a>
+                            float inputs:roughness.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file267.outputs:a>
+                        }
+
+                        over "file263"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file263/TexCoordReader.outputs:result>
+                        }
+
+                        over "file264"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file264/TexCoordReader.outputs:result>
+                        }
+
+                        over "file265"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file265/TexCoordReader.outputs:result>
+                        }
+
+                        over "file266"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file266/TexCoordReader.outputs:result>
+                        }
+
+                        over "file267"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file267/TexCoordReader.outputs:result>
+                        }
+                    }
+
+                    def Material "GhostMaterial"
+                    {
+                        token outputs:mtlx:surface
+                        token outputs:realitykit:vertex
+                        prepend token outputs:surface.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/GhostMaterial/UsdPreviewSurface.outputs:surface>
+
+                        def Shader "UsdPreviewSurface"
+                        {
+                            uniform token info:id = "UsdPreviewSurface"
+                            float inputs:clearcoat = 1
+                            color3f inputs:emissiveColor = (1, 1, 1) (
+                                colorSpace = "srgb_displayp3"
+                            )
+                            float inputs:metallic = 1
+                            float inputs:opacity = 0.05
+                            float inputs:roughness = 0
+                            token outputs:surface
+                        }
+                    }
+                }
+
+                over "biped_robot_ace_staticMesh"
+                {
+                    over "geom"
+                    {
+                        over "ace_PLY"
+                        {
+                            over "pxrUsdPreviewSurface3SG" (
+                                prepend apiSchemas = ["MaterialBindingAPI"]
+                            )
+                            {
+                                rel material:binding = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/GhostMaterial> (
+                                    bindMaterialAs = "weakerThanDescendants"
+                                )
+                            }
+
+                            over "pxrUsdPreviewSurface1SG" (
+                                prepend apiSchemas = ["MaterialBindingAPI"]
+                            )
+                            {
+                                rel material:binding = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/GhostMaterial> (
+                                    bindMaterialAs = "weakerThanDescendants"
+                                )
+                            }
+
+                            over "pxrUsdPreviewSurface2SG" (
+                                prepend apiSchemas = ["MaterialBindingAPI"]
+                            )
+                            {
+                                rel material:binding = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/GhostMaterial> (
+                                    bindMaterialAs = "weakerThanDescendants"
+                                )
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         def Xform "footAnchor_left" (
@@ -146,19 +354,18 @@ def Xform "Root"
                 {
                     token birthDirection = "Normal"
                     token birthLocation = "Surface"
-                    int64 burstCount = 10
+                    int64 burstCount = 5
                     float3 emissionDirection = (0, 0, 0)
                     double emissionDuration = 1
                     double emissionDurationVariation = 0
                     token emitterShape = "Sphere"
                     double idleDuration = 0
                     double idleDurationVariation = 0
-                    bool isEmitting = 0
                     bool isLocal = 0
                     bool isLocalFields = 1
                     bool isSpawningEnabled = 1
                     bool loops = 1
-                    float particleSpeed = 0.1
+                    float particleSpeed = 0.06
                     float particleSpeedVariation = 0.04
                     float3 shapeSize = (0.05, 0.05, 0.05)
                     bool spawnInheritParentColor = 1
@@ -173,12 +380,12 @@ def Xform "Root"
                         float3 acceleration = (0, 0, 0)
                         token animationRepeatMode = "Looping"
                         token billboardMode = "Billboard"
-                        float birthRate = 120
+                        float birthRate = 40
                         float birthRateVariation = 0
                         token blendMode = "Additive"
                         float colorEvolutionPower = 2
                         int64 columnCount = 4
-                        float dampingFactor = 0.15
+                        float dampingFactor = 0.015
                         float4 endColorA = (1, 1, 1, 1)
                         float4 endColorB = (0.37298912, 0, 0.99670506, 1)
                         float frameRate = 60
@@ -196,14 +403,14 @@ def Xform "Root"
                         float particleAngularVelocity = 0.25
                         float particleAngularVelocityVariation = 0.5
                         asset particleImage = @ParticleEmitterPresetTextures/twinkle.exr@
-                        double particleLifeSpan = 20
+                        double particleLifeSpan = 10
                         double particleLifeSpanVariation = 0.2
                         float particleMass = 1
                         float particleMassVariation = 0.2
                         float particleSize = 0.03
                         float particleSizeVariation = 0.004
                         float3 radialGravityCenter = (1, 1, 0)
-                        float radialGravityStrength = 0.5
+                        float radialGravityStrength = 0.75
                         int64 rowCount = 4
                         float sizeMultiplierAtEndOfLifespan = 0.35
                         float sizeMultiplierAtEndOfLifespanPower = 3
@@ -216,7 +423,7 @@ def Xform "Root"
                         bool useEndColorRange = 1
                         bool useStartColorRange = 1
                         float3 vortexDirection = (0, -1, 0)
-                        float vortexStrength = 0.125
+                        float vortexStrength = 0.3
                     }
 
                     def RealityKitStruct "spawnedEmitter"
@@ -321,7 +528,7 @@ def Xform "Root"
                         token blendMode = "Additive"
                         float colorEvolutionPower = 2
                         int64 columnCount = 4
-                        float dampingFactor = 0.15
+                        float dampingFactor = 0.015
                         float4 endColorA = (1, 1, 1, 1)
                         float4 endColorB = (0.37298912, 0, 0.99670506, 1)
                         float frameRate = 60
@@ -346,7 +553,7 @@ def Xform "Root"
                         float particleSize = 0.03
                         float particleSizeVariation = 0.004
                         float3 radialGravityCenter = (1, 1, 0)
-                        float radialGravityStrength = 0.5
+                        float radialGravityStrength = 0.75
                         int64 rowCount = 4
                         float sizeMultiplierAtEndOfLifespan = 0.35
                         float sizeMultiplierAtEndOfLifespanPower = 3
@@ -358,8 +565,8 @@ def Xform "Root"
                         bool useEndColor = 1
                         bool useEndColorRange = 1
                         bool useStartColorRange = 1
-                        float3 vortexDirection = (0, -1, 0)
-                        float vortexStrength = 0.125
+                        float3 vortexDirection = (0, 0, 0)
+                        float vortexStrength = 0.3
                     }
 
                     def RealityKitStruct "spawnedEmitter"
@@ -489,7 +696,7 @@ def Xform "Root"
                         float particleSize = 0.03
                         float particleSizeVariation = 0.004
                         float3 radialGravityCenter = (1, 1, 0)
-                        float radialGravityStrength = 0.5
+                        float radialGravityStrength = 0.75
                         int64 rowCount = 4
                         float sizeMultiplierAtEndOfLifespan = 0.35
                         float sizeMultiplierAtEndOfLifespanPower = 3
@@ -501,8 +708,8 @@ def Xform "Root"
                         bool useEndColor = 1
                         bool useEndColorRange = 1
                         bool useStartColorRange = 1
-                        float3 vortexDirection = (0, -1, 0)
-                        float vortexStrength = 0.1
+                        float3 vortexDirection = (0, 0, 0)
+                        float vortexStrength = 0.3
                     }
 
                     def RealityKitStruct "spawnedEmitter"
@@ -559,7 +766,7 @@ def Xform "Root"
             }
         }
 
-        def Xform "foorAnchor_right" (
+        def Xform "footAnchor_right" (
             active = true
         )
         {
@@ -576,19 +783,18 @@ def Xform "Root"
                 {
                     token birthDirection = "Normal"
                     token birthLocation = "Surface"
-                    int64 burstCount = 10
+                    int64 burstCount = 3
                     float3 emissionDirection = (0, 0, 0)
                     double emissionDuration = 1
                     double emissionDurationVariation = 0
                     token emitterShape = "Sphere"
                     double idleDuration = 0
                     double idleDurationVariation = 0
-                    bool isEmitting = 0
                     bool isLocal = 0
                     bool isLocalFields = 1
                     bool isSpawningEnabled = 1
                     bool loops = 1
-                    float particleSpeed = 0.1
+                    float particleSpeed = 0.06
                     float particleSpeedVariation = 0.04
                     float3 shapeSize = (0.05, 0.05, 0.05)
                     bool spawnInheritParentColor = 1
@@ -602,8 +808,9 @@ def Xform "Root"
                     {
                         float3 acceleration = (0, 0, 0)
                         token animationRepeatMode = "Looping"
+                        float3 billboardAxis = (0, 1, 0)
                         token billboardMode = "Billboard"
-                        float birthRate = 120
+                        float birthRate = 40
                         float birthRateVariation = 0
                         token blendMode = "Additive"
                         float colorEvolutionPower = 2
@@ -626,14 +833,14 @@ def Xform "Root"
                         float particleAngularVelocity = 0.25
                         float particleAngularVelocityVariation = 0.5
                         asset particleImage = @ParticleEmitterPresetTextures/twinkle.exr@
-                        double particleLifeSpan = 20
+                        double particleLifeSpan = 10
                         double particleLifeSpanVariation = 0.2
                         float particleMass = 1
                         float particleMassVariation = 0.2
                         float particleSize = 0.03
                         float particleSizeVariation = 0.004
                         float3 radialGravityCenter = (1, 1, 0)
-                        float radialGravityStrength = 0.5
+                        float radialGravityStrength = 0.75
                         int64 rowCount = 4
                         float sizeMultiplierAtEndOfLifespan = 0.35
                         float sizeMultiplierAtEndOfLifespanPower = 3
@@ -646,7 +853,7 @@ def Xform "Root"
                         bool useEndColorRange = 1
                         bool useStartColorRange = 1
                         float3 vortexDirection = (0, -1, 0)
-                        float vortexStrength = 0.1
+                        float vortexStrength = 0.3
                     }
 
                     def RealityKitStruct "spawnedEmitter"
