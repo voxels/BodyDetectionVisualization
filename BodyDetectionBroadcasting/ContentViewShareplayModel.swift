@@ -84,6 +84,9 @@ extension ContentViewShareplayModel {
 extension ContentViewShareplayModel {
     
     @objc func onFrame(link:CADisplayLink) {
+        if link.timestamp > lastFrameDisplayLinkTimestamp + link.duration * Double(skipFrames) {
+            lastFrameDisplayLinkTimestamp = link.timestamp
+        }
         displayLinkTimestamp = link.timestamp
      }
 }
@@ -95,8 +98,6 @@ extension ContentViewShareplayModel {
         Task {
             lastJointData = nextJointData
             nextJointData = receiveMessage
-            print("Handling message \(displayLinkTimestamp)")
-            lastFrameDisplayLinkTimestamp = displayLinkTimestamp
         }
     }
     
@@ -111,6 +112,7 @@ extension ContentViewShareplayModel {
         switch await coordinator.prepareForActivation() {
             
         case .activationDisabled:
+            isReady = false
             print("Activation disabled")
         case .activationPreferred:
             do {
@@ -121,7 +123,7 @@ extension ContentViewShareplayModel {
             }
             
         case .cancelled:
-            print("cancelled")
+            isReady = true
             break
             
         default: ()
@@ -132,8 +134,10 @@ extension ContentViewShareplayModel {
     func configureGroupSession(_ groupSession: GroupSession<DanceCoordinator>) {
         print("Configure group session \(groupSession.activeParticipants)")
         self.groupSession = groupSession
-        Task {
-            await joinDanceCoordinator(groupSession: groupSession)
+        if !groupSession.activeParticipants.contains(groupSession.localParticipant) {
+            Task {
+                await joinDanceCoordinator(groupSession: groupSession)
+            }
         }
     }
     

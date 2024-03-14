@@ -26,24 +26,16 @@ struct ShareplayContentView: View {
     
     var body: some View {
         VStack {
-            if shareplayModel.isReady {
 #if os(visionOS)
-                Toggle("Show immersive view", isOn: $showImmersiveSpace)
-            #endif
-            } else {
-                ShareplayViewContainer(shareplayModel: shareplayModel)
+            Toggle("Show immersive view", isOn: $showImmersiveSpace)
                 .task {
                     for await dancingSession in DanceCoordinator.sessions() {
                         print("found coordinator session \(dancingSession.activity.id)")
                         shareplayModel.configureGroupSession(dancingSession)
-//                        await shareplayModel.joinDanceCoordinator(groupSession: dancingSession)
-                        guard let journal = shareplayModel.journal else {
-                            return
-                        }
                     }
                 }
-            }
 
+            #endif
         }
         .padding()
         .onChange(of: shareplayModel.isActivated, { oldValue, newValue in

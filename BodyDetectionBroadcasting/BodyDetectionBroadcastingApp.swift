@@ -13,7 +13,7 @@ struct BodyDetectionBroadcastingApp: App {
     @StateObject var browserModel = NearbyServiceBrowserModel()
     @StateObject var shareplayModel = ContentViewShareplayModel()
     
-    @State private var useShareplay = false
+    @State private var useShareplay = true
     var body: some Scene {
         WindowGroup {
             if useShareplay {

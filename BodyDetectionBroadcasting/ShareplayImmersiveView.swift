@@ -17,6 +17,7 @@ struct ShareplayImmersiveView: View {
     @State private var originEntity:Entity?
     @State private var skeletonEntity: ModelEntity?
     @State private var skeletonIdentityEntity: ModelEntity?
+    @State private var ghostEntity: ModelEntity?
     @State private var characterOffset: SIMD3<Float> = [0, 0.94, 0] // Offset the character by one meter to the left
     @State private var characterAnchor = Entity()
     @State private var characterLeftHandAnchor = Entity()
@@ -25,7 +26,8 @@ struct ShareplayImmersiveView: View {
     @State private var characterRightFootAnchor = Entity()
     @State private var processingMessage = false
     @State private var lastDecodedData:[String:JointData] = [String:JointData]()
-    
+    @State private var nextDecodedData:[String:JointData] = [String:JointData]()
+
 
     var body: some View {
         RealityView { content in
@@ -75,10 +77,23 @@ struct ShareplayImmersiveView: View {
                 scene.addChild(sessionManager.deviceLocation)
                 scene.addChild(sessionManager.leftHandLocation)
                 scene.addChild(sessionManager.rightHandLocation)
+                
+                guard let alphaModel = scene.findEntity(named: "biped_robot_alpha") else {
+                    return
+                }
+                
+                if let model = alphaModel.findEntity(named: "biped_robot_ace_skeleton") as? ModelEntity {
+                    //print(model.name)
+                    print("Found ghost skeleton")
+                    ghostEntity = model
+                }
             } catch {
                 print(error)
             }
         }
+        .onDisappear(perform: {
+            sessionManager.arkitSession.stop()
+        })
         .task {
             // Monitors changes in authorization. For example, the user may revoke authorization in Settings.
             await sessionManager.monitorSessionEvents()
@@ -92,7 +107,41 @@ struct ShareplayImmersiveView: View {
             await sessionManager.processDeviceAnchorUpdates()
         }
         .task {
+            guard let messenger = browserModel.messenger else {
+                if let groupSession = browserModel.groupSession {
+                    browserModel.configureGroupSession(groupSession)
+                }
+                print("no messenger found")
+                return
+            }
+            
+            for await message in messenger.messages(of: Data.self) {
+                let task = Task {
+                    do {
+                        let receivedItem = message.0
+                        let decodedData = try JSONDecoder().decode(JointData.self, from: receivedItem)
+                        if decodedData.d.name == "root" {
+                            lastDecodedData = nextDecodedData
+                            nextDecodedData = [String:JointData]()
+                            nextDecodedData[decodedData.d.name] = decodedData
+                            browserModel.handle(message:lastDecodedData)
+                        } else {
+                            nextDecodedData[decodedData.d.name] = decodedData
+                            print(decodedData.d.name)
+                        }
+                        lastDecodedData[decodedData.d.name] = decodedData
+                        
+                    } catch {
+                        print(error)
+                    }
+                }
+            }
+        }
+        .task {
             guard let journal = browserModel.journal else {
+                if let groupSession = browserModel.groupSession {
+                    browserModel.configureGroupSession(groupSession)
+                }
                 print("no journal found")
                 return
             }
@@ -130,13 +179,10 @@ struct ShareplayImmersiveView: View {
                 }
             }
         }
-        .onChange(of: browserModel.nextJointData ) { oldValue, newValue in
-            Task { @MainActor in
-                
-                
-            let nextJointData = newValue
-                if let originEntity = originEntity, let character = skeletonEntity, let lastJointData = browserModel.lastJointData {
-                if let nextModel = nextJointData["hips_joint"], let lastModel = lastJointData["hips_joint"]{
+        .onChange(of: browserModel.lastFrameDisplayLinkTimestamp ) { oldValue, newValue in
+            let nextJointData = browserModel.nextJointData
+            if let sceneEntity = sceneEntity, let originEntity = originEntity, let character = skeletonEntity,  let lastJointData = browserModel.lastJointData {
+                if let nextModel = nextJointData.first?.value, let lastModel = lastJointData.first?.value{
                     let nextAnchorData = nextModel.a
                     let lastAnchorData = lastModel.a
                     let nextTranslation =  SIMD3<Float>(Float(nextAnchorData.x), Float(nextAnchorData.y), Float(nextAnchorData.z))
@@ -144,17 +190,20 @@ struct ShareplayImmersiveView: View {
                     let nextRotation = simd_quatf(real:Float(nextAnchorData.r), imag: SIMD3<Float>(Float(nextAnchorData.ix), Float(nextAnchorData.iy), Float(nextAnchorData.iz)))
                     let lastRotation = simd_quatf(real:Float(lastAnchorData.r), imag: SIMD3<Float>(Float(lastAnchorData.ix), Float(lastAnchorData.iy), Float(lastAnchorData.iz)))
                     
-//                    let percentage = Float(browserModel.frameCount) / Float(browserModel.skipFrames)
-                    let anchorTranslation = nextTranslation
-                    let anchorRotation = nextRotation
+                    let percentage = Float(browserModel.frameCount) / Float(browserModel.skipFrames)
+                    let anchorTranslation = lastTranslation + (nextTranslation - lastTranslation) * percentage
+                    let anchorRotation = lastRotation + (nextRotation - lastRotation) * percentage
                                         
                     let transform = Transform(scale: SIMD3(1,1,1), rotation:anchorRotation, translation:anchorTranslation)
                     
+                    withAnimation(Animation.linear(duration: browserModel.displayLink.duration * Double(browserModel.skipFrames)), {
+                        characterAnchor.transform = transform
+                        characterAnchor.transform.translation.y = characterOffset.y
+                    })
                 }
 
                 for key in nextJointData.keys {
-                    //print(data.d.name)
-                    guard let nextModel = nextJointData[key],let lastModel = lastJointData[key],let index = character.jointNames.firstIndex(where: { jointName in
+                    guard let nextModel = nextJointData[key], let lastModel = lastJointData[key],  let index = character.jointNames.firstIndex(where: { jointName in
                         jointName.hasSuffix(nextModel.d.name)
                     }) else {
                         print("did not find index for \(key)")
@@ -166,16 +215,13 @@ struct ShareplayImmersiveView: View {
                     let nextRotation = nextModel.orientation
                     let lastRotation = lastModel.orientation
                     
-                    let percentage = Float(browserModel.frameCount) / Float(browserModel.skipFrames)
-                    let jointTranslation = nextTranslation
-                    let jointRotation = nextRotation
-
                     withAnimation(Animation.linear(duration: browserModel.displayLink.duration * Double(browserModel.skipFrames)), {
-                        character.jointTransforms[index] = Transform(scale: nextModel.scale, rotation:jointRotation, translation:jointTranslation )
+                        character.jointTransforms[index] = Transform(scale: lastModel.scale, rotation:lastRotation, translation:lastTranslation)
+                        ghostEntity?.jointTransforms[index] = Transform(scale: nextModel.scale * SIMD3(1.005,1,1.005), rotation:nextRotation, translation:nextTranslation)
                     })
+
                     
-                    
-                    if key == "left_foot_joint" {
+                    if nextModel.d.name == "left_foot_joint" {
                         
                         let leftFootTransform = nextModel.transform
                         
@@ -217,7 +263,7 @@ struct ShareplayImmersiveView: View {
                         characterLeftFootAnchor.components[ParticleEmitterComponent.self] = particleComponent
                     }
                     
-                    if key == "right_foot_joint" {
+                    if nextModel.d.name == "right_foot_joint" {
                         
                         let rightFootTransform = nextModel.transform
                         
@@ -259,7 +305,7 @@ struct ShareplayImmersiveView: View {
                         characterRightFootAnchor.components[ParticleEmitterComponent.self] = particleComponent
                     }
                     
-                    if key == "left_hand_joint" {
+                    if nextModel.d.name == "left_hand_joint" {
                         
                         let leftHandTransform = nextModel.transform
                         
@@ -284,43 +330,41 @@ struct ShareplayImmersiveView: View {
                         }
                         
                         guard let spine6Data = nextJointData["spine_6_joint"] else {
-                            print("No spine 6")
+                            print("No spine 7")
                             continue
                         }
                         
                         
                         guard let spine5Data = nextJointData["spine_5_joint"] else {
-                            print("No spine 5")
+                            print("No spine 7")
                             continue
                         }
                         
                         
                         guard let spine4Data = nextJointData["spine_4_joint"] else {
-                            print("No spine 4")
+                            print("No spine 7")
                             continue
                         }
                         
                         
                         guard let spine3Data = nextJointData["spine_3_joint"] else {
-                            print("No spine 3")
+                            print("No spine 7")
                             continue
                         }
                         
                         
                         guard let spine2Data = nextJointData["spine_2_joint"] else {
-                            print("No spine 2")
+                            print("No spine 7")
                             continue
                         }
                         
-                        
-                        
                         guard let spine1Data = nextJointData["spine_1_joint"] else {
-                            print("No spine 1")
+                            print("No spine 7")
                             continue
                         }
                         
                         guard let hipsData = nextJointData["hips_joint"] else {
-                            print("No hips joint ")
+                            print("No spine 7")
                             continue
                         }
                         
@@ -345,22 +389,22 @@ struct ShareplayImmersiveView: View {
                     }
                     
                     
-                    if key == "right_hand_joint" {
+                    if nextModel.d.name == "right_hand_joint" {
                         
                         let rightHandTransform = nextModel.transform
                         
                         guard let rightForearmData = nextJointData["right_forearm_joint"] else {
-                            print("No right forearm")
+                            print("No left forearm")
                             continue
                         }
-                        
+
                         guard let rightArmData = nextJointData["right_arm_joint"] else {
-                            print("No right arm")
+                            print("No left arm")
                             continue
                         }
-                        
+
                         guard let rightShoulderData = nextJointData["right_shoulder_1_joint"] else {
-                            print("No right shoulder")
+                            print("No left shoulder")
                             continue
                         }
                         
@@ -368,48 +412,48 @@ struct ShareplayImmersiveView: View {
                             print("No spine 7")
                             continue
                         }
-                        
+
                         guard let spine6Data = nextJointData["spine_6_joint"] else {
-                            print("No spine 6")
-                            continue
-                        }
-                        
-                        
-                        guard let spine5Data = nextJointData["spine_5_joint"] else {
-                            print("No spine 5")
-                            continue
-                        }
-                        
-                        
-                        guard let spine4Data = nextJointData["spine_4_joint"] else {
-                            print("No spine 4")
-                            continue
-                        }
-                        
-                        
-                        guard let spine3Data = nextJointData["spine_3_joint"] else {
-                            print("No spine 3")
-                            continue
-                        }
-                        
-                        
-                        guard let spine2Data = nextJointData["spine_2_joint"] else {
-                            print("No spine 2")
-                            continue
-                        }
-                        
-                        
-                        
-                        guard let spine1Data = nextJointData["spine_1_joint"] else {
-                            print("No spine 1")
-                            continue
-                        }
-                        
-                        guard let hipsData = nextJointData["hips_joint"] else {
-                            print("No hips joint ")
+                            print("No spine 7")
                             continue
                         }
 
+                        
+                        guard let spine5Data = nextJointData["spine_5_joint"] else {
+                            print("No spine 7")
+                            continue
+                        }
+
+                        
+                        guard let spine4Data = nextJointData["spine_4_joint"] else {
+                            print("No spine 7")
+                            continue
+                        }
+
+                        
+                        guard let spine3Data = nextJointData["spine_3_joint"] else {
+                            print("No spine 7")
+                            continue
+                        }
+
+                        
+                        guard let spine2Data = nextJointData["spine_2_joint"] else {
+                            print("No spine 7")
+                            continue
+                        }
+
+                        
+                        
+                        guard let spine1Data = nextJointData["spine_1_joint"] else {
+                            print("No spine 7")
+                            continue
+                        }
+
+                        guard let hipsData = nextJointData["hips_joint"] else {
+                            print("No spine 7")
+                            continue
+                        }
+                        
                         let finalTransform = Transform(matrix: rightHandTransform.matrix * rightForearmData.transform.matrix * rightArmData.transform.matrix * rightShoulderData.transform.matrix * spine7Data.transform.matrix *
                                                        spine6Data.transform.matrix * spine5Data.transform.matrix * spine4Data.transform.matrix * spine3Data.transform.matrix * spine2Data.transform.matrix * spine1Data.transform.matrix * hipsData.transform.matrix)
                        
@@ -431,8 +475,6 @@ struct ShareplayImmersiveView: View {
                     }
                 }
             }
-            }
-
 //            print("Device location: \(sessionManager.deviceLocation.transform.translation)")
 //            print("Right Hand location: \(characterRightHandAnchor.transform.translation)")
 //            print("Left Hand location: \(characterLeftHandAnchor.transform.translation)")

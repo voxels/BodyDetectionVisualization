@@ -10,7 +10,7 @@
 			<key>CFBundleTypeName</key>
 			<string>JointData</string>
 			<key>LSHandlerRank</key>
-			<string>Default</string>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.noisederived.BodyDetectionBroadcasting.jointdata</string>
@@ -79,7 +79,5 @@
 			</dict>
 		</dict>
 	</array>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<true/>
 </dict>
 </plist>
