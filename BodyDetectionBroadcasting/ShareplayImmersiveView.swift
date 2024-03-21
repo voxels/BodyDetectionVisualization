@@ -13,11 +13,15 @@ import GroupActivities
 struct ShareplayImmersiveView: View {
     @ObservedObject public var browserModel:ContentViewShareplayModel
     @StateObject private var sessionManager:SessionManager = SessionManager()
+    @State private var playerModel = PlayerModel()
+    private let videoURLString = "https://customer-02f18dl7ud0edmeq.cloudflarestream.com/eb980b10c52b699e5b544aceb9b610d9/manifest/video.m3u8"
+    private let audioURLString = "https://streams.radiomast.io/295116c5-c102-44a8-b4ed-667dbfb3c4a7"
     @State private var sceneEntity:Entity?
     @State private var originEntity:Entity?
     @State private var skeletonEntity: ModelEntity?
     @State private var skeletonIdentityEntity: ModelEntity?
     @State private var ghostEntity: ModelEntity?
+    @State private var domeEntity:ModelEntity?
     @State private var characterOffset: SIMD3<Float> = [0, 0.94, 0] // Offset the character by one meter to the left
     @State private var characterAnchor = Entity()
     @State private var characterLeftHandAnchor = Entity()
@@ -87,6 +91,14 @@ struct ShareplayImmersiveView: View {
                     print("Found ghost skeleton")
                     ghostEntity = model
                 }
+                
+                guard let domeModel = scene.findEntity(named: "Sphere") as? ModelEntity else {
+                    print("did not find dome")
+                    return
+                }
+                domeEntity = domeModel
+                let videoMaterial = VideoMaterial(avPlayer: playerModel.player)
+                domeEntity?.model?.materials = [videoMaterial]
             } catch {
                 print(error)
             }
@@ -94,6 +106,14 @@ struct ShareplayImmersiveView: View {
         .onDisappear(perform: {
             sessionManager.arkitSession.stop()
         })
+        .task {
+            do {
+                playerModel.loadAudio(urlString: audioURLString)
+                try await playerModel.loadVideo(URL(string:videoURLString)!, presentation: .fullWindow)
+            } catch {
+                print(error)
+            }
+        }
         .task {
             // Monitors changes in authorization. For example, the user may revoke authorization in Settings.
             await sessionManager.monitorSessionEvents()

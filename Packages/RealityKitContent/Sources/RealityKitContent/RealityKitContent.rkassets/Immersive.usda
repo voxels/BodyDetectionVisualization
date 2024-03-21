@@ -14,7 +14,7 @@ def Xform "Root"
         active = true
     )
     {
-        reorder nameChildren = ["handAnchor_right", "handAnchor_left", "footAnchor_right", "footAnchor_left", "characterAnchor"]
+        reorder nameChildren = ["dome", "handAnchor_right", "handAnchor_left", "footAnchor_right", "footAnchor_left", "characterAnchor"]
         float3 xformOp:translate = (0, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
@@ -908,6 +908,16 @@ def Xform "Root"
                     }
                 }
             }
+        }
+
+        def "dome" (
+            active = true
+            references = @dome_invertednormals.usdz@
+        )
+        {
+            float3 xformOp:scale = (15, 15, 15)
+            float3 xformOp:translate = (0, 2, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
         }
     }
 }

@@ -12,6 +12,9 @@ import RealityKitContent
 struct ImmersiveView: View {
     @ObservedObject var browserModel:NearbyServiceBrowserModel
     @StateObject private var sessionManager:SessionManager = SessionManager()
+    @State private var playerModel = PlayerModel()
+    private let videoURLString = "http://10.0.0.68:1935/ShadowDancingBroadcasting/countryclub/playlist.m3u8?DVR"
+    private let audioURLString = "http://10.0.0.68:8000/radio"
     @State private var sceneEntity:Entity?
     @State private var originEntity:Entity?
     @State private var skeletonEntity: ModelEntity?

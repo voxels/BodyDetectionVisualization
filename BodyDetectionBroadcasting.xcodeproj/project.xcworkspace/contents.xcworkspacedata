@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/voxels/Documents/Documents_MBP/dev/BodyTrackingVisualization/BodyDetectionBroadcasting.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>

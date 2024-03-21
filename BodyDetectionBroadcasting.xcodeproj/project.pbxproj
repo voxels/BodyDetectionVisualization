@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1E095B712B7BA77E00147119 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 1E095B702B7BA77E00147119 /* RealityKitContent */; };
+		1E095B712B7BA77E00147119 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 1E095B702B7BA77E00147119 /* RealityKitContent */; settings = {ATTRIBUTES = (Required, ); }; };
 		1E095B732B7BA77E00147119 /* BodyDetectionBroadcastingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E095B722B7BA77E00147119 /* BodyDetectionBroadcastingApp.swift */; };
 		1E095B752B7BA77E00147119 /* ShareplayContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E095B742B7BA77E00147119 /* ShareplayContentView.swift */; };
 		1E095B772B7BA77E00147119 /* ImmersiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E095B762B7BA77E00147119 /* ImmersiveView.swift */; };
@@ -17,6 +17,7 @@
 		1E095B912B7BA7BE00147119 /* NearbyServiceBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E095B902B7BA7BE00147119 /* NearbyServiceBrowser.swift */; };
 		1E095B932B7BAB1D00147119 /* NearbyServiceBrowserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E095B922B7BAB1D00147119 /* NearbyServiceBrowserModel.swift */; };
 		1E4C822E2B91FA95004F75B2 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4C822D2B91FA95004F75B2 /* SessionManager.swift */; };
+		1E9C49A52BAC633900D19E57 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9C49A42BAC633900D19E57 /* PlayerModel.swift */; };
 		1EB50B9C2B9E2D9700FA55F2 /* MultipeerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB50B9B2B9E2D9700FA55F2 /* MultipeerContentView.swift */; };
 		1EC72AAC2B98EB760040D73B /* ContentViewShareplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC72AAB2B98EB760040D73B /* ContentViewShareplayModel.swift */; };
 		1EC72AAE2B98EBC50040D73B /* JointData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC72AAD2B98EBC50040D73B /* JointData.swift */; };
@@ -56,6 +57,7 @@
 		1E095BB72B7BBB1700147119 /* BodyTrackingVisualization_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyTrackingVisualization_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1E095BC52B7BBDE200147119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1E4C822D2B91FA95004F75B2 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		1E9C49A42BAC633900D19E57 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		1EB50B9B2B9E2D9700FA55F2 /* MultipeerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerContentView.swift; sourceTree = "<group>"; };
 		1EC72AA62B98A3EF0040D73B /* BodyDetectionBroadcasting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BodyDetectionBroadcasting.entitlements; sourceTree = "<group>"; };
 		1EC72AAB2B98EB760040D73B /* ContentViewShareplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewShareplayModel.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				1EC72AAB2B98EB760040D73B /* ContentViewShareplayModel.swift */,
 				1E095B762B7BA77E00147119 /* ImmersiveView.swift */,
 				1EC72AB32B991DBE0040D73B /* ShareplayImmersiveView.swift */,
+				1E9C49A42BAC633900D19E57 /* PlayerModel.swift */,
 				1E095B7D2B7BA77F00147119 /* Info.plist */,
 				1E4C822D2B91FA95004F75B2 /* SessionManager.swift */,
 				1EC72AAD2B98EBC50040D73B /* JointData.swift */,
@@ -295,6 +298,7 @@
 				1EC72AB42B991DBE0040D73B /* ShareplayImmersiveView.swift in Sources */,
 				1EC72AAE2B98EBC50040D73B /* JointData.swift in Sources */,
 				1EB50B9C2B9E2D9700FA55F2 /* MultipeerContentView.swift in Sources */,
+				1E9C49A52BAC633900D19E57 /* PlayerModel.swift in Sources */,
 				1EC72AB92B9B3E830040D73B /* ShareplayViewContainer.swift in Sources */,
 				1E095B752B7BA77E00147119 /* ShareplayContentView.swift in Sources */,
 				1E095B732B7BA77E00147119 /* BodyDetectionBroadcastingApp.swift in Sources */,
