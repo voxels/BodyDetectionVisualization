@@ -43,7 +43,12 @@ struct ShareplayImmersiveView: View {
                 originEntity?.position = SIMD3.zero
                 content.add(scene)
                 print(scene)
-                if let model = scene.findEntity(named: "biped_robot_ace_skeleton") as? ModelEntity {
+                
+                guard let jesseModel = scene.findEntity(named: "jesse") else {
+                    return
+                }
+                
+                if let model = jesseModel.findEntity(named: "biped_robot_root_91") as? ModelEntity {
                     //print(model.name)
                     print("Found skeleton")
                     skeletonEntity = model
@@ -55,6 +60,7 @@ struct ShareplayImmersiveView: View {
                     print("Found character anchor")
                     characterAnchor = anchor
                     characterAnchor.setPosition(characterOffset, relativeTo: nil)
+                                                
                 }
                 
                 if let anchor = scene.findEntity(named:"handAnchor_left") {
@@ -82,11 +88,11 @@ struct ShareplayImmersiveView: View {
                 scene.addChild(sessionManager.leftHandLocation)
                 scene.addChild(sessionManager.rightHandLocation)
                 
-                guard let alphaModel = scene.findEntity(named: "biped_robot_alpha") else {
+                guard let alphaModel = scene.findEntity(named: "jesse") else {
                     return
                 }
                 
-                if let model = alphaModel.findEntity(named: "biped_robot_ace_skeleton") as? ModelEntity {
+                if let model = alphaModel.findEntity(named:  "Mesh_0_001_93") as? ModelEntity {
                     //print(model.name)
                     print("Found ghost skeleton")
                     ghostEntity = model
@@ -147,7 +153,7 @@ struct ShareplayImmersiveView: View {
                             browserModel.handle(message:lastDecodedData)
                         } else {
                             nextDecodedData[decodedData.d.name] = decodedData
-                            print(decodedData.d.name)
+                            //print(decodedData.d.name)
                         }
                         lastDecodedData[decodedData.d.name] = decodedData
                         
@@ -214,7 +220,7 @@ struct ShareplayImmersiveView: View {
                     let anchorTranslation = lastTranslation + (nextTranslation - lastTranslation) * percentage
                     let anchorRotation = lastRotation + (nextRotation - lastRotation) * percentage
                                         
-                    let transform = Transform(scale: SIMD3(1,1,1), rotation:anchorRotation, translation:anchorTranslation)
+                    let transform = Transform(scale: SIMD3(1,1,1), rotation:nextRotation, translation:anchorTranslation)
                     
                     withAnimation(Animation.linear(duration: browserModel.displayLink.duration * Double(browserModel.skipFrames)), {
                         characterAnchor.transform = transform
@@ -235,9 +241,14 @@ struct ShareplayImmersiveView: View {
                     let nextRotation = nextModel.orientation
                     let lastRotation = lastModel.orientation
                     
+                    let percentage = Float(browserModel.frameCount) / Float(browserModel.skipFrames)
+                    let anchorTranslation = lastTranslation + (nextTranslation - lastTranslation) * percentage
+                    let anchorRotation = lastRotation + (nextRotation - lastRotation) * percentage
+
+                    
                     withAnimation(Animation.linear(duration: browserModel.displayLink.duration * Double(browserModel.skipFrames)), {
-                        character.jointTransforms[index] = Transform(scale: lastModel.scale, rotation:lastRotation, translation:lastTranslation)
-                        ghostEntity?.jointTransforms[index] = Transform(scale: nextModel.scale * SIMD3(1.005,1,1.005), rotation:nextRotation, translation:nextTranslation)
+                        character.jointTransforms[index] = Transform(scale: nextModel.scale, rotation:nextRotation, translation:nextTranslation)
+                        ghostEntity?.jointTransforms[index] = Transform(scale: nextModel.scale * SIMD3(1.0015,1.0015,1.0015), rotation:nextRotation, translation:nextTranslation)
                     })
 
                     

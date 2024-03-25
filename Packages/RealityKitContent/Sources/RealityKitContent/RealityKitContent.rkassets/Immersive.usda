@@ -9,12 +9,12 @@ reorder rootPrims = ["Root", "handAnchor_left", "handAnchor_right"]
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Origin", "GhostMaterial"]
+    reorder nameChildren = ["Origin", "Material"]
     def Xform "Origin" (
         active = true
     )
     {
-        reorder nameChildren = ["dome", "handAnchor_right", "handAnchor_left", "footAnchor_right", "footAnchor_left", "characterAnchor"]
+        reorder nameChildren = ["dome", "handAnchor_right", "handAnchor_left", "footAnchor_right", "footAnchor_left", "characterAnchor", "jesse"]
         float3 xformOp:translate = (0, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
@@ -22,33 +22,11 @@ def Xform "Root"
             active = true
         )
         {
-            reorder nameChildren = ["biped_robot", "VFXEmitter", "biped_robot_alpha"]
+            reorder nameChildren = ["VFXEmitter", "jesse"]
             quatf xformOp:orient = (1, 0, 0, 0)
             float3 xformOp:scale = (1, 1, 1)
             float3 xformOp:translate = (0, 0, 0)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-            def "biped_robot" (
-                active = true
-                references = @biped_robot.usdz@
-            )
-            {
-                over "biped_robot_ace_skeleton"
-                {
-                    over "biped_robot_ace_skeletonShape"
-                    {
-                        def Xform "biped_robot_ace_skeletonShape" (
-                            references = </Root/Origin/characterAnchor/biped_robot/biped_robot_ace_skeleton/biped_robot_ace_skeletonShape>
-                        )
-                        {
-                            quatf xformOp:orient = (1, 0, 0, 0)
-                            float3 xformOp:scale = (1, 1, 1)
-                            float3 xformOp:translate = (0, 0, 0)
-                            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-                        }
-                    }
-                }
-            }
 
             def RealityKitComponent "VFXEmitter"
             {
@@ -128,208 +106,972 @@ def Xform "Root"
                 }
             }
 
-            def "biped_robot_alpha" (
+            def "jesse" (
                 active = true
-                references = @biped_robot.usdz@
+                references = @jesse.usdz@
             )
             {
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (1, 1, 1)
                 float3 xformOp:translate = (0, 0, 0)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
-                over "biped_robot_ace_skeleton"
+                over "Materials"
                 {
-                    over "biped_robot_ace_skeletonShape"
+                    reorder nameChildren = ["Material_0_001", "Material_0_002", "Material", "Material_2"]
+                    def Material "Material"
                     {
-                        def Xform "biped_robot_ace_skeletonShape" (
-                            references = </Root/Origin/characterAnchor/biped_robot_alpha/biped_robot_ace_skeleton/biped_robot_ace_skeletonShape>
+                        reorder nameChildren = ["PreviewSurface", "GeometryModifier", "Diffuse_Color", "Normal", "Metallic", "Clearcoat", "Clearcoat_Roughness", "Emmisive", "AO", "Noise3D", "Sin", "Mix", "Range", "Multiply", "Time", "Combine2", "WorleyNoise2D", "Divide", "Clamp", "Minus", "Image", "Image_1", "Cos", "Sin_1", "Noise2D", "SmoothStep_1", "Multiply_1", "Time_2", "Remap", "Time_1", "SmoothStep", "Separate3", "RoughnessMetallicOcclusion"]
+                        float inputs:NoiseDivisor = 0.85 (
+                            customData = {
+                                dictionary realitykit = {
+                                    float2 positionInSubgraph = (-1764.2578, 953.5742)
+                                    float2 sizeInSubgraph = (146.5, 53)
+                                    int stackingOrderInSubgraph = 1549
+                                }
+                            }
                         )
+                        token outputs:mtlx:surface.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/PreviewSurface.outputs:out>
+                        token outputs:realitykit:vertex.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/GeometryModifier.outputs:out>
+                        string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:realitykit:vertex"]
+                        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (424.63672, 172.44531)
+                        float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
+                        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1549
+
+                        def Shader "PreviewSurface"
                         {
-                            quatf xformOp:orient = (1, 0, 0, 0)
-                            float3 xformOp:scale = (1, 1, 1)
-                            float3 xformOp:translate = (0, 0, 0)
-                            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                            float inputs:clearcoat = 0
+                            float inputs:clearcoatRoughness
+                            color3f inputs:diffuseColor.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Diffuse_Color.outputs:out>
+                            color3f inputs:emissiveColor.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Emmisive.outputs:out>
+                            float inputs:ior
+                            float inputs:metallic.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Separate3.outputs:outb>
+                            float3 inputs:normal.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Normal.outputs:out>
+                            float inputs:occlusion.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Separate3.outputs:outr>
+                            float inputs:opacity.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Remap.outputs:out>
+                            float inputs:opacityThreshold.connect = None
+                            float inputs:roughness = 1
+                            float inputs:roughness.connect = None
+                            token outputs:out
+                            float2 ui:nodegraph:node:pos = (150.4414, 156.125)
+                            float2 ui:nodegraph:node:size = (159.5, 307)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["Advanced", "inputs:emissiveColor", "inputs:metallic", "inputs:diffuseColor", "inputs:roughness", "inputs:normal"]
+                        }
+
+                        def Shader "Diffuse_Color"
+                        {
+                            uniform token info:id = "ND_image_color3"
+                            asset inputs:file = @textures/jesse_out_albedo.png@
+                            color3f outputs:out
+                            float2 ui:nodegraph:node:pos = (-166.6066, -856.5599)
+                            float2 ui:nodegraph:node:size = (148.5, 199)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:default", "inputs:default"]
+                        }
+
+                        def Shader "Emmisive"
+                        {
+                            uniform token info:id = "ND_image_color3"
+                            color3f inputs:default.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Mix.outputs:out>
+                            asset inputs:file
+                            string inputs:filtertype
+                            float2 inputs:texcoord
+                            string inputs:uaddressmode
+                            string inputs:vaddressmode
+                            color3f outputs:out
+                            float2 ui:nodegraph:node:pos = (-168.24304, 696.9811)
+                            float2 ui:nodegraph:node:size = (148.5, 199)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:default", "inputs:default", "inputs:file", "inputs:uaddressmode"]
+                        }
+
+                        def Shader "Noise3D"
+                        {
+                            uniform token info:id = "ND_noise3d_color3"
+                            color3f outputs:out
+                            float2 ui:nodegraph:node:pos = (-668.83203, 837.25)
+                            float2 ui:nodegraph:node:size = (105, 145)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Sin"
+                        {
+                            uniform token info:id = "ND_sin_float"
+                            float inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/WorleyNoise2D.outputs:out>
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-802.19995, 997.6836)
+                            float2 ui:nodegraph:node:size = (116, 40)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Mix"
+                        {
+                            uniform token info:id = "ND_mix_color3"
+                            color3f inputs:bg.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Noise3D.outputs:out>
+                            color3f inputs:fg.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Plus.outputs:out>
+                            float inputs:mix.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Range.outputs:out>
+                            color3f outputs:out
+                            float2 ui:nodegraph:node:pos = (-337.07812, 776.25)
+                            float2 ui:nodegraph:node:size = (109, 145)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:mix"]
+                        }
+
+                        def Shader "Range"
+                        {
+                            uniform token info:id = "ND_range_float"
+                            bool inputs:doclamp
+                            float inputs:gamma
+                            float inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Multiply.outputs:out>
+                            float inputs:inhigh
+                            float inputs:inlow = -1
+                            float inputs:outhigh = 0.75
+                            float inputs:outlow = 0.05
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-471.58612, 989.7558)
+                            float2 ui:nodegraph:node:size = (98, 217)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Multiply"
+                        {
+                            uniform token info:id = "ND_multiply_float"
+                            float inputs:in1.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Sin.outputs:out>
+                            float inputs:in2 = 2
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-637.6812, 988.5575)
+                            float2 ui:nodegraph:node:size = (60, 36)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:in2"]
+                        }
+
+                        def Shader "Time"
+                        {
+                            uniform token info:id = "ND_time_float"
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1526.6932, 812.3516)
+                            float2 ui:nodegraph:node:size = (122.5, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Combine2"
+                        {
+                            uniform token info:id = "ND_combine2_vector2"
+                            float inputs:in1.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Divide.outputs:out>
+                            float inputs:in2 = 1
+                            float inputs:in2.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Divide.outputs:out>
+                            float2 outputs:out
+                            float2 ui:nodegraph:node:pos = (-1221.8086, 1017.6406)
+                            float2 ui:nodegraph:node:size = (144.5, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "WorleyNoise2D"
+                        {
+                            uniform token info:id = "ND_worleynoise2d_float"
+                            float inputs:jitter
+                            float2 inputs:texcoord.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Combine2.outputs:out>
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1016.8711, 977.83594)
+                            float2 ui:nodegraph:node:size = (148.5, 127)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Divide"
+                        {
+                            uniform token info:id = "ND_divide_float"
+                            float inputs:in1.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Time.outputs:out>
+                            float inputs:in2 = 100
+                            float inputs:in2.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Clamp.outputs:out>
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1360.3438, 914.5078)
+                            float2 ui:nodegraph:node:size = (61.5, 36)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
+                        }
+
+                        def Shader "Clamp"
+                        {
+                            uniform token info:id = "ND_clamp_float"
+                            float inputs:high = 10000
+                            float inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material.inputs:NoiseDivisor>
+                            float inputs:low = 0.01
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1539.2734, 932.9492)
+                            float2 ui:nodegraph:node:size = (91, 145)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Image"
+                        {
+                            uniform token info:id = "ND_image_color3"
+                            color3f inputs:default
+                            asset inputs:file = @textures/jesse_out_bw_inverted.png@
+                            string inputs:filtertype
+                            float2 inputs:texcoord.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Combine2_2.outputs:out>
+                            string inputs:uaddressmode
+                            string inputs:vaddressmode
+                            color3f outputs:out
+                            float2 ui:nodegraph:node:pos = (-870.0015, 601.0584)
+                            float2 ui:nodegraph:node:size = (148.5, 199)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:file", "inputs:uaddressmode"]
+                        }
+
+                        def Shader "Image_1"
+                        {
+                            uniform token info:id = "ND_image_color3"
+                            color3f inputs:default
+                            asset inputs:file = @textures/jesse_out_emissive.png@
+                            string inputs:filtertype
+                            float2 inputs:texcoord.connect = None
+                            string inputs:uaddressmode
+                            string inputs:vaddressmode
+                            color3f outputs:out
+                            float2 ui:nodegraph:node:pos = (-866.36426, 369.97345)
+                            float2 ui:nodegraph:node:size = (148.5, 199)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:file", "inputs:vaddressmode"]
+                        }
+
+                        def Shader "Cos"
+                        {
+                            uniform token info:id = "ND_cos_float"
+                            float inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Time_2.outputs:out>
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1052.3984, 195.30469)
+                            float2 ui:nodegraph:node:size = (116, 40)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Sin_1"
+                        {
+                            uniform token info:id = "ND_sin_float"
+                            float inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Time_1.outputs:out>
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-984.3457, -106.60434)
+                            float2 ui:nodegraph:node:size = (118, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Noise2D"
+                        {
+                            uniform token info:id = "ND_noise2d_float"
+                            float inputs:amplitude.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Multiply_1.outputs:out>
+                            float inputs:pivot.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/SmoothStep_1.outputs:out>
+                            float2 inputs:texcoord.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Combine2_1.outputs:out>
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-539.64185, -117.493004)
+                            float2 ui:nodegraph:node:size = (148.5, 145)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:pivot", "inputs:amplitude"]
+                        }
+
+                        def Shader "SmoothStep_1"
+                        {
+                            uniform token info:id = "ND_smoothstep_float"
+                            float inputs:high
+                            float inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Cos.outputs:out>
+                            float inputs:low = -1
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-819.6958, 159.54453)
+                            float2 ui:nodegraph:node:size = (139.5, 145)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Multiply_1"
+                        {
+                            uniform token info:id = "ND_multiply_float"
+                            float inputs:in1.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/SmoothStep.outputs:out>
+                            float inputs:in2 = 6
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-803.8124, 1.8338568)
+                            float2 ui:nodegraph:node:size = (60, 36)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
+                        }
+
+                        def Shader "Time_2"
+                        {
+                            uniform token info:id = "ND_time_float"
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1303.1406, 182.82812)
+                            float2 ui:nodegraph:node:size = (122.5, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Remap"
+                        {
+                            uniform token info:id = "ND_remap_float"
+                            float inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Noise2D.outputs:out>
+                            float inputs:inlow = 0
+                            float inputs:outhigh = 0.85
+                            float inputs:outlow = 0.35
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-391.10886, 111.17317)
+                            float2 ui:nodegraph:node:size = (94, 181)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:inhigh", "inputs:outhigh"]
+                        }
+
+                        def Shader "Time_1"
+                        {
+                            uniform token info:id = "ND_time_float"
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1217.9473, -236.80356)
+                            float2 ui:nodegraph:node:size = (122.5, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "SmoothStep"
+                        {
+                            uniform token info:id = "ND_smoothstep_float"
+                            float inputs:high
+                            float inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Sin_1.outputs:out>
+                            float inputs:low = -1
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-808.9224, -105.543976)
+                            float2 ui:nodegraph:node:size = (127.5, 145)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Separate3"
+                        {
+                            uniform token info:id = "ND_separate3_color3"
+                            color3f inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/RoughnessMetallicOcclusion.outputs:out>
+                            float outputs:outb
+                            float outputs:outg
+                            float outputs:outr
+                            float2 ui:nodegraph:node:pos = (-390.5723, -626.49603)
+                            float2 ui:nodegraph:node:size = (115.5, 145)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "RoughnessMetallicOcclusion"
+                        {
+                            uniform token info:id = "ND_image_color3"
+                            asset inputs:file = @textures/jesse_out_occlusion.png@
+                            string inputs:filtertype
+                            color3f outputs:out
+                            float2 ui:nodegraph:node:pos = (-604.33923, -776.38257)
+                            float2 ui:nodegraph:node:size = (231, 199)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:default", "inputs:default"]
+                        }
+
+                        def Shader "Normal"
+                        {
+                            uniform token info:id = "ND_image_vector3"
+                            float3 inputs:default
+                            asset inputs:file = @textures/jesse_out_normal.png@
+                            string inputs:filtertype
+                            float2 inputs:texcoord
+                            string inputs:uaddressmode
+                            string inputs:vaddressmode
+                            float3 outputs:out
+                            float2 ui:nodegraph:node:pos = (-168.4584, 20.013384)
+                            float2 ui:nodegraph:node:size = (148.5, 199)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "GeometryModifier"
+                        {
+                            uniform token info:id = "ND_realitykit_geometrymodifier_vertexshader"
+                            token outputs:out
+                            float2 ui:nodegraph:node:pos = (434.08984, 441.97656)
+                            float2 ui:nodegraph:node:size = (196.5, 325)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Combine2_1"
+                        {
+                            uniform token info:id = "ND_combine2_vector2"
+                            float inputs:in1.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/SmoothStep.outputs:out>
+                            float inputs:in2.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/SmoothStep_1.outputs:out>
+                            float2 outputs:out
+                            float2 ui:nodegraph:node:pos = (-615.027, 54.326412)
+                            float2 ui:nodegraph:node:size = (157, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Combine2_2"
+                        {
+                            uniform token info:id = "ND_combine2_vector2"
+                            float inputs:in1.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Cos_1.outputs:out>
+                            float inputs:in2.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Sin_2.outputs:out>
+                            float2 outputs:out
+                            float2 ui:nodegraph:node:pos = (-1180.98, 391.1856)
+                            float2 ui:nodegraph:node:size = (160, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Sin_2"
+                        {
+                            uniform token info:id = "ND_sin_float"
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1434.1785, 275.9967)
+                            float2 ui:nodegraph:node:size = (121.5, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Cos_1"
+                        {
+                            uniform token info:id = "ND_cos_float"
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1443.848, 409.834)
+                            float2 ui:nodegraph:node:size = (122.5, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Plus"
+                        {
+                            uniform token info:id = "ND_plus_color3"
+                            color3f inputs:bg.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Image.outputs:out>
+                            color3f inputs:fg.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Image_1.outputs:out>
+                            float inputs:mix.connect = </Root/Origin/characterAnchor/jesse/Materials/Material/Noise2D.outputs:out>
+                            color3f outputs:out
+                            float2 ui:nodegraph:node:pos = (-594.13965, 498.37524)
+                            float2 ui:nodegraph:node:size = (109, 145)
+                            int ui:nodegraph:node:stackingOrder = 1549
                         }
                     }
-                }
 
-                over "Looks"
-                {
-                    reorder nameChildren = ["GhostMaterial", "pxrUsdPreviewSurface3SG", "pxrUsdPreviewSurface1SG", "pxrUsdPreviewSurface2SG"]
-                    over "pxrUsdPreviewSurface3SG"
+                    over "Material_0_001"
+                    {
+                        token inputs:frame:stPrimvarName (
+                            customData = {
+                                dictionary realitykit = {
+                                    float2 positionInSubgraph = (-115.25, 86.5)
+                                    float2 sizeInSubgraph = (203.5, 53)
+                                }
+                            }
+                        )
+                        token outputs:mtlx:surface
+                        token outputs:realitykit:vertex
+                        token outputs:surface.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_001/surfaceShader.outputs:surface>
+                        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (126.25, 109.5)
+                        float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
+
+                        over "surfaceShader"
+                        {
+                            color3f inputs:diffuseColor.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_001/diffuseColor_texture.outputs:rgb>
+                            float inputs:metallic.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_001/metallic_roughness_occlusion_texture.outputs:b>
+                            normal3f inputs:normal.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_001/normal_texture.outputs:rgb>
+                            float inputs:occlusion.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_001/metallic_roughness_occlusion_texture.outputs:r>
+                            float inputs:roughness.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_001/metallic_roughness_occlusion_texture.outputs:g>
+                        }
+
+                        over "uvReader_st"
+                        {
+                            token inputs:varname.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_001.inputs:frame:stPrimvarName>
+                        }
+
+                        over "normal_texture"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_001/uvReader_st.outputs:result>
+                        }
+
+                        over "diffuseColor_texture"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_001/uvReader_st.outputs:result>
+                        }
+
+                        over "metallic_roughness_occlusion_texture"
+                        {
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_001/uvReader_st.outputs:result>
+                        }
+                    }
+
+                    over "Material_0_002"
                     {
                         token outputs:mtlx:surface
                         token outputs:realitykit:vertex
-                        token outputs:surface.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/armorMAT.outputs:surface>
+                        token outputs:surface.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_002/surfaceShader.outputs:surface>
 
-                        over "armorMAT"
+                        over "surfaceShader"
                         {
-                            color3f inputs:diffuseColor.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file290.outputs:rgba>
-                            float inputs:metallic.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file289.outputs:a>
-                            normal3f inputs:normal.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file269.outputs:rgba>
-                            float inputs:occlusion.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file291.outputs:a>
-                            float inputs:roughness.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file292.outputs:a>
+                            color3f inputs:diffuseColor.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_002/diffuseColor_texture.outputs:rgb>
+                            float inputs:metallic.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_002/metallic_roughness_occlusion_texture.outputs:b>
+                            normal3f inputs:normal.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_002/normal_texture.outputs:rgb>
+                            float inputs:occlusion.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_002/metallic_roughness_occlusion_texture.outputs:r>
+                            float inputs:roughness.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_002/metallic_roughness_occlusion_texture.outputs:g>
                         }
 
-                        over "file269"
+                        over "uvReader_st"
                         {
-                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file269/TexCoordReader.outputs:result>
+                            token inputs:varname.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_002.inputs:frame:stPrimvarName>
                         }
 
-                        over "file289"
+                        over "normal_texture"
                         {
-                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file289/TexCoordReader.outputs:result>
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_002/uvReader_st.outputs:result>
                         }
 
-                        over "file290"
+                        over "diffuseColor_texture"
                         {
-                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file290/TexCoordReader.outputs:result>
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_002/uvReader_st.outputs:result>
                         }
 
-                        over "file291"
+                        over "metallic_roughness_occlusion_texture"
                         {
-                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file291/TexCoordReader.outputs:result>
-                        }
-
-                        over "file292"
-                        {
-                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface3SG/file292/TexCoordReader.outputs:result>
+                            float2 inputs:st.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_0_002/uvReader_st.outputs:result>
                         }
                     }
 
-                    over "pxrUsdPreviewSurface1SG"
+                    def Material "Material_1"
                     {
-                        token outputs:mtlx:surface
-                        token outputs:realitykit:vertex
-                        token outputs:surface.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/infinitejointsMAT.outputs:surface>
+                        reorder nameChildren = ["PreviewSurface", "GeometryModifier", "Diffuse_Color", "Normal", "Metallic", "Clearcoat", "Clearcoat_Roughness", "Emmisive", "AO", "Noise3D", "Sin", "Mix", "Range", "Multiply", "Time", "Combine2", "WorleyNoise2D", "Divide", "Clamp", "Minus", "Image", "Image_1", "Cos", "Sin_1", "Noise2D", "SmoothStep_1", "Multiply_1", "Time_2", "Remap", "Time_1", "SmoothStep", "Separate3", "RoughnessMetallicOcclusion"]
+                        float inputs:NoiseDivisor = 1.25 (
+                            customData = {
+                                dictionary realitykit = {
+                                    float2 positionInSubgraph = (-1764.2578, 953.5742)
+                                    float2 sizeInSubgraph = (146.5, 53)
+                                    int stackingOrderInSubgraph = 1562
+                                }
+                            }
+                        )
+                        token outputs:mtlx:surface.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/PreviewSurface.outputs:out>
+                        token outputs:realitykit:vertex.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/GeometryModifier.outputs:out>
+                        string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:realitykit:vertex"]
+                        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (424.63672, 172.44531)
+                        float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
+                        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1549
 
-                        over "infinitejointsMAT"
+                        def Shader "PreviewSurface"
                         {
-                            color3f inputs:diffuseColor.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file260.outputs:rgba>
-                            float inputs:metallic.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file262.outputs:a>
-                            normal3f inputs:normal.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file261.outputs:rgba>
-                            float inputs:occlusion.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file268.outputs:a>
-                            float inputs:roughness.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file259.outputs:a>
-                        }
-
-                        over "file259"
-                        {
-                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file259/TexCoordReader.outputs:result>
-                        }
-
-                        over "file260"
-                        {
-                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file260/TexCoordReader.outputs:result>
-                        }
-
-                        over "file262"
-                        {
-                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file262/TexCoordReader.outputs:result>
-                        }
-
-                        over "file268"
-                        {
-                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file268/TexCoordReader.outputs:result>
-                        }
-
-                        over "file261"
-                        {
-                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface1SG/file261/TexCoordReader.outputs:result>
-                        }
-                    }
-
-                    over "pxrUsdPreviewSurface2SG"
-                    {
-                        token outputs:mtlx:surface
-                        token outputs:realitykit:vertex
-                        token outputs:surface.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/rodsMAT.outputs:surface>
-
-                        over "rodsMAT"
-                        {
-                            color3f inputs:diffuseColor.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file263.outputs:rgba>
-                            float inputs:metallic.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file264.outputs:a>
-                            normal3f inputs:normal.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file265.outputs:rgba>
-                            float inputs:occlusion.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file266.outputs:a>
-                            float inputs:roughness.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file267.outputs:a>
-                        }
-
-                        over "file263"
-                        {
-                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file263/TexCoordReader.outputs:result>
-                        }
-
-                        over "file264"
-                        {
-                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file264/TexCoordReader.outputs:result>
-                        }
-
-                        over "file265"
-                        {
-                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file265/TexCoordReader.outputs:result>
-                        }
-
-                        over "file266"
-                        {
-                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file266/TexCoordReader.outputs:result>
-                        }
-
-                        over "file267"
-                        {
-                            float2 inputs:st.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/pxrUsdPreviewSurface2SG/file267/TexCoordReader.outputs:result>
-                        }
-                    }
-
-                    def Material "GhostMaterial"
-                    {
-                        token outputs:mtlx:surface
-                        token outputs:realitykit:vertex
-                        prepend token outputs:surface.connect = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/GhostMaterial/UsdPreviewSurface.outputs:surface>
-
-                        def Shader "UsdPreviewSurface"
-                        {
-                            uniform token info:id = "UsdPreviewSurface"
+                            uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
                             float inputs:clearcoat = 1
-                            color3f inputs:emissiveColor = (1, 1, 1) (
-                                colorSpace = "srgb_displayp3"
-                            )
-                            float inputs:metallic = 1
-                            float inputs:opacity = 0.05
-                            float inputs:roughness = 0
-                            token outputs:surface
+                            float inputs:clearcoatRoughness.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Separate3.outputs:outg>
+                            color3f inputs:diffuseColor.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Diffuse_Color.outputs:out>
+                            color3f inputs:emissiveColor.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Emmisive.outputs:out>
+                            float inputs:ior
+                            float inputs:metallic.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Separate3.outputs:outb>
+                            float3 inputs:normal.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Normal.inputs:default>
+                            float inputs:occlusion.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Separate3.outputs:outr>
+                            float inputs:opacity.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Remap.outputs:out>
+                            float inputs:opacityThreshold.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Remap.outputs:out>
+                            float inputs:roughness = 1
+                            float inputs:roughness.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Separate3.outputs:outr>
+                            token outputs:out
+                            float2 ui:nodegraph:node:pos = (150.4414, 156.125)
+                            float2 ui:nodegraph:node:size = (159.5, 307)
+                            int ui:nodegraph:node:stackingOrder = 1563
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["Advanced", "inputs:emissiveColor", "inputs:metallic", "inputs:diffuseColor", "inputs:roughness", "inputs:normal", "inputs:clearcoat", "inputs:clearcoatRoughness"]
+                        }
+
+                        def Shader "Diffuse_Color"
+                        {
+                            uniform token info:id = "ND_image_color3"
+                            asset inputs:file = @textures/jesse_in_albedo.png@
+                            color3f outputs:out
+                            float2 ui:nodegraph:node:pos = (-166.6066, -856.5599)
+                            float2 ui:nodegraph:node:size = (148.5, 199)
+                            int ui:nodegraph:node:stackingOrder = 1564
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:default", "inputs:default", "outputs:out", "inputs:default"]
+                        }
+
+                        def Shader "Emmisive"
+                        {
+                            uniform token info:id = "ND_image_color3"
+                            color3f inputs:default.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Mix.outputs:out>
+                            asset inputs:file
+                            string inputs:filtertype
+                            float2 inputs:texcoord
+                            string inputs:uaddressmode
+                            string inputs:vaddressmode
+                            color3f outputs:out
+                            float2 ui:nodegraph:node:pos = (-168.24304, 696.9811)
+                            float2 ui:nodegraph:node:size = (148.5, 199)
+                            int ui:nodegraph:node:stackingOrder = 1553
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:default", "inputs:default", "inputs:file", "inputs:uaddressmode", "inputs:texcoord"]
+                        }
+
+                        def Shader "Noise3D"
+                        {
+                            uniform token info:id = "ND_noise3d_color3"
+                            color3f outputs:out
+                            float2 ui:nodegraph:node:pos = (-668.83203, 837.25)
+                            float2 ui:nodegraph:node:size = (105, 145)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Sin"
+                        {
+                            uniform token info:id = "ND_sin_float"
+                            float inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/WorleyNoise2D.outputs:out>
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-802.19995, 997.6836)
+                            float2 ui:nodegraph:node:size = (116, 40)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Mix"
+                        {
+                            uniform token info:id = "ND_mix_color3"
+                            color3f inputs:bg.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Noise3D.outputs:out>
+                            color3f inputs:fg.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Plus.outputs:out>
+                            float inputs:mix.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Range.outputs:out>
+                            color3f outputs:out
+                            float2 ui:nodegraph:node:pos = (-337.07812, 776.25)
+                            float2 ui:nodegraph:node:size = (109, 145)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:mix"]
+                        }
+
+                        def Shader "Range"
+                        {
+                            uniform token info:id = "ND_range_float"
+                            bool inputs:doclamp
+                            float inputs:gamma
+                            float inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Multiply.outputs:out>
+                            float inputs:inhigh
+                            float inputs:inlow = -1
+                            float inputs:outhigh = 0.75
+                            float inputs:outlow = 0.05
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-471.58612, 989.7558)
+                            float2 ui:nodegraph:node:size = (98, 217)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Multiply"
+                        {
+                            uniform token info:id = "ND_multiply_float"
+                            float inputs:in1.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Sin.outputs:out>
+                            float inputs:in2 = 4
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-637.6812, 988.5575)
+                            float2 ui:nodegraph:node:size = (60, 36)
+                            int ui:nodegraph:node:stackingOrder = 1560
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:in2"]
+                        }
+
+                        def Shader "Time"
+                        {
+                            uniform token info:id = "ND_time_float"
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1526.6932, 812.3516)
+                            float2 ui:nodegraph:node:size = (122.5, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Combine2"
+                        {
+                            uniform token info:id = "ND_combine2_vector2"
+                            float inputs:in1.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Divide.outputs:out>
+                            float inputs:in2 = 1
+                            float inputs:in2.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Divide.outputs:out>
+                            float2 outputs:out
+                            float2 ui:nodegraph:node:pos = (-1221.8086, 1017.6406)
+                            float2 ui:nodegraph:node:size = (144.5, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "WorleyNoise2D"
+                        {
+                            uniform token info:id = "ND_worleynoise2d_float"
+                            float inputs:jitter
+                            float2 inputs:texcoord.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Combine2.outputs:out>
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1016.8711, 977.83594)
+                            float2 ui:nodegraph:node:size = (148.5, 127)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Divide"
+                        {
+                            uniform token info:id = "ND_divide_float"
+                            float inputs:in1.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Time.outputs:out>
+                            float inputs:in2 = 100
+                            float inputs:in2.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Clamp.outputs:out>
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1360.3438, 914.5078)
+                            float2 ui:nodegraph:node:size = (61.5, 36)
+                            int ui:nodegraph:node:stackingOrder = 1559
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
+                        }
+
+                        def Shader "Clamp"
+                        {
+                            uniform token info:id = "ND_clamp_float"
+                            float inputs:high = 10000
+                            float inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1.inputs:NoiseDivisor>
+                            float inputs:low = 0.01
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1539.2734, 932.9492)
+                            float2 ui:nodegraph:node:size = (91, 145)
+                            int ui:nodegraph:node:stackingOrder = 1558
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:in"]
+                        }
+
+                        def Shader "Image"
+                        {
+                            uniform token info:id = "ND_image_color3"
+                            color3f inputs:default
+                            asset inputs:file = @textures/jesse_in_albedo.png@
+                            string inputs:filtertype
+                            float2 inputs:texcoord.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Combine2_2.outputs:out>
+                            string inputs:uaddressmode
+                            string inputs:vaddressmode
+                            color3f outputs:out
+                            float2 ui:nodegraph:node:pos = (-870.0015, 601.0584)
+                            float2 ui:nodegraph:node:size = (148.5, 199)
+                            int ui:nodegraph:node:stackingOrder = 1568
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:file", "inputs:uaddressmode", "inputs:texcoord"]
+                        }
+
+                        def Shader "Image_1"
+                        {
+                            uniform token info:id = "ND_image_color3"
+                            color3f inputs:default
+                            asset inputs:file = @textures/jesse_in_emmisive.png@
+                            string inputs:filtertype
+                            float2 inputs:texcoord.connect = None
+                            string inputs:uaddressmode
+                            string inputs:vaddressmode
+                            color3f outputs:out
+                            float2 ui:nodegraph:node:pos = (-866.36426, 369.97345)
+                            float2 ui:nodegraph:node:size = (148.5, 199)
+                            int ui:nodegraph:node:stackingOrder = 1570
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:file", "inputs:vaddressmode", "inputs:texcoord", "inputs:default"]
+                        }
+
+                        def Shader "Cos"
+                        {
+                            uniform token info:id = "ND_cos_float"
+                            float inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Time_2.outputs:out>
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1052.3984, 195.30469)
+                            float2 ui:nodegraph:node:size = (116, 40)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Sin_1"
+                        {
+                            uniform token info:id = "ND_sin_float"
+                            float inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Time_1.outputs:out>
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-984.3457, -106.60434)
+                            float2 ui:nodegraph:node:size = (118, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Noise2D"
+                        {
+                            uniform token info:id = "ND_noise2d_float"
+                            float inputs:amplitude.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Multiply_1.outputs:out>
+                            float inputs:pivot.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/SmoothStep_1.outputs:out>
+                            float2 inputs:texcoord.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Combine2_1.outputs:out>
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-539.64185, -117.493004)
+                            float2 ui:nodegraph:node:size = (148.5, 145)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:pivot", "inputs:amplitude"]
+                        }
+
+                        def Shader "SmoothStep_1"
+                        {
+                            uniform token info:id = "ND_smoothstep_float"
+                            float inputs:high
+                            float inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Sin_1.outputs:out>
+                            float inputs:low = -1
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-819.6958, 159.54453)
+                            float2 ui:nodegraph:node:size = (139.5, 145)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Multiply_1"
+                        {
+                            uniform token info:id = "ND_multiply_float"
+                            float inputs:in1.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/SmoothStep.outputs:out>
+                            float inputs:in2 = 6
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-803.8124, 1.8338568)
+                            float2 ui:nodegraph:node:size = (60, 36)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
+                        }
+
+                        def Shader "Time_2"
+                        {
+                            uniform token info:id = "ND_time_float"
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1303.1406, 182.82812)
+                            float2 ui:nodegraph:node:size = (122.5, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Remap"
+                        {
+                            uniform token info:id = "ND_remap_float"
+                            float inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Noise2D.outputs:out>
+                            float inputs:inlow = 0
+                            float inputs:outhigh = 0.85
+                            float inputs:outlow = 0.35
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-391.10886, 111.17317)
+                            float2 ui:nodegraph:node:size = (94, 181)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:inhigh", "inputs:outhigh"]
+                        }
+
+                        def Shader "Time_1"
+                        {
+                            uniform token info:id = "ND_time_float"
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1217.9473, -236.80356)
+                            float2 ui:nodegraph:node:size = (122.5, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "SmoothStep"
+                        {
+                            uniform token info:id = "ND_smoothstep_float"
+                            float inputs:high
+                            float inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Cos.outputs:out>
+                            float inputs:low = -1
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-808.9224, -105.543976)
+                            float2 ui:nodegraph:node:size = (127.5, 145)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Separate3"
+                        {
+                            uniform token info:id = "ND_separate3_color3"
+                            color3f inputs:in.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/RoughnessMetallicOcclusion.outputs:out>
+                            float outputs:outb
+                            float outputs:outg
+                            float outputs:outr
+                            float2 ui:nodegraph:node:pos = (-390.5723, -626.49603)
+                            float2 ui:nodegraph:node:size = (115.5, 145)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "RoughnessMetallicOcclusion"
+                        {
+                            uniform token info:id = "ND_image_color3"
+                            asset inputs:file = @textures/jesse_in_occlusion.png@
+                            string inputs:filtertype
+                            color3f outputs:out
+                            float2 ui:nodegraph:node:pos = (-604.33923, -776.38257)
+                            float2 ui:nodegraph:node:size = (231, 199)
+                            int ui:nodegraph:node:stackingOrder = 1565
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:default", "inputs:default"]
+                        }
+
+                        def Shader "Normal"
+                        {
+                            uniform token info:id = "ND_image_vector3"
+                            float3 inputs:default
+                            asset inputs:file = @textures/jesse_in_normal.png@
+                            string inputs:filtertype
+                            float2 inputs:texcoord
+                            string inputs:uaddressmode
+                            string inputs:vaddressmode
+                            float3 outputs:out
+                            float2 ui:nodegraph:node:pos = (-168.4584, 20.013384)
+                            float2 ui:nodegraph:node:size = (148.5, 199)
+                            int ui:nodegraph:node:stackingOrder = 1552
+                            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:uaddressmode"]
+                        }
+
+                        def Shader "GeometryModifier"
+                        {
+                            uniform token info:id = "ND_realitykit_geometrymodifier_vertexshader"
+                            token outputs:out
+                            float2 ui:nodegraph:node:pos = (434.08984, 441.97656)
+                            float2 ui:nodegraph:node:size = (196.5, 325)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Combine2_1"
+                        {
+                            uniform token info:id = "ND_combine2_vector2"
+                            float inputs:in1.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/SmoothStep.outputs:out>
+                            float inputs:in2.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/SmoothStep_1.outputs:out>
+                            float2 outputs:out
+                            float2 ui:nodegraph:node:pos = (-615.027, 54.326412)
+                            float2 ui:nodegraph:node:size = (157, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Combine2_2"
+                        {
+                            uniform token info:id = "ND_combine2_vector2"
+                            float inputs:in1.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Sin_2.outputs:out>
+                            float inputs:in2.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Cos_1.outputs:out>
+                            float2 outputs:out
+                            float2 ui:nodegraph:node:pos = (-1180.98, 391.1856)
+                            float2 ui:nodegraph:node:size = (160, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Sin_2"
+                        {
+                            uniform token info:id = "ND_sin_float"
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1434.1785, 275.9967)
+                            float2 ui:nodegraph:node:size = (121.5, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Cos_1"
+                        {
+                            uniform token info:id = "ND_cos_float"
+                            float outputs:out
+                            float2 ui:nodegraph:node:pos = (-1443.848, 409.834)
+                            float2 ui:nodegraph:node:size = (122.5, 53)
+                            int ui:nodegraph:node:stackingOrder = 1549
+                        }
+
+                        def Shader "Plus"
+                        {
+                            uniform token info:id = "ND_plus_color3"
+                            color3f inputs:bg.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Image.outputs:out>
+                            color3f inputs:fg.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Image_1.outputs:out>
+                            float inputs:mix.connect = </Root/Origin/characterAnchor/jesse/Materials/Material_1/Noise2D.outputs:out>
+                            color3f outputs:out
+                            float2 ui:nodegraph:node:pos = (-594.13965, 498.37524)
+                            float2 ui:nodegraph:node:size = (109, 145)
+                            int ui:nodegraph:node:stackingOrder = 1549
                         }
                     }
                 }
 
-                over "biped_robot_ace_staticMesh"
+                over "Geom"
                 {
-                    over "geom"
+                    over "biped_robot_biped_robot_ace"
                     {
-                        over "ace_PLY"
+                        quatf xformOp:orient = (1, 0, 0, 0)
+                        float3 xformOp:scale = (1, 1, 1)
+                        float3 xformOp:translate = (0, 0, 0)
+                        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                        over "biped_robot_biped_robot_ace_skeleton"
                         {
-                            over "pxrUsdPreviewSurface3SG" (
-                                prepend apiSchemas = ["MaterialBindingAPI"]
-                            )
+                            over "biped_robot_root_91"
                             {
-                                rel material:binding = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/GhostMaterial> (
-                                    bindMaterialAs = "weakerThanDescendants"
+                                over "Mesh_0_001_92" (
+                                    prepend apiSchemas = ["MaterialBindingAPI"]
                                 )
-                            }
+                                {
+                                    rel material:binding = </Root/Origin/characterAnchor/jesse/Materials/Material> (
+                                        bindMaterialAs = "weakerThanDescendants"
+                                    )
+                                }
 
-                            over "pxrUsdPreviewSurface1SG" (
-                                prepend apiSchemas = ["MaterialBindingAPI"]
-                            )
-                            {
-                                rel material:binding = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/GhostMaterial> (
-                                    bindMaterialAs = "weakerThanDescendants"
+                                over "Mesh_0_002_93" (
+                                    prepend apiSchemas = ["MaterialBindingAPI"]
                                 )
-                            }
-
-                            over "pxrUsdPreviewSurface2SG" (
-                                prepend apiSchemas = ["MaterialBindingAPI"]
-                            )
-                            {
-                                rel material:binding = </Root/Origin/characterAnchor/biped_robot_alpha/Looks/GhostMaterial> (
-                                    bindMaterialAs = "weakerThanDescendants"
-                                )
+                                {
+                                    rel material:binding = </Root/Origin/characterAnchor/jesse/Materials/Material_1> (
+                                        bindMaterialAs = "weakerThanDescendants"
+                                    )
+                                }
                             }
                         }
                     }
@@ -916,7 +1658,7 @@ def Xform "Root"
         )
         {
             float3 xformOp:scale = (15, 15, 15)
-            float3 xformOp:translate = (0, 2, 0)
+            float3 xformOp:translate = (0, 0.5, 0)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
         }
     }
