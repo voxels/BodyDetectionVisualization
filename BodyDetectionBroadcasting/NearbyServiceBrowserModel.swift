@@ -16,11 +16,15 @@ open class NearbyServiceBrowserModel :NSObject, ObservableObject {
     public let session: MCSession
     public let browser:MCNearbyServiceBrowser
     @Published public var isConnected:Bool = false
-    public var jointRawData = [[String:Any]]()
+    public var jointRawData = [String:[[String:Any]]]()
+    public var allData:[Data] = []
     public var nextJointData:[JointData]?
-    public var lastJointData:[JointData]?
-    public var frameCount:Int = 0
-    public var skipFrames:Int = 1
+    public var lastJointData:Data = Data()
+    public var jointDataHistory:[[String:[JointData]]] = []
+    @Published public var frameCount:Int = 0
+    @Published public var countDataFrames:Int = 0
+    @Published public var frameReady:Bool = false
+    public var skipFrames:Int = 0
     @Published var displayLinkTimestamp:Double = 0
     @Published var lastFrameDisplayLinkTimestamp:Double = 0
     var frameDuration:Double = 0.0333333
@@ -43,8 +47,34 @@ open class NearbyServiceBrowserModel :NSObject, ObservableObject {
         browser.stopBrowsingForPeers()
     }
     
-    public func deviceLocation() {
-        
+    public func decodeFrame(data:Data)->[String:[JointData]]? {
+        do{
+            if !data.isEmpty  {
+                let jsonObject = try JSONSerialization.jsonObject(with: data)
+                let rawData = jsonObject as! [String : [[String : Any]]]
+                do {
+                    var newJointData = [String:[JointData]]()
+                    for key in rawData.keys {
+                        var jointData = [JointData]()
+                        let rawData = rawData[key]!
+                        for rawDatum in rawData {
+                            let decodedData = try decode(JointData.self, from: rawDatum)
+                            jointData.append(decodedData)
+                        }
+                        jointData.sort { data, checkData in
+                            data.d.i < checkData.d.i && data.d.t < checkData.d.t
+                        }
+                        newJointData[jointData.first!.d.ident] = jointData
+                    }
+                    return newJointData
+                } catch {
+                    print(error)
+                }
+            }
+        } catch{
+            print(error)
+        }
+        return nil
     }
 }
 
@@ -85,41 +115,15 @@ extension NearbyServiceBrowserModel : MCSessionDelegate {
         }
     }
     
-    @MainActor
     public func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        do{
-            if let jsonObject = try JSONSerialization.jsonObject(with: data) as? [[String:Any]]{
-                jointRawData = jsonObject
-                if displayLinkTimestamp < lastFrameDisplayLinkTimestamp + displayLink.duration * Double(skipFrames) {
-                    return
-                }
-            
-                if decodeTask != nil {
-                    decodeTask?.cancel()
-                }
-                decodeTask = Task{ @MainActor in
-                    if Task.isCancelled { return }
-                    var newJointData = [JointData]()
-                    do {
-                        for rawData in jointRawData {
-                            let decodedData = try decode(JointData.self, from: rawData)
-                            newJointData.append(decodedData)
-                        }
-                        decodeTask = nil
-                        frameCount = 0
-                        lastJointData = nextJointData
-                        nextJointData = newJointData
-                        lastFrameDisplayLinkTimestamp = displayLinkTimestamp
-                    } catch {
-                        print(error)
-                    }
-                    
-                }
+        //print("did receive data \(data)")
+        allData.append(data)
+        Task { @MainActor in
+            countDataFrames += 1
+            if countDataFrames % 2 == 0 {
+                frameCount += 1
             }
-        } catch{
-            print(error)
         }
-        
     }
     
     public func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
@@ -142,6 +146,7 @@ extension NearbyServiceBrowserModel : MCSessionDelegate {
 extension NearbyServiceBrowserModel {
     private func createDisplayLink() {
         displayLink = CADisplayLink(target: self, selector:#selector(onFrame(link:)))
+        displayLink.preferredFramesPerSecond = 60
         displayLink.add(to: .main, forMode: .default)
     }
 }
@@ -150,8 +155,7 @@ extension NearbyServiceBrowserModel {
 extension NearbyServiceBrowserModel {
     
     @objc func onFrame(link:CADisplayLink) {
-        frameCount += 1
-        frameDuration = link.duration
+        frameDuration = link.targetTimestamp-link.timestamp
         displayLinkTimestamp = link.timestamp
     }
 }

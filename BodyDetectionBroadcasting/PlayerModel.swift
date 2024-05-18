@@ -41,7 +41,9 @@ enum Presentation {
     
     /// An object that manages the playback of a video's media.
     public var player = AVPlayer()
-    private var audioPlayer = AVPlayer()
+    public var audioPlayer = AVPlayer()
+    public var floorPlayer = AVQueuePlayer()
+    private var floorPlayerLooper:AVPlayerLooper?
     
     /// The currently presented player view controller.
     ///
@@ -58,7 +60,7 @@ enum Presentation {
     private(set) var shouldAutoPlay = true
     
 //    // An object that manages the app's SharePlay implementation.
-//    private var coordinator: VideoWatchingCoordinator! = nil
+    public var coordinator: DanceCoordinator?
     
     /// A token for periodic observation of the player's time.
     private var timeObserver: Any? = nil
@@ -66,11 +68,9 @@ enum Presentation {
     
     override init() {
         super.init()
-//        coordinator = VideoWatchingCoordinator(playbackCoordinator: player.playbackCoordinator)
         observePlayback()
         Task {
             await configureAudioSession()
-            //await observeSharedVideo()
         }
     }
     
@@ -87,6 +87,11 @@ enum Presentation {
         playerViewControllerDelegate = delegate
         
         return controller
+    }
+    
+    func setCoordinator(coordinator:DanceCoordinator, with session:GroupSession<DanceCoordinator>) async {
+        self.coordinator = coordinator
+        
     }
     
     private func observePlayback() {
@@ -148,24 +153,7 @@ enum Presentation {
     /// Monitors the coordinator's `sharedVideo` property.
     ///
     /// If this value changes due to a remote participant sharing a new activity, load and present the new video.
-    /*
-    private func observeSharedVideo() async {
-        let current = currentItem
-        await coordinator.$sharedVideo
-            .receive(on: DispatchQueue.main)
-            // Only observe non-nil values.
-            .compactMap { $0 }
-            // Only observe updates set by a remote participant.
-            .filter { $0 != current }
-            .sink { [weak self] video in
-                guard let self else { return }
-                // Load the video for full-window presentation.
-                loadVideo(video, presentation: .fullWindow)
-            }
-            .store(in: &subscriptions)
-    }
-     
-     */
+
     
     /// Loads a video for playback in the requested presentation.
     /// - Parameters:
@@ -197,6 +185,11 @@ enum Presentation {
 
         // Set the presentation, which typically presents the player full window.
         self.presentation = presentation
+        
+        
+        let floorPlayerURL = Bundle.main.url(forResource: "dancefloor", withExtension: "mov")!
+        let floorPlayerItem = AVPlayerItem(url: floorPlayerURL)
+        floorPlayerLooper = AVPlayerLooper(player:floorPlayer, templateItem: floorPlayerItem)
         
         if autoplay {
             Task { @MainActor in
@@ -281,6 +274,7 @@ enum Presentation {
     
     
     func play() {
+        floorPlayer.play()
         player.play()
     }
     

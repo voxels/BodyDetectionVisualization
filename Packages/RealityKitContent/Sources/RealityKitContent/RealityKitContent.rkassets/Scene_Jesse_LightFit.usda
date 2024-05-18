@@ -1,0 +1,68 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "Reality Composer Pro Version 1.0 (409.100.15)"
+    }
+    defaultPrim = "Root"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "Root"
+{
+    def "jesse_lightfit" (
+        active = true
+        prepend references = @jesse_lightfit/jesse_lightfit.usdz@
+    )
+    {
+        float3 xformOp:scale = (1, 1, 1)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "Materials"
+        {
+            over "Material_0"
+            {
+                token outputs:mtlx:surface
+                token outputs:realitykit:vertex
+
+                over "surfaceShader"
+                {
+                    color3f inputs:diffuseColor.connect = </Root/jesse_lightfit/Materials/Material_0/diffuseColor.outputs:rgb>
+                    delete float inputs:metallic.connect = </Root/jesse_lightfit/Materials/Material_0/metallic_roughness_occlusion_texture.outputs:b>
+                    float inputs:roughness.connect = </Root/jesse_lightfit/Materials/Material_0/roughness.outputs:r>
+                }
+
+                def Shader "diffuseColor"
+                {
+                    uniform token info:id = "UsdUVTexture"
+                    asset inputs:file = @jesse_lightfit/texgen_2.png@
+                    float2 inputs:st.connect = </Root/jesse_lightfit/Materials/Material_0/diffuseColor/TexCoordReader.outputs:result>
+                    color3f outputs:rgb
+
+                    def Shader "TexCoordReader"
+                    {
+                        uniform token info:id = "UsdPrimvarReader_float2"
+                        token inputs:varname.connect = </Root/jesse_lightfit/Materials/Material_0/surfaceShader.inputs:frame:stPrimvarName>
+                        float2 outputs:result
+                    }
+                }
+
+                def Shader "roughness"
+                {
+                    uniform token info:id = "UsdUVTexture"
+                    asset inputs:file = @jesse_lightfit/texgen_1.png@
+                    float2 inputs:st.connect = </Root/jesse_lightfit/Materials/Material_0/roughness/TexCoordReader.outputs:result>
+                    float outputs:r
+
+                    def Shader "TexCoordReader"
+                    {
+                        uniform token info:id = "UsdPrimvarReader_float2"
+                        token inputs:varname.connect = </Root/jesse_lightfit/Materials/Material_0/surfaceShader.inputs:frame:stPrimvarName>
+                        float2 outputs:result
+                    }
+                }
+            }
+        }
+    }
+}
+

@@ -1,0 +1,113 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "Reality Composer Pro Version 1.0 (409.100.15)"
+    }
+    defaultPrim = "Root"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "Root"
+{
+    def "jesse_darkfit" (
+        active = true
+        prepend references = @jesse_darkfit/jesse_darkfit.usdz@
+    )
+    {
+        float3 xformOp:scale = (1, 1, 1)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "Materials"
+        {
+            over "poly_0_003"
+            {
+                token inputs:frame:stPrimvarName = "st"
+                token outputs:mtlx:surface
+                token outputs:realitykit:vertex
+
+                over "surfaceShader"
+                {
+                    color3f inputs:diffuseColor.connect = </Root/jesse_darkfit/Materials/poly_0_003/diffuseColor.outputs:rgb>
+                    delete float inputs:metallic.connect = </Root/jesse_darkfit/Materials/poly_0_003/metallic_roughness_texture.outputs:b>
+                    float inputs:roughness.connect = </Root/jesse_darkfit/Materials/poly_0_003/roughness.outputs:r>
+                }
+
+                def Shader "diffuseColor"
+                {
+                    uniform token info:id = "UsdUVTexture"
+                    asset inputs:file = @jesse_darkfit/texgen_0.png@
+                    float2 inputs:st.connect = </Root/jesse_darkfit/Materials/poly_0_003/diffuseColor/TexCoordReader.outputs:result>
+                    color3f outputs:rgb
+
+                    def Shader "TexCoordReader"
+                    {
+                        uniform token info:id = "UsdPrimvarReader_float2"
+                        token inputs:varname.connect = </Root/jesse_darkfit/Materials/poly_0_003/surfaceShader.inputs:frame:stPrimvarName>
+                        float2 outputs:result
+                    }
+                }
+
+                def Shader "roughness"
+                {
+                    uniform token info:id = "UsdUVTexture"
+                    asset inputs:file = @jesse_darkfit/texgen_1.png@
+                    float2 inputs:st.connect = </Root/jesse_darkfit/Materials/poly_0_003/roughness/TexCoordReader.outputs:result>
+                    float outputs:r
+
+                    def Shader "TexCoordReader"
+                    {
+                        uniform token info:id = "UsdPrimvarReader_float2"
+                        token inputs:varname.connect = </Root/jesse_darkfit/Materials/poly_0_003/surfaceShader.inputs:frame:stPrimvarName>
+                        float2 outputs:result
+                    }
+                }
+            }
+
+            over "poly_0_002"
+            {
+                token inputs:frame:stPrimvarName = "st"
+                token outputs:mtlx:surface
+                token outputs:realitykit:vertex
+
+                over "surfaceShader"
+                {
+                    color3f inputs:diffuseColor.connect = </Root/jesse_darkfit/Materials/poly_0_002/diffuseColor.outputs:rgb>
+                    delete float inputs:metallic.connect = </Root/jesse_darkfit/Materials/poly_0_002/metallic_roughness_texture.outputs:b>
+                    float inputs:roughness.connect = </Root/jesse_darkfit/Materials/poly_0_002/roughness.outputs:r>
+                }
+
+                def Shader "diffuseColor"
+                {
+                    uniform token info:id = "UsdUVTexture"
+                    asset inputs:file = @jesse_darkfit/texgen_2.png@
+                    float2 inputs:st.connect = </Root/jesse_darkfit/Materials/poly_0_002/diffuseColor/TexCoordReader.outputs:result>
+                    color3f outputs:rgb
+
+                    def Shader "TexCoordReader"
+                    {
+                        uniform token info:id = "UsdPrimvarReader_float2"
+                        token inputs:varname.connect = </Root/jesse_darkfit/Materials/poly_0_002/surfaceShader.inputs:frame:stPrimvarName>
+                        float2 outputs:result
+                    }
+                }
+
+                def Shader "roughness"
+                {
+                    uniform token info:id = "UsdUVTexture"
+                    asset inputs:file = @jesse_darkfit/texgen_3.png@
+                    float2 inputs:st.connect = </Root/jesse_darkfit/Materials/poly_0_002/roughness/TexCoordReader.outputs:result>
+                    float outputs:r
+
+                    def Shader "TexCoordReader"
+                    {
+                        uniform token info:id = "UsdPrimvarReader_float2"
+                        token inputs:varname.connect = </Root/jesse_darkfit/Materials/poly_0_002/surfaceShader.inputs:frame:stPrimvarName>
+                        float2 outputs:result
+                    }
+                }
+            }
+        }
+    }
+}
+

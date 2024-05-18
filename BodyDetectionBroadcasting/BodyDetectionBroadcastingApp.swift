@@ -12,23 +12,24 @@ struct BodyDetectionBroadcastingApp: App {
     
     @StateObject var browserModel = NearbyServiceBrowserModel()
     @StateObject var shareplayModel = ContentViewShareplayModel()
+    public var playerModel = PlayerModel()
     
-    @State private var useShareplay = true
+    @State private var useShareplay = false
     var body: some Scene {
         WindowGroup {
             if useShareplay {
-                ShareplayContentView(browserModel: browserModel, shareplayModel: shareplayModel)
+                ShareplayContentView(browserModel: browserModel, shareplayModel: shareplayModel, playerModel: playerModel)
             } else {
                 MultipeerContentView(browserModel: browserModel)
             }
         }
 
         ImmersiveSpace(id: "ImmersiveSpace") {
-            ImmersiveView(browserModel: browserModel)
+            ImmersiveView(browserModel: browserModel, playerModel: playerModel)
         }
         
         ImmersiveSpace(id: "ShareplayImmersiveSpace") {
-            ShareplayImmersiveView(browserModel: shareplayModel)
+            ShareplayImmersiveView(browserModel: shareplayModel, playerModel: playerModel)
         }
     }
 }

@@ -19,8 +19,7 @@ open class ContentViewShareplayModel: NSObject, ObservableObject {
     @Published var isReady = false
     var isFetchingAttachments = false
     private var subscriptions = Set<AnyCancellable>()
-    public var attachmentHistory:[GroupSessionJournal.Attachment] = [GroupSessionJournal.Attachment]()
-    public var jointAttachmentHistory:[[String:JointData]] = [[String:JointData]]()
+    public var attachmentHistory:[UUID] = [UUID]()
     @Published var groupSession: GroupSession<DanceCoordinator>? {
            didSet {
                if let groupSession = groupSession {
@@ -37,10 +36,9 @@ open class ContentViewShareplayModel: NSObject, ObservableObject {
     public var messenger:GroupSessionMessenger?
     public var journal:GroupSessionJournal?
     @Published public var presentSharingView = false
-    @Published public var nextJointData:[String:JointData] = [String:JointData]()
-
-    @Published public var lastJointData:[String:JointData]?
-    @Published public var jointHistory:[JointData] = [JointData]()
+    public var bufferSkeletonData:[String:SkeletonJointData] = [String:SkeletonJointData]()
+    @Published public var nextSkeletonData:[String:SkeletonJointData] = [String:SkeletonJointData]()
+    @Published public var lastSkeletonData:[String:SkeletonJointData]?
     private var decodeTask:Task<Void, Never>?
 
     let skipFrames:Int = 3
@@ -93,13 +91,32 @@ extension ContentViewShareplayModel {
 
 extension ContentViewShareplayModel {
     @MainActor
-    public func handle(message:[String:JointData]) {
-        let receiveMessage = message
-        Task {
-            lastJointData = nextJointData
-            nextJointData = receiveMessage
+    public func handle(message:JointData) {
+        let skeletonIdent = message.d.ident
+        if let existingSkeleton = bufferSkeletonData[skeletonIdent] {
+            var existingJointData = existingSkeleton.jointData
+            existingJointData[message.d.name] = message
+            bufferSkeletonData[skeletonIdent] = SkeletonJointData(ident: skeletonIdent, jointData: existingJointData)
+        } else {
+            bufferSkeletonData[skeletonIdent] = SkeletonJointData(ident: skeletonIdent, jointData: [message.d.name:message])
+        }
+        
+        if message.d.name == "root", bufferSkeletonData.keys.count > 1 {
+            lastSkeletonData = nextSkeletonData
+            nextSkeletonData = bufferSkeletonData
         }
     }
+
+    
+    
+//    @MainActor
+//    public func handle(message:[String:JointData]) {
+//        let receiveMessage = message
+//        Task {
+//            lastJointData = nextJointData
+//            nextJointData = receiveMessage
+//        }
+//    }
     
     @MainActor
     public func shareActivity() async {
@@ -179,6 +196,30 @@ extension ContentViewShareplayModel {
 }
 
 
+extension ContentViewShareplayModel {
+    /// Run a given function at an approximate frequency.
+    ///
+    /// > Note: This method doesn’t take into account the time it takes to run the given function itself.
+    @MainActor
+    func run(function: () async -> Void, withFrequency hz: UInt64) async {
+        while true {
+            if Task.isCancelled {
+                return
+            }
+            
+            // Sleep for 1 s / hz before calling the function.
+            let nanoSecondsToSleep: UInt64 = NSEC_PER_SEC / hz
+            do {
+                try await Task.sleep(nanoseconds: nanoSecondsToSleep)
+            } catch {
+                // Sleep fails when the Task is cancelled. Exit the loop.
+                return
+            }
+            
+            await function()
+        }
+    }
+}
 
 extension ContentViewShareplayModel {
     func decode<T>(_ type: T.Type, from dictionary: [String: Any]) throws -> T where T : Decodable {

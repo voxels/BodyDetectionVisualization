@@ -1,0 +1,71 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "Reality Composer Pro Version 1.0 (409.100.15)"
+    }
+    defaultPrim = "Root"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "Root"
+{
+    float3 xformOp:scale = (0.01, 0.01, 0.01)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+    def "dean_light_uprock" (
+        active = true
+        prepend references = @dean_lightfit/dean_light_uprock.usdz@
+    )
+    {
+        float3 xformOp:scale = (0.01, 0.01, 0.01)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "Materials"
+        {
+            over "defaultMat"
+            {
+                token inputs:frame:stPrimvarName = "st"
+                token outputs:mtlx:surface
+                token outputs:realitykit:vertex
+
+                over "defaultMatPreviewSurface"
+                {
+                    color3f inputs:diffuseColor.connect = </Root/dean_light_uprock/Materials/defaultMat/diffuseColor.outputs:rgb>
+                    color3f inputs:emissiveColor.connect = </Root/dean_light_uprock/Materials/defaultMat/emissiveColor.outputs:rgb>
+                }
+
+                def Shader "diffuseColor"
+                {
+                    uniform token info:id = "UsdUVTexture"
+                    asset inputs:file = @dean_lightfit/dean_Light.png@
+                    float2 inputs:st.connect = </Root/dean_light_uprock/Materials/defaultMat/diffuseColor/TexCoordReader.outputs:result>
+                    color3f outputs:rgb
+
+                    def Shader "TexCoordReader"
+                    {
+                        uniform token info:id = "UsdPrimvarReader_float2"
+                        token inputs:varname.connect = </Root/dean_light_uprock/Materials/defaultMat/defaultMatPreviewSurface.inputs:frame:stPrimvarName>
+                        float2 outputs:result
+                    }
+                }
+
+                def Shader "emissiveColor"
+                {
+                    uniform token info:id = "UsdUVTexture"
+                    asset inputs:file = @dean_lightfit/dean_Light.png@
+                    float2 inputs:st.connect = </Root/dean_light_uprock/Materials/defaultMat/emissiveColor/TexCoordReader.outputs:result>
+                    color3f outputs:rgb
+
+                    def Shader "TexCoordReader"
+                    {
+                        uniform token info:id = "UsdPrimvarReader_float2"
+                        token inputs:varname.connect = </Root/dean_light_uprock/Materials/defaultMat/defaultMatPreviewSurface.inputs:frame:stPrimvarName>
+                        float2 outputs:result
+                    }
+                }
+            }
+        }
+    }
+}
+

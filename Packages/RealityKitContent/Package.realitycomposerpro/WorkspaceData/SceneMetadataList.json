@@ -11,6 +11,639 @@
       }
     ]
   },
+  "3B2EEA46-DD04-45A1-B64A-669043704DB0" : {
+    "objectMetadataList" : [
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage_darkfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage_darkfit",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage_darkfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92",
+        "Skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage_darkfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage_darkfit",
+        "Geom",
+        "biped_robot"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92",
+        "Skeleton_92",
+        "poly_91"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage_darkfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage_darkfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92",
+        "Skeleton_92"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92",
+        "Skeleton_92"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage",
+        "Geom",
+        "biped_robot"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage_darkfit",
+        "Geom",
+        "biped_robot",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage",
+        "Geom",
+        "biped_robot",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage_darkfit",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage_darkfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92",
+        "Skeleton",
+        "poly"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "3B2EEA46-DD04-45A1-B64A-669043704DB0",
+        "Root",
+        "gage_darkfit"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
+  "4CCF4694-267F-4A67-8792-003EC3F8F6AE" : {
+    "objectMetadataList" : [
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit_robot",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92",
+        "Skeleton_92"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_staticMesh",
+        "geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit_robot",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit_robot",
+        "Geom",
+        "biped_robot",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92",
+        "Skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_staticMesh"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit_robot",
+        "Geom",
+        "biped_robot"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit_robot",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit",
+        "Geom",
+        "biped_robot"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit_robot",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92",
+        "Skeleton",
+        "poly_001"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit_robot",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit",
+        "Geom",
+        "biped_robot",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "4CCF4694-267F-4A67-8792-003EC3F8F6AE",
+        "Root",
+        "gage_lightfit_robot",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92",
+        "Skeleton_93"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
+  "8EFB6CA0-0537-438D-A81E-BE1054ADE312" : {
+    "objectMetadataList" : [
+      [
+        "8EFB6CA0-0537-438D-A81E-BE1054ADE312",
+        "Root",
+        "dean_light_walk",
+        "biped_robot_ace_skeleton",
+        "Genesis9_Shape"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "8EFB6CA0-0537-438D-A81E-BE1054ADE312",
+        "Root",
+        "dean_light_walk"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "8EFB6CA0-0537-438D-A81E-BE1054ADE312",
+        "Root",
+        "dean_light_walk",
+        "biped_robot_ace_skeleton",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "8EFB6CA0-0537-438D-A81E-BE1054ADE312",
+        "Root",
+        "dean_light_walk",
+        "_materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "8EFB6CA0-0537-438D-A81E-BE1054ADE312",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "8EFB6CA0-0537-438D-A81E-BE1054ADE312",
+        "Root",
+        "dean_light_walk",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
+  "49BC533D-554E-4FFC-A526-67591F0387B8" : {
+    "objectMetadataList" : [
+      [
+        "49BC533D-554E-4FFC-A526-67591F0387B8",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
   "65F6F990-A780-4474-B78B-572E0E4E273D" : {
     "objectMetadataList" : [
       [
@@ -39,31 +672,11 @@
         "80F4117B-87C6-48E6-AE30-B0259CB4A257",
         "Root",
         "jesse_skeleton",
+        "Geom",
         "Root",
         "Origin",
         "characterAnchor",
-        "Jesse_2B",
-        "geom"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse",
-        "Materials",
-        "Material_1"
+        "Jesse_2B"
       ],
       {
         "isExpanded" : true,
@@ -74,57 +687,7 @@
         "Root",
         "jesse_skeleton",
         "Geom",
-        "Root",
-        "Origin",
-        "characterAnchor"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse_skeleton",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton",
-        "biped_robot_ace_skeletonShape_001"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse_skeleton",
         "Root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse",
-        "Geom",
-        "biped_robot_biped_robot_ace",
-        "biped_robot_biped_robot_ace_skeleton"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse",
-        "Geom",
-        "biped_robot_biped_robot_ace"
       ],
       {
         "isExpanded" : true,
@@ -144,9 +707,101 @@
       [
         "80F4117B-87C6-48E6-AE30-B0259CB4A257",
         "Root",
-        "jesse_skeleton",
-        "Geom",
+        "jesse",
+        "biped_robot_ace_skeleton",
+        "root",
+        "mesh"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Jesse_2B"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
         "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_inner",
+        "Geom",
+        "biped_robot_biped_robot_ace",
+        "biped_robot_biped_robot_ace_skeleton",
+        "biped_robot_root_91"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_skeleton",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Jesse_2B",
+        "biped_robot_ace_skeleton",
+        "root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Jesse_2B",
+        "biped_robot_ace_skeleton",
+        "root",
+        "hips_joint"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92",
+        "Skeleton_93"
       ],
       {
         "isExpanded" : true,
@@ -160,6 +815,348 @@
         "biped_robot_ace_skeleton",
         "root",
         "hips_joint"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_skeleton",
+        "Geom",
+        "Jesse_2B"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_skeleton",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot_001",
+        "Geom_001",
+        "biped_robot_ace_001"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_skeleton",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B",
+        "biped_robot_ace_skeleton",
+        "root",
+        "hips_joint"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_skeleton",
+        "biped_robot_ace_skeleton",
+        "root",
+        "mesh"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_1",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot_001",
+        "Geom_001"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_horiz",
+        "Jesse_2B",
+        "biped_robot_ace_skeleton",
+        "root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot_biped_robot_ace",
+        "biped_robot_biped_robot_ace_staticMesh"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_skeleton",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot_001",
+        "Geom_001",
+        "biped_robot_ace_001",
+        "biped_robot_ace_skeleton_001",
+        "root_92_001"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Jesse_2B",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_skeleton",
+        "Root",
+        "Origin",
+        "characterAnchor"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot_biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_1",
+        "biped_robot_ace_skeleton",
+        "root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_horiz",
+        "Jesse_2B",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_inner",
+        "Materials",
+        "Material_1"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_skeleton",
+        "Geom",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B",
+        "biped_robot_ace_skeleton_1"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_skeleton",
+        "Geom",
+        "Root",
+        "Origin"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_inner",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot_001",
+        "Geom_001",
+        "biped_robot_ace_001",
+        "biped_robot_ace_skeleton_001",
+        "root_92_001",
+        "Skeleton_001_92",
+        "poly_91"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_inner",
+        "Geom",
+        "biped_robot_biped_robot_ace",
+        "biped_robot_biped_robot_ace_staticMesh"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace"
       ],
       {
         "isExpanded" : true,
@@ -186,18 +1183,6 @@
         "Root",
         "jesse_skeleton",
         "Geom",
-        "Root",
-        "Origin"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse_skeleton",
-        "biped_robot_ace_skeleton",
         "root"
       ],
       {
@@ -207,60 +1192,14 @@
       [
         "80F4117B-87C6-48E6-AE30-B0259CB4A257",
         "Root",
-        "jesse_skeleton",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse_skeleton",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
         "jesse",
-        "Geom"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse_skeleton",
         "Geom",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton_1"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse",
-        "Materials"
+        "biped_robot_001",
+        "Geom_001",
+        "biped_robot_ace_001",
+        "biped_robot_ace_skeleton_001",
+        "root_92_001",
+        "Skeleton_001_92"
       ],
       {
         "isExpanded" : true,
@@ -270,6 +1209,35 @@
         "80F4117B-87C6-48E6-AE30-B0259CB4A257",
         "Root",
         "jesse_skeleton",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B",
+        "biped_robot_ace_skeleton",
+        "biped_robot_ace_skeletonShape_001"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_skeleton",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B",
+        "geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_1",
         "biped_robot_ace_skeleton",
         "root",
         "mesh"
@@ -283,237 +1251,6 @@
         "Root",
         "jesse_skeleton",
         "Geom",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse_skeleton",
-        "Geom",
-        "root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse_skeleton",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton",
-        "root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse_skeleton",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton",
-        "root",
-        "hips_joint"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse_horiz",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton",
-        "root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse",
-        "biped_robot_ace_skeleton",
-        "root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse",
-        "Jesse_2B"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse",
-        "Geom",
-        "biped_robot_biped_robot_ace",
-        "biped_robot_biped_robot_ace_skeleton",
-        "biped_robot_root_91"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton",
-        "root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse_skeleton",
-        "biped_robot_ace_skeleton"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse_1",
-        "biped_robot_ace_skeleton",
-        "root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse_skeleton",
-        "Geom",
-        "Jesse_2B"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse",
-        "biped_robot_ace_skeleton",
-        "root",
-        "mesh"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse_horiz",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse",
-        "Materials",
-        "Material"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse_1",
-        "biped_robot_ace_skeleton"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton",
-        "root",
-        "hips_joint"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse",
-        "biped_robot_ace_skeleton"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
-        "Root",
-        "jesse_skeleton",
         "Root",
         "Origin",
         "characterAnchor"
@@ -525,10 +1262,23 @@
       [
         "80F4117B-87C6-48E6-AE30-B0259CB4A257",
         "Root",
-        "jesse_1",
-        "biped_robot_ace_skeleton",
-        "root",
-        "mesh"
+        "jesse_inner",
+        "Geom",
+        "biped_robot_biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot_001",
+        "Geom_001",
+        "biped_robot_ace_001",
+        "biped_robot_ace_skeleton_001"
       ],
       {
         "isExpanded" : true,
@@ -545,13 +1295,119 @@
       {
         "isExpanded" : true,
         "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_inner",
+        "Geom",
+        "biped_robot_biped_robot_ace",
+        "biped_robot_biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot_001"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_skeleton",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_skeleton",
+        "biped_robot_ace_skeleton",
+        "root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_skeleton",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B",
+        "biped_robot_ace_skeleton",
+        "root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse_inner",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "80F4117B-87C6-48E6-AE30-B0259CB4A257",
+        "Root",
+        "jesse",
+        "biped_robot_ace_skeleton",
+        "root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
       }
     ]
   },
-  "6996E329-6939-4743-83C7-422710CE7C20" : {
+  "354EE62D-1390-409E-98B3-6E9F5AFD5CC2" : {
     "objectMetadataList" : [
       [
-        "6996E329-6939-4743-83C7-422710CE7C20",
+        "354EE62D-1390-409E-98B3-6E9F5AFD5CC2",
         "Root"
       ],
       {
@@ -559,9 +1415,198 @@
         "isLocked" : false
       },
       [
+        "354EE62D-1390-409E-98B3-6E9F5AFD5CC2",
+        "Root",
+        "dean_light_walk",
+        "biped_robot_ace_skeleton",
+        "Genesis9_Shape"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "354EE62D-1390-409E-98B3-6E9F5AFD5CC2",
+        "Root",
+        "dean_light_walk"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "354EE62D-1390-409E-98B3-6E9F5AFD5CC2",
+        "Root",
+        "dean_light_walk",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
+  "431C79BC-67DC-4524-9D62-5A6EAC24FF4B" : {
+    "objectMetadataList" : [
+      [
+        "431C79BC-67DC-4524-9D62-5A6EAC24FF4B",
+        "Root",
+        "dean_lightfit",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "431C79BC-67DC-4524-9D62-5A6EAC24FF4B",
+        "Root",
+        "dean_lightfit",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root",
+        "hips_joint_92"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "431C79BC-67DC-4524-9D62-5A6EAC24FF4B",
+        "Root",
+        "dean_lightfit",
+        "Geom",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "431C79BC-67DC-4524-9D62-5A6EAC24FF4B",
+        "Root",
+        "dean_lightfit",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "431C79BC-67DC-4524-9D62-5A6EAC24FF4B",
+        "Root",
+        "dean_lightfit"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "431C79BC-67DC-4524-9D62-5A6EAC24FF4B",
+        "Root",
+        "dean_lightfit",
+        "Geom",
+        "dean_Light"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "431C79BC-67DC-4524-9D62-5A6EAC24FF4B",
+        "Root",
+        "dean_lightfit",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "431C79BC-67DC-4524-9D62-5A6EAC24FF4B",
+        "Root",
+        "dean_lightfit",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "431C79BC-67DC-4524-9D62-5A6EAC24FF4B",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
+  "709ED315-4C07-43EB-80E8-DCB6CD73C927" : {
+    "objectMetadataList" : [
+      [
+        "709ED315-4C07-43EB-80E8-DCB6CD73C927",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "709ED315-4C07-43EB-80E8-DCB6CD73C927",
+        "Root",
+        "dean_light_rumba",
+        "mixamorig_Hips"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "709ED315-4C07-43EB-80E8-DCB6CD73C927",
+        "Root",
+        "dean_light_rumba"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "709ED315-4C07-43EB-80E8-DCB6CD73C927",
+        "Root",
+        "dean_light_rumba",
+        "mixamorig_Hips",
+        "Skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "709ED315-4C07-43EB-80E8-DCB6CD73C927",
+        "Root",
+        "dean_light_rumba",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
+  "6996E329-6939-4743-83C7-422710CE7C20" : {
+    "objectMetadataList" : [
+      [
         "6996E329-6939-4743-83C7-422710CE7C20",
         "Root",
-        "biped_robot"
+        "biped_robot",
+        "biped_robot_ace_skeleton"
       ],
       {
         "isExpanded" : true,
@@ -580,8 +1625,46 @@
       [
         "6996E329-6939-4743-83C7-422710CE7C20",
         "Root",
-        "biped_robot",
-        "biped_robot_ace_skeleton"
+        "biped_robot"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "6996E329-6939-4743-83C7-422710CE7C20",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
+  "27881FC7-5F5A-42DC-A11A-ECF0E7CAF394" : {
+    "objectMetadataList" : [
+      [
+        "27881FC7-5F5A-42DC-A11A-ECF0E7CAF394",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "27881FC7-5F5A-42DC-A11A-ECF0E7CAF394",
+        "Root",
+        "dean_light_uprock"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "27881FC7-5F5A-42DC-A11A-ECF0E7CAF394",
+        "Root",
+        "dean_light_uprock",
+        "Materials"
       ],
       {
         "isExpanded" : true,
@@ -601,8 +1684,375 @@
       }
     ]
   },
+  "34756391-5CA3-419F-BBA8-85224330CCB4" : {
+    "objectMetadataList" : [
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse_darkfit"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse_darkfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92",
+        "Skeleton_93"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse_darkfit",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse_darkfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse_darkfit",
+        "Geom",
+        "biped_robot",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse_darkfit",
+        "Geom",
+        "biped_robot"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse_darkfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92",
+        "Skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse_darkfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse_darkfit",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse_darkfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_staticMesh",
+        "geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_staticMesh"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse_darkfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_staticMesh"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92",
+        "Skeleton_93"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "34756391-5CA3-419F-BBA8-85224330CCB4",
+        "Root",
+        "jesse_darkfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
   "AF09ED6F-1707-48FD-8720-65B998362C09" : {
     "objectMetadataList" : [
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "dome"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Scene_Jesse",
+        "jesse_skeleton",
+        "Geom",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B",
+        "biped_robot_ace_skeleton_1",
+        "biped_robot_ace_skeletonShape_004"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "ghostAnchor",
+        "jesse_ghost_skeleton",
+        "Materials",
+        "Material_1"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "dome_1",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Scene_Jesse",
+        "jesse_skeleton",
+        "Geom",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B",
+        "biped_robot_ace_skeleton_1",
+        "root_002"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
@@ -610,6 +2060,129 @@
         "characterAnchor",
         "Jesse_2B",
         "biped_robot_ace_skeleton_1"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse1",
+        "Geom",
+        "biped_robot_biped_robot_ace",
+        "biped_robot_biped_robot_ace_skeleton",
+        "biped_robot_root_91"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse1",
+        "Geom",
+        "biped_robot_biped_robot_ace",
+        "biped_robot_biped_robot_ace_staticMesh",
+        "biped_robot_geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "robot_maya",
+        "biped_robot_ace",
+        "biped_robot_ace_staticMesh"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "robot_maya",
+        "biped_robot_ace_staticMesh",
+        "geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse_skeleton",
+        "Geom",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse_skeleton",
+        "Geom",
+        "root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "ghostAnchor",
+        "jesse_ghost_skeleton",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "biped_robot_alpha",
+        "jesse_skeleton",
+        "Geom",
+        "root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse",
+        "Geom",
+        "biped_robot_biped_robot_ace",
+        "biped_robot_biped_robot_ace_skeleton",
+        "biped_robot_root_91"
       ],
       {
         "isExpanded" : true,
@@ -629,13 +2202,48 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
+        "Transform",
+        "robot_maya",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
         "Origin",
         "characterAnchor",
-        "biped_robot_alpha",
+        "Scene_Jesse",
         "jesse_skeleton",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "characterAnchor",
+        "robot_maya",
+        "biped_robot_ace",
+        "biped_robot_ace_staticMesh"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse",
         "Geom",
-        "root",
-        "hips_joint_91"
+        "biped_robot_biped_robot_ace"
       ],
       {
         "isExpanded" : true,
@@ -648,18 +2256,7 @@
         "characterAnchor",
         "ghostAnchor",
         "jesse_ghost_skeleton",
-        "Geom",
-        "biped_robot_ace",
-        "biped_robot_ace_skeleton"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin"
+        "Geom"
       ],
       {
         "isExpanded" : true,
@@ -684,11 +2281,8 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "Origin",
-        "characterAnchor",
-        "biped_robot_alpha",
-        "Scene_Jesse",
-        "jesse"
+        "biped_robot",
+        "biped_robot_ace_staticMesh"
       ],
       {
         "isExpanded" : true,
@@ -701,8 +2295,54 @@
         "characterAnchor",
         "jesse",
         "biped_robot_ace_skeleton",
-        "root",
-        "mesh"
+        "root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Scene_Jesse",
+        "jesse_skeleton",
+        "Root",
+        "Origin",
+        "characterAnchor"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "ghostAnchor",
+        "jesse_ghost_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Jesse_2B",
+        "materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "robot_maya",
+        "biped_robot_ace_staticMesh"
       ],
       {
         "isExpanded" : true,
@@ -728,8 +2368,37 @@
         "Root",
         "Origin",
         "characterAnchor",
-        "ghostAnchor",
-        "jesse_ghost_skeleton",
+        "biped_robot_alpha",
+        "Scene_Jesse",
+        "jesse",
+        "Jesse_2B"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Scene_Jesse",
+        "jesse_skeleton",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "dome",
         "Geom"
       ],
       {
@@ -739,96 +2408,9 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "robot_maya",
-        "biped_robot_ace_skeleton"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Transform",
-        "robot_maya",
-        "biped_robot_ace",
-        "biped_robot_ace_skeleton"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
         "Origin",
-        "characterAnchor",
-        "jesse_skeleton",
-        "Geom",
-        "biped_robot_ace"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "ghostAnchor",
-        "jesse_ghost_skeleton",
-        "Geom",
-        "biped_robot_ace",
-        "biped_robot_ace_skeleton",
-        "root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Transform",
-        "characterAnchor"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "jesse",
-        "Geom",
-        "biped_robot_biped_robot_ace",
-        "biped_robot_biped_robot_ace_skeleton",
-        "biped_robot_root_91"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Jesse_2B",
-        "materials"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "robot_maya",
-        "biped_robot_ace",
-        "biped_robot_ace_staticMesh",
-        "geom"
+        "dome_1",
+        "Materials"
       ],
       {
         "isExpanded" : true,
@@ -850,8 +2432,13 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "Transform",
-        "robot_maya"
+        "Origin",
+        "characterAnchor",
+        "jesse",
+        "Geom",
+        "biped_robot_biped_robot_ace",
+        "biped_robot_biped_robot_ace_staticMesh",
+        "biped_robot_geom"
       ],
       {
         "isExpanded" : true,
@@ -862,22 +2449,14 @@
         "Root",
         "Origin",
         "characterAnchor",
+        "Scene_Jesse",
         "jesse_skeleton",
         "Geom",
-        "biped_robot_ace",
-        "biped_robot_ace_skeleton"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
+        "Origin",
         "characterAnchor",
-        "robot_maya",
-        "biped_robot_ace",
-        "biped_robot_ace_skeleton"
+        "Jesse_2B",
+        "biped_robot_ace_skeleton_1"
       ],
       {
         "isExpanded" : true,
@@ -888,31 +2467,7 @@
         "Root",
         "Origin",
         "characterAnchor",
-        "jesse"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "jesse_skeleton",
-        "Geom",
-        "Jesse_2B"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "jesse_skeleton",
+        "jesse",
         "Geom"
       ],
       {
@@ -924,19 +2479,8 @@
         "Root",
         "Origin",
         "characterAnchor",
-        "biped_robot_alpha",
-        "Scene_Jesse",
-        "jesse",
-        "Materials"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "robot_maya",
+        "jesse_skeleton",
+        "Geom",
         "biped_robot_ace",
         "biped_robot_ace_skeleton",
         "root"
@@ -950,11 +2494,10 @@
         "Root",
         "Origin",
         "characterAnchor",
-        "ghostAnchor",
-        "jesse_ghost_skeleton",
-        "Geom",
-        "biped_robot_ace",
-        "biped_robot_ace_staticMesh"
+        "Scene_Jesse",
+        "jesse_skeleton",
+        "Root",
+        "Origin"
       ],
       {
         "isExpanded" : true,
@@ -965,7 +2508,6 @@
         "Root",
         "Origin",
         "characterAnchor",
-        "Scene_Jesse",
         "jesse_skeleton",
         "Geom"
       ],
@@ -978,59 +2520,8 @@
         "Root",
         "Origin",
         "characterAnchor",
-        "Scene_Jesse",
-        "jesse_skeleton",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "biped_robot_alpha",
-        "jesse_skeleton",
-        "Geom"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "robot_maya",
-        "biped_robot_ace_staticMesh"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "ghostAnchor",
-        "jesse_ghost_skeleton",
-        "Materials"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
         "biped_robot",
-        "biped_robot_ace_staticMesh"
+        "biped_robot_ace_skeleton"
       ],
       {
         "isExpanded" : true,
@@ -1042,46 +2533,9 @@
         "Origin",
         "characterAnchor",
         "jesse",
-        "Geom"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "jesse",
-        "Geom",
-        "biped_robot_biped_robot_ace"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Scene_Jesse",
-        "jesse_skeleton",
-        "Geom",
-        "Root",
-        "Origin",
-        "characterAnchor"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "biped_robot",
-        "biped_robot_ace_skeleton"
+        "biped_robot_ace_skeleton",
+        "root",
+        "mesh"
       ],
       {
         "isExpanded" : true,
@@ -1110,9 +2564,15 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
+        "Origin",
         "characterAnchor",
-        "robot_maya",
-        "biped_robot_ace"
+        "ghostAnchor",
+        "jesse_ghost_skeleton",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root",
+        "hips_joint_90"
       ],
       {
         "isExpanded" : true,
@@ -1121,6 +2581,39 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Scene_Jesse",
+        "jesse_skeleton",
+        "Geom",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Scene_Jesse",
+        "jesse_skeleton",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B"
       ],
       {
         "isExpanded" : true,
@@ -1143,6 +2636,91 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
+        "characterAnchor",
+        "robot_maya",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "biped_robot_alpha",
+        "jesse_skeleton",
+        "Geom",
+        "Jesse_2B"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Scene_Jesse",
+        "jesse_skeleton",
+        "Geom",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B",
+        "geom_001"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse_skeleton",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Scene_Jesse",
+        "jesse_skeleton",
+        "Geom",
+        "Root",
+        "Origin",
+        "characterAnchor"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse_skeleton",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
         "robot_maya",
         "biped_robot_ace_staticMesh",
         "geom",
@@ -1156,7 +2734,303 @@
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
         "Origin",
+        "characterAnchor",
+        "Scene_Jesse",
+        "jesse_skeleton",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B",
+        "biped_robot_ace_skeleton",
+        "biped_robot_ace_skeletonShape_001"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Transform",
         "characterAnchor"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Transform",
+        "robot_maya",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "biped_robot_alpha",
+        "jesse_skeleton",
+        "Geom",
+        "root",
+        "hips_joint_91"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "biped_robot_alpha",
+        "Scene_Jesse",
+        "jesse",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "biped_robot",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "ghostAnchor",
+        "jesse_ghost_skeleton",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "biped_robot_alpha",
+        "jesse_skeleton",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse1",
+        "Geom",
+        "biped_robot_biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Scene_Jesse",
+        "jesse_skeleton",
+        "Geom",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "biped_robot",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "ghostAnchor",
+        "jesse_ghost_skeleton",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_staticMesh"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse_skeleton",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root",
+        "hips_joint_90"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Scene_Jesse",
+        "jesse_skeleton",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B",
+        "biped_robot_ace_skeleton",
+        "root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse",
+        "Geom",
+        "biped_robot_biped_robot_ace",
+        "biped_robot_biped_robot_ace_staticMesh"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Transform",
+        "robot_maya"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse1",
+        "Geom",
+        "biped_robot_biped_robot_ace",
+        "biped_robot_biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "robot_maya",
+        "biped_robot_ace",
+        "biped_robot_ace_staticMesh",
+        "geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Scene_Jesse",
+        "jesse_skeleton",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B",
+        "geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "ghostAnchor",
+        "jesse_ghost_skeleton",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "Jesse_2B",
+        "biped_robot_ace_skeleton_1",
+        "biped_robot_ace_skeletonShape"
       ],
       {
         "isExpanded" : true,
@@ -1187,396 +3061,129 @@
         "Root",
         "Origin",
         "characterAnchor",
-        "ghostAnchor",
-        "jesse_ghost_skeleton"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Scene_Jesse",
-        "jesse_skeleton",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton",
-        "biped_robot_ace_skeletonShape_001"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "characterAnchor",
-        "robot_maya",
-        "biped_robot_ace",
-        "biped_robot_ace_staticMesh"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "biped_robot",
-        "biped_robot_ace"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "robot_maya",
-        "biped_robot_ace"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Jesse_2B",
-        "geom"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "biped_robot",
-        "biped_robot_ace_skeleton"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "jesse",
-        "biped_robot_ace_skeleton",
-        "root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "biped_robot_alpha",
-        "jesse_skeleton",
-        "Geom",
-        "Jesse_2B"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "ghostAnchor",
-        "jesse_ghost_skeleton",
-        "Geom",
-        "biped_robot_ace",
-        "biped_robot_ace_skeleton",
-        "root",
-        "hips_joint_90"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Scene_Jesse",
-        "jesse_skeleton",
-        "Geom",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton_1",
-        "root_002"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "biped_robot_alpha",
-        "Scene_Jesse",
-        "jesse",
-        "Jesse_2B"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "ghostAnchor",
-        "jesse_ghost_skeleton",
-        "Materials",
-        "Material_1"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "biped_robot",
-        "biped_robot_ace_staticMesh"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Scene_Jesse",
-        "jesse_skeleton",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton",
-        "root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "jesse_skeleton",
-        "Geom",
-        "biped_robot_ace",
-        "biped_robot_ace_skeleton",
-        "root",
-        "hips_joint_90"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Scene_Jesse",
-        "jesse_skeleton",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B",
-        "geom"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "robot_maya",
-        "biped_robot_ace_staticMesh",
-        "geom"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "jesse",
-        "biped_robot_ace_skeleton"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Scene_Jesse",
-        "jesse_skeleton",
-        "Geom",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B",
-        "geom_001"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Scene_Jesse",
-        "jesse_skeleton",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Scene_Jesse",
-        "jesse_skeleton",
-        "Root",
-        "Origin",
-        "characterAnchor"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "ghostAnchor",
-        "jesse_ghost_skeleton",
-        "Geom",
-        "biped_robot_ace",
-        "biped_robot_ace_staticMesh",
-        "geom"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Scene_Jesse",
-        "jesse_skeleton",
-        "Geom",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton_1"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "jesse_skeleton",
-        "Geom",
-        "root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "jesse_skeleton",
-        "Geom",
-        "biped_robot_ace",
-        "biped_robot_ace_skeleton",
-        "root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton_1",
-        "biped_robot_ace_skeletonShape"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
         "jesse",
         "Geom",
         "biped_robot_biped_robot_ace",
-        "biped_robot_biped_robot_ace_staticMesh",
-        "biped_robot_geom"
+        "biped_robot_biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse1",
+        "Materials"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Jesse_2B",
+        "geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "characterAnchor",
+        "robot_maya",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "ghostAnchor",
+        "jesse_ghost_skeleton",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_staticMesh",
+        "geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "robot_maya",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "biped_robot",
+        "biped_robot_ace_staticMesh"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "robot_maya",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "robot_maya",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "biped_robot_alpha",
+        "Scene_Jesse",
+        "jesse"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse1",
+        "Geom"
       ],
       {
         "isExpanded" : true,
@@ -1601,6 +3208,35 @@
         "Root",
         "Origin",
         "characterAnchor",
+        "jesse_skeleton",
+        "Geom",
+        "Jesse_2B"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Origin",
+        "characterAnchor",
+        "jesse1",
+        "Geom",
+        "biped_robot_biped_robot_ace",
+        "biped_robot_biped_robot_ace_staticMesh"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
+  "B9DF4F5F-C3A4-4351-A9C0-E884CD48C42E" : {
+    "objectMetadataList" : [
+      [
+        "B9DF4F5F-C3A4-4351-A9C0-E884CD48C42E",
+        "Root",
         "jesse",
         "Geom",
         "biped_robot_biped_robot_ace",
@@ -1611,47 +3247,8 @@
         "isLocked" : false
       },
       [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "B9DF4F5F-C3A4-4351-A9C0-E884CD48C42E",
         "Root",
-        "Origin",
-        "characterAnchor",
-        "jesse_skeleton",
-        "Materials"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "robot_maya",
-        "biped_robot_ace",
-        "biped_robot_ace_staticMesh"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "biped_robot_alpha",
-        "jesse_skeleton",
-        "Geom",
-        "root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
         "jesse",
         "Geom",
         "biped_robot_biped_robot_ace",
@@ -1662,57 +3259,17 @@
         "isLocked" : false
       },
       [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "B9DF4F5F-C3A4-4351-A9C0-E884CD48C42E",
         "Root",
-        "Transform",
-        "robot_maya",
-        "biped_robot_ace"
+        "jesse",
+        "Geom"
       ],
       {
         "isExpanded" : true,
         "isLocked" : false
       },
       [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Scene_Jesse",
-        "jesse_skeleton",
-        "Root",
-        "Origin"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Scene_Jesse",
-        "jesse_skeleton",
-        "Geom",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B",
-        "biped_robot_ace_skeleton_1",
-        "biped_robot_ace_skeletonShape_004"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Origin",
-        "characterAnchor",
-        "Scene_Jesse",
-        "jesse_skeleton",
-        "Geom",
+        "B9DF4F5F-C3A4-4351-A9C0-E884CD48C42E",
         "Root"
       ],
       {
@@ -1720,17 +3277,139 @@
         "isLocked" : false
       },
       [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "B9DF4F5F-C3A4-4351-A9C0-E884CD48C42E",
         "Root",
-        "Origin",
-        "characterAnchor",
-        "Scene_Jesse",
-        "jesse_skeleton",
+        "jesse",
         "Geom",
+        "biped_robot_biped_robot_ace",
+        "biped_robot_biped_robot_ace_skeleton",
+        "biped_robot_root_91"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "B9DF4F5F-C3A4-4351-A9C0-E884CD48C42E",
         "Root",
-        "Origin",
-        "characterAnchor",
-        "Jesse_2B"
+        "jesse"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "B9DF4F5F-C3A4-4351-A9C0-E884CD48C42E",
+        "Root",
+        "jesse",
+        "Geom",
+        "biped_robot_biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
+  "CA475F4D-4C66-4225-A68D-71454D988F66" : {
+    "objectMetadataList" : [
+      [
+        "CA475F4D-4C66-4225-A68D-71454D988F66",
+        "Root",
+        "jesse_lightfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton",
+        "root_92"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "CA475F4D-4C66-4225-A68D-71454D988F66",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "CA475F4D-4C66-4225-A68D-71454D988F66",
+        "Root",
+        "jesse_lightfit",
+        "Geom",
+        "biped_robot",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "CA475F4D-4C66-4225-A68D-71454D988F66",
+        "Root",
+        "jesse_lightfit",
+        "Geom",
+        "biped_robot"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "CA475F4D-4C66-4225-A68D-71454D988F66",
+        "Root",
+        "jesse_lightfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace",
+        "biped_robot_ace_skeleton"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "CA475F4D-4C66-4225-A68D-71454D988F66",
+        "Root",
+        "jesse_lightfit",
+        "Geom",
+        "biped_robot",
+        "Geom",
+        "biped_robot_ace"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "CA475F4D-4C66-4225-A68D-71454D988F66",
+        "Root",
+        "jesse_lightfit",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "CA475F4D-4C66-4225-A68D-71454D988F66",
+        "Root",
+        "jesse_lightfit"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "CA475F4D-4C66-4225-A68D-71454D988F66",
+        "Root",
+        "jesse_lightfit",
+        "Materials"
       ],
       {
         "isExpanded" : true,
@@ -1742,8 +3421,7 @@
     "objectMetadataList" : [
       [
         "CB766F92-EE55-4A63-9401-E7B8C009764D",
-        "Root",
-        "GridMaterial"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -1751,7 +3429,8 @@
       },
       [
         "CB766F92-EE55-4A63-9401-E7B8C009764D",
-        "Root"
+        "Root",
+        "GridMaterial"
       ],
       {
         "isExpanded" : true,
@@ -1768,7 +3447,9 @@
     "objectMetadataList" : [
       [
         "D66134B1-3681-4A8E-AFE5-29F257229F3B",
-        "Root"
+        "Root",
+        "GridMaterial",
+        "GridMaterial"
       ],
       {
         "isExpanded" : true,
@@ -1776,9 +3457,7 @@
       },
       [
         "D66134B1-3681-4A8E-AFE5-29F257229F3B",
-        "Root",
-        "GridMaterial",
-        "GridMaterial"
+        "Root"
       ],
       {
         "isExpanded" : true,

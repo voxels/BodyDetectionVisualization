@@ -11,21 +11,63 @@ import RealityKitContent
 
 struct ImmersiveView: View {
     @ObservedObject var browserModel:NearbyServiceBrowserModel
+    public var playerModel:PlayerModel
     @StateObject private var sessionManager:SessionManager = SessionManager()
-    @State private var playerModel = PlayerModel()
-    private let videoURLString = "http://10.0.0.68:1935/ShadowDancingBroadcasting/countryclub/playlist.m3u8?DVR"
-    private let audioURLString = "http://10.0.0.68:8000/radio"
+    private let videoURLString = "http://192.168.8.179:1935/live/countryclub/playlist.m3u8?DVR"
+    private let audioURLString = "http://192.168.8.179:8000/radio"
     @State private var sceneEntity:Entity?
     @State private var originEntity:Entity?
-    @State private var skeletonEntity: ModelEntity?
+    @State private var innerSkeletonEntities = [String:ModelEntity]()
+    @State private var outerSkeletonEntities = [String:ModelEntity]()
+    @State private var partnerSkeletonIdentity:String?
     @State private var skeletonIdentityEntity: ModelEntity?
-    @State private var ghostEntity: ModelEntity?
+    @State private var gageDarkFitEntity: ModelEntity?
+    @State private var gageLightFitEntity: ModelEntity?
+    @State private var jesseDarkFitEntity: ModelEntity?
+    @State private var jesseLightFitEntity: ModelEntity?
+    @State private var deanLightFitEntity:ModelEntity?
+    @State private var deanLightFitRumbaEntity:ModelEntity?
     @State private var characterOffset: SIMD3<Float> = [0, 0.94, 0] // Offset the character by one meter to the left
-    @State private var characterAnchor = Entity()
+    @State private var characterOrder:[String] = [String]()
+    @State private var characterAnchor = AnchorEntity()
+    @State private var gageDarkFitAnchor = AnchorEntity()
+    @State private var gageLightFitAnchor = AnchorEntity()
+    @State private var jesseDarkFitAnchor = AnchorEntity()
+    @State private var jesseLightFitAnchor = AnchorEntity()
+    @State private var deanLightFitAnchor = AnchorEntity()
+    @State private var deanLightFitRumbaAnchor = AnchorEntity()
+    
+    @State private var character = Entity()
     @State private var characterLeftHandAnchor = Entity()
     @State private var characterRightHandAnchor = Entity()
     @State private var characterLeftFootAnchor = Entity()
     @State private var characterRightFootAnchor = Entity()
+    @State private var processingMessage = false
+    @State private var lastDecodedData:[String:SkeletonJointData] = [String:SkeletonJointData]()
+    @State private var nextDecodedData:[String:SkeletonJointData] = [String:SkeletonJointData]()
+    @State private var domeEntity:ModelEntity?
+    @State private var floorMaterial:VideoMaterial?
+    @State private var floorModel:ModelEntity?
+    @State private var displayedFrameCount = 0
+    
+    @State private var gageDarkFitAnimationResource:[AnimationResource] = []
+    @State private var gageLightFitAnimationResource:[AnimationResource] = []
+    @State private var jesseDarkFitAnimationResource:[AnimationResource] = []
+    @State private var jesseLightFitAnimationResource:[AnimationResource] = []
+    @State private var deanDarkFitAnimationResource:[AnimationResource] = []
+    @State private var deanLightFitAnimationResource:[AnimationResource] = []
+    @State private var kaiDarkFitAnimationResource:[AnimationResource] = []
+    @State private var kaiLightFitAnimationResource:[AnimationResource] = []
+    
+    
+    @State private var gageDarkFitTransforms = [[Transform]]()
+    @State private var gageLightFitTransforms = [[Transform]]()
+    @State private  var jesseDarkFitTransforms = [[Transform]]()
+    @State private var jesseLightFitTransforms = [[Transform]]()
+    @State private var deanDarkFitTransforms = [[Transform]]()
+    @State private var deanLightFitTransforms = [[Transform]]()
+    @State private var kaiDarkFitTransforms = [[Transform]]()
+    @State private var kaiLightFitTransforms = [[Transform]]()
 
     var body: some View {
         RealityView { content in
@@ -38,23 +80,71 @@ struct ImmersiveView: View {
                 content.add(scene)
                 print(scene)
                 
+                scene.addChild(sessionManager.meshEntity)
                 
-                guard let bipedRobot = scene.findEntity(named: "biped_robot") else {
-                    return
-                }
-                
-                if let model = bipedRobot.findEntity(named: "biped_robot_ace_skeleton") as? ModelEntity {
+                let gageDarkFitScene = try await Entity(named: "Scene_Gage_DarkFit", in: realityKitContentBundle)
+                print(gageDarkFitScene)
+                if let model = gageDarkFitScene.findEntity(named: "Skeleton_92") as? ModelEntity {
                     //print(model.name)
                     print("Found skeleton")
-                    skeletonEntity = model
-                    skeletonIdentityEntity = model.clone(recursive:true)
-                    
-                    //character?.setPosition(characterOffset, relativeTo: nil)
+                    gageDarkFitEntity = model
+                    scene.addChild(gageDarkFitAnchor)
+                    gageDarkFitAnchor.addChild(model)
                 }
-                if let anchor = scene.findEntity(named: "characterAnchor") {
-                    print("Found character anchor")
-                    characterAnchor = anchor
-                    characterAnchor.setPosition(characterOffset, relativeTo: nil)
+                
+                let jesseDarkFitScene = try await Entity(named: "Scene_Jesse_DarkFit", in: realityKitContentBundle)
+                print(jesseDarkFitScene)
+                if let model = jesseDarkFitScene.findEntity(named: "Skeleton_93") as? ModelEntity {
+                    //print(model.name)
+                    print("Found skeleton")
+                    jesseDarkFitEntity = model
+                    scene.addChild(jesseDarkFitAnchor)
+                    jesseDarkFitAnchor.addChild(model)
+                }
+                
+                let jesseLightFitScene = try await Entity(named: "Scene_Jesse_LightFit", in: realityKitContentBundle)
+                print(jesseLightFitScene)
+                if let model = jesseLightFitScene.findEntity(named: "Skeleton_93") as? ModelEntity {
+                    //print(model.name)
+                    print("Found skeleton")
+                    jesseLightFitEntity = model
+                    scene.addChild(jesseLightFitAnchor)
+                    jesseLightFitAnchor.addChild(model)
+                }
+                
+                let gageLightFitScene = try await Entity(named: "Scene_Gage_LightFit", in: realityKitContentBundle)
+                print(gageLightFitScene)
+                if let model = gageLightFitScene.findEntity(named: "Skeleton_92") as? ModelEntity {
+                    //print(model.name)
+                    print("Found skeleton")
+                    gageLightFitEntity = model
+                    scene.addChild(gageLightFitAnchor)
+                    gageLightFitAnchor.addChild(model)
+                }
+                
+                let deanLightFitScene = try await Entity(named: "Scene_Dean_LightFit", in: realityKitContentBundle)
+                print(deanLightFitScene)
+                if let model = deanLightFitScene.findEntity(named: "hips_joint_92") as? ModelEntity {
+                    //print(model.name)
+                    print("Found skeleton")
+                    deanLightFitEntity = model
+                    scene.addChild(deanLightFitAnchor)
+                    deanLightFitAnchor.addChild(model)
+                }
+                
+                let deanLightFitRumbaScene = try await Entity(named: "Scene_Dean_LightFit_Rumba", in: realityKitContentBundle)
+                print(deanLightFitRumbaScene)
+                if let model = deanLightFitRumbaScene.findEntity(named: "mixamorig_Hips") as? ModelEntity {
+                    //print(model.name)
+                    print("Found skeleton")
+                    deanLightFitRumbaEntity = model
+                    model.transform.scale *= 0.01
+                    if let animation = model.availableAnimations.first {
+                        model.playAnimation(animation.repeat())
+                    }
+                    scene.addChild(deanLightFitRumbaAnchor)
+                    
+                    deanLightFitRumbaAnchor.addChild(model)
                 }
                 
                 if let anchor = scene.findEntity(named:"handAnchor_left") {
@@ -76,25 +166,25 @@ struct ImmersiveView: View {
                     print("Found right foot anchor")
                     characterRightFootAnchor = anchor
                 }
-
+                
                 
                 scene.addChild(sessionManager.deviceLocation)
                 scene.addChild(sessionManager.leftHandLocation)
                 scene.addChild(sessionManager.rightHandLocation)
                 
-                
-                guard let alphaModel = scene.findEntity(named: "biped_robot_alpha") else {
+                guard let sphereModel = scene.findEntity(named: "Sphere") as? ModelEntity else {
+                    print("did not find dome")
                     return
                 }
-                
-                if let model = alphaModel.findEntity(named: "biped_robot_ace_skeleton") as? ModelEntity {
-                    //print(model.name)
-                    print("Found ghost skeleton")
-                    ghostEntity = model
-                }
+                domeEntity = sphereModel
+                let videoMaterial = VideoMaterial(avPlayer: playerModel.player)
+                domeEntity?.model?.materials = [videoMaterial]
+                //scene.addChild(domeEntity!)
             } catch {
                 print(error)
             }
+        } update: { context in
+            print("update scene\(browserModel.displayLinkTimestamp)")
         }
         .task {
             // Monitors changes in authorization. For example, the user may revoke authorization in Settings.
@@ -108,371 +198,357 @@ struct ImmersiveView: View {
         .task {
             await sessionManager.processDeviceAnchorUpdates()
         }
-        .onChange(of: browserModel.lastFrameDisplayLinkTimestamp ) { oldValue, newValue in
-            if let sceneEntity = sceneEntity, let originEntity = originEntity, let character = skeletonEntity, let nextJointData = browserModel.nextJointData, let lastJointData = browserModel.lastJointData {
-                if let nextModel = nextJointData.first, let lastModel = lastJointData.first{
-                    let nextAnchorData = nextModel.a
-                    let lastAnchorData = lastModel.a
-                    let nextTranslation =  SIMD3<Float>(Float(nextAnchorData.x), Float(nextAnchorData.y), Float(nextAnchorData.z))
-                    let lastTranslation =  SIMD3<Float>(Float(lastAnchorData.x), Float(lastAnchorData.y), Float(lastAnchorData.z))
-                    let nextRotation = simd_quatf(real:Float(nextAnchorData.r), imag: SIMD3<Float>(Float(nextAnchorData.ix), Float(nextAnchorData.iy), Float(nextAnchorData.iz)))
-                    let lastRotation = simd_quatf(real:Float(lastAnchorData.r), imag: SIMD3<Float>(Float(lastAnchorData.ix), Float(lastAnchorData.iy), Float(lastAnchorData.iz)))
-                    
-                    let percentage = Float(browserModel.frameCount) / Float(browserModel.skipFrames)
-                    let anchorTranslation = lastTranslation + (nextTranslation - lastTranslation) * percentage
-                    let anchorRotation = lastRotation + (nextRotation - lastRotation) * percentage
-                                        
-                    let transform = Transform(scale: SIMD3(1,1,1), rotation:anchorRotation, translation:anchorTranslation)
-                    
-                    withAnimation(Animation.linear(duration: browserModel.displayLink.duration * Double(browserModel.skipFrames)), {
-                        characterAnchor.transform = transform
-                        characterAnchor.transform.translation.y = characterOffset.y
-                    })
-                }
-
-                for index in 0..<nextJointData.count {
-                    let nextModel = nextJointData[index]
-                    let lastModel = lastJointData[index]
-                    //print(data.d.name)
-                    guard let index = character.jointNames.firstIndex(where: { jointName in
-                        jointName.hasSuffix(nextModel.d.name)
-                    }) else {
-                        print("did not find index for \(nextModel)")
-                        continue
-                    }
-
-                    let nextTranslation =  nextModel.translation
-                    let lastTranslation =  lastModel.translation
-                    let nextRotation = nextModel.orientation
-                    let lastRotation = lastModel.orientation
-                    
-                    withAnimation(Animation.linear(duration: browserModel.displayLink.duration * Double(browserModel.skipFrames)), {
-                        character.jointTransforms[index] = Transform(scale: lastModel.scale, rotation:lastRotation, translation:lastTranslation)
-                        ghostEntity?.jointTransforms[index] = Transform(scale: nextModel.scale * SIMD3(1.005,1,1.005), rotation:nextRotation, translation:nextTranslation)
-                    })
-
-                    
-                    if nextModel.d.name == "left_foot_joint" {
-                        
-                        let leftFootTransform = nextModel.transform
-                        
-                        guard let leftHipData = nextJointData.first(where: { jointData in
-                            jointData.d.name == "left_upLeg_joint"
-                        })  else {
-                            print("No left hip")
-                            continue
-                        }
-
-                        
-                        guard let kneeData = nextJointData.first(where: { jointData in
-                            jointData.d.name == "left_leg_joint"
-                        })  else {
-                            print("No left knee")
-                            continue
-                        }
-
-                        
-                        
-                        guard let hipsData = nextJointData.first(where: { jointData in
-                            jointData.d.name == "hips_joint"
-                        })  else {
-                            print("No hip")
-                            continue
-                        }
-                        
-                        
-                        let finalTransform = Transform(matrix: leftFootTransform.matrix * kneeData.transform.matrix * leftHipData.transform.matrix * hipsData.transform.matrix)
-
-                        let characterWorldSpaceTransform = originEntity.convert(transform: finalTransform, to:characterLeftFootAnchor)
-                        
-                        characterLeftFootAnchor.transform.translation = sessionManager.deviceLocation.transform.translation +        characterWorldSpaceTransform.translation - characterOffset
-                        characterLeftFootAnchor.transform.rotation = sessionManager.deviceLocation.transform.rotation + characterWorldSpaceTransform.rotation
-
-                        guard var particleComponent = characterLeftFootAnchor.components[ParticleEmitterComponent.self] else {
-                            continue
-                        }
-
-                        
-                        particleComponent.mainEmitter.attractionCenter.x =  characterWorldSpaceTransform.translation.x - characterLeftFootAnchor.transform.translation.x
-                        particleComponent.mainEmitter.attractionCenter.y = characterLeftFootAnchor.transform.translation.y
-                        particleComponent.mainEmitter.attractionCenter.z = characterWorldSpaceTransform.translation.z - characterLeftFootAnchor.transform.translation.z
+        .onChange(of: browserModel.displayLinkTimestamp, { oldValue, newValue in
+            update()
+        })
+    }
     
-                        characterLeftFootAnchor.components[ParticleEmitterComponent.self] = particleComponent
-                    }
-                    
-                    if nextModel.d.name == "right_foot_joint" {
-                        
-                        let rightFootTransform = nextModel.transform
-                        
-                        guard let rightHipData = nextJointData.first(where: { jointData in
-                            jointData.d.name == "right_upLeg_joint"
-                        })  else {
-                            print("No right hip")
-                            continue
-                        }
+    func update() {
+        if !browserModel.allData.isEmpty, let originEntity = originEntity, let gageDarkFitEntity = gageDarkFitEntity, let jesseDarkFitEntity = jesseDarkFitEntity, let gageLightFitEntity = gageLightFitEntity, let jesseLightFitEntity = jesseLightFitEntity, let deanLightFitEntity = deanLightFitEntity, browserModel.allData.count >= 2 {
 
-                        
-                        guard let kneeData = nextJointData.first(where: { jointData in
-                            jointData.d.name == "right_leg_joint"
-                        })  else {
-                            print("No right knee")
-                            continue
-                        }
+            displayedFrameCount = min(browserModel.allData.count, 2)
 
-                        
-                        
-                        guard let hipsData = nextJointData.first(where: { jointData in
-                            jointData.d.name == "hips_joint"
-                        })  else {
-                            print("No hip")
-                            continue
-                        }
-                        
-                        
-                        let finalTransform = Transform(matrix: rightFootTransform.matrix * kneeData.transform.matrix * rightHipData.transform.matrix * hipsData.transform.matrix)
+            print("update \(browserModel.allData.count) frames left")
+            print("displayed frame count: \(displayedFrameCount)")
+            let allData = browserModel.allData.suffix(displayedFrameCount)
 
-                        let characterWorldSpaceTransform = originEntity.convert(transform: finalTransform, to:characterRightFootAnchor)
-                        
-                        characterRightFootAnchor.transform.translation = sessionManager.deviceLocation.transform.translation + characterWorldSpaceTransform.translation - characterOffset
-                        characterRightFootAnchor.transform.rotation = sessionManager.deviceLocation.transform.rotation + characterWorldSpaceTransform.rotation
+            for data in allData {
+                if let nextJointData = browserModel.decodeFrame(data:data) {
+                    print("Finished decoding")
+                    print("Joint data count: \(nextJointData.count)")
+                    var rawGageDarkFitTransforms = [Transform]()
+                    var rawJesseLightFitTransforms = [Transform]()
+                    var rawGageLightFitTransforms = [Transform]()
+                    var rawJesseDarkFitTransforms = [Transform]()
 
-                        guard var particleComponent = characterRightFootAnchor.components[ParticleEmitterComponent.self] else {
-                            continue
-                        }
+                    for key in [nextJointData.keys.first!] {
+                        print("Joints count: \(nextJointData[key]!.count) for \(key)")
+                        let jointData = nextJointData[key]!
 
-                        
-                        particleComponent.mainEmitter.attractionCenter.x =  characterWorldSpaceTransform.translation.x - characterRightFootAnchor.transform.translation.x
-                        particleComponent.mainEmitter.attractionCenter.y = characterRightFootAnchor.transform.translation.y
-                        particleComponent.mainEmitter.attractionCenter.z = characterWorldSpaceTransform.translation.z - characterRightFootAnchor.transform.translation.z
-    
-                        characterRightFootAnchor.components[ParticleEmitterComponent.self] = particleComponent
-                    }
-                    
-                    if nextModel.d.name == "left_hand_joint" {
-                        
-                        let leftHandTransform = nextModel.transform
-                        
-                        guard let leftForearmData = nextJointData.first(where: { jointData in
-                            jointData.d.name == "left_forearm_joint"
-                        })  else {
-                            print("No left forearm")
-                            continue
-                        }
-                        
-                        guard let leftArmData = nextJointData.first(where: { jointData in
-                            jointData.d.name == "left_arm_joint"
-                        })  else {
-                            print("No left arm")
-                            continue
-                        }
-                        
-                        guard let leftShoulderData = nextJointData.first(where: { jointData in
-                            jointData.d.name == "left_shoulder_1_joint"
-                        })  else {
-                            print("No left shoulder")
-                            continue
-                        }
-                        
-                        guard let spine7Data = nextJointData.first(where: { jointData in
-                            jointData.d.name == "spine_7_joint"
-                        })  else {
-                            print("No spine 7")
-                            continue
-                        }
-                        
-                        guard let spine6Data = nextJointData.first(where: { jointData in
-                            jointData.d.name == "spine_6_joint"
-                        })  else {
-                            print("No spine 7")
-                            continue
-                        }
-                        
-                        
-                        guard let spine5Data = nextJointData.first(where: { jointData in
-                            jointData.d.name == "spine_5_joint"
-                        })  else {
-                            print("No spine 7")
-                            continue
-                        }
-                        
-                        
-                        guard let spine4Data = nextJointData.first(where: { jointData in
-                            jointData.d.name == "spine_4_joint"
-                        })  else {
-                            print("No spine 7")
-                            continue
-                        }
-                        
-                        
-                        guard let spine3Data = nextJointData.first(where: { jointData in
-                            jointData.d.name == "spine_3_joint"
-                        })  else {
-                            print("No spine 7")
-                            continue
-                        }
-                        
-                        
-                        guard let spine2Data = nextJointData.first(where: { jointData in
-                            jointData.d.name == "spine_2_joint"
-                        })  else {
-                            print("No spine 7")
-                            continue
-                        }
-                        
-                        
-                        
-                        guard let spine1Data = nextJointData.first(where: { jointData in
-                            jointData.d.name == "spine_1_joint"
-                        })  else {
-                            print("No spine 7")
-                            continue
-                        }
-                        
-                        guard let hipsData = nextJointData.first(where: { jointData in
-                            jointData.d.name == "hips_joint"
-                        })  else {
-                            print("No spine 7")
-                            continue
-                        }
-                        
-                        let finalTransform = Transform(matrix: leftHandTransform.matrix * leftForearmData.transform.matrix * leftArmData.transform.matrix * leftShoulderData.transform.matrix * spine7Data.transform.matrix *
-                                                       spine6Data.transform.matrix * spine5Data.transform.matrix * spine4Data.transform.matrix * spine3Data.transform.matrix * spine2Data.transform.matrix * spine1Data.transform.matrix * hipsData.transform.matrix)
-                        
-                        characterLeftHandAnchor.transform.translation = sessionManager.leftHandLocation.transform.translation
-                        characterLeftHandAnchor.transform.rotation = characterAnchor.transform.rotation
-                        guard var particleComponent = characterLeftHandAnchor.components[ParticleEmitterComponent.self] else {
-                            continue
-                        }
-                        
-                                            
-                        let characterWorldSpaceTransform = originEntity.convert(transform: characterAnchor.transform, to:characterLeftHandAnchor)
-                        
-                        particleComponent.mainEmitter.attractionCenter.x =  characterWorldSpaceTransform.translation.x - characterLeftHandAnchor.transform.translation.x
-                        particleComponent.mainEmitter.attractionCenter.y = characterLeftHandAnchor.transform.translation.y
-                        particleComponent.mainEmitter.attractionCenter.z = characterWorldSpaceTransform.translation.z - characterLeftHandAnchor.transform.translation.z
-    
-                        characterLeftHandAnchor.components[ParticleEmitterComponent.self] = particleComponent
+                            for index in 0..<gageDarkFitEntity.jointTransforms.count {
+                                guard let nextModel = jointData.filter({ data in
+                                    return gageDarkFitEntity.jointNames[index].hasSuffix(data.d.name)
+                                }).first else {
+                                    rawGageDarkFitTransforms.append(Transform(scale: gageDarkFitEntity.jointTransforms[index].scale, rotation:gageDarkFitEntity.jointTransforms[index].rotation, translation:gageDarkFitEntity.jointTransforms[index].translation))
+                                    continue
+                                }
+                                let nextTranslation =  nextModel.translation
+                                let nextRotation = nextModel.orientation
+                                
+                                
+                                rawGageDarkFitTransforms.append(Transform(scale: nextModel.scale, rotation:nextRotation, translation:nextTranslation))
+                            }
+                            gageDarkFitTransforms.append(rawGageDarkFitTransforms)
 
-                    }
-                    
-                    
-                    if nextModel.d.name == "right_hand_joint" {
+                         
+//                        Task { @MainActor in
+//                            for index in 0..<jesseLightFitEntity.jointTransforms.count {
+//                                guard let nextModel = jointData.filter({ data in
+//                                    return jesseLightFitEntity.jointNames[index].hasSuffix(data.d.name)
+//                                }).first else {
+//                                    rawJesseLightFitTransforms.append(Transform(scale:jesseLightFitEntity.jointTransforms[index].scale, rotation:jesseLightFitEntity.jointTransforms[index].rotation, translation:jesseLightFitEntity.jointTransforms[index].translation))
+//                                    continue
+//                                    
+//                                }
+//                                let nextTranslation =  nextModel.translation
+//                                let nextRotation = nextModel.orientation
+//                                
+//                                
+//                                rawJesseLightFitTransforms.append(Transform(scale: nextModel.scale, rotation:nextRotation, translation:nextTranslation))
+//                                
+//                            }
+//                            jesseLightFitTransforms.append(rawJesseLightFitTransforms)
+//                        }
+//                        
+//                        Task { @MainActor in
+//                            for index in 0..<gageLightFitEntity.jointTransforms.count {
+//                                guard let nextModel = jointData.filter({ data in
+//                                    return gageLightFitEntity.jointNames[index].hasSuffix(data.d.name)
+//                                }).first else {
+//                                    rawGageLightFitTransforms.append(Transform(scale: gageLightFitEntity.jointTransforms[index].scale, rotation:gageLightFitEntity.jointTransforms[index].rotation, translation:gageLightFitEntity.jointTransforms[index].translation))
+//                                    
+//                                    continue
+//                                }
+//                                let nextTranslation =  nextModel.translation
+//                                let nextRotation = nextModel.orientation
+//                                
+//                                
+//                                rawGageLightFitTransforms.append(Transform(scale: nextModel.scale, rotation:nextRotation, translation:nextTranslation))
+//                            }
+//                            gageLightFitTransforms.append(rawGageLightFitTransforms)
+//                        }
+//                        
+//                        
+//                        Task { @MainActor in
+//                            for index in 0..<jesseDarkFitEntity.jointTransforms.count {
+//                                guard let nextModel = jointData.filter({ data in
+//                                    return jesseDarkFitEntity.jointNames[index].hasSuffix(data.d.name)
+//                                }).first else {
+//                                    rawJesseDarkFitTransforms.append(Transform(scale:jesseDarkFitEntity.jointTransforms[index].scale, rotation:jesseDarkFitEntity.jointTransforms[index].rotation, translation:jesseDarkFitEntity.jointTransforms[index].translation))
+//                                    continue
+//                                    
+//                                }
+//                                let nextTranslation =  nextModel.translation
+//                                let nextRotation = nextModel.orientation
+//                                
+//                                
+//                                rawJesseDarkFitTransforms.append(Transform(scale: nextModel.scale, rotation:nextRotation, translation:nextTranslation))
+//                                
+//                            }
+//                            jesseDarkFitTransforms.append(rawJesseDarkFitTransforms)
+//                        }
+                         
                         
-                        let rightHandTransform = nextModel.transform
+                        //                                deanDarkFitTransforms.append(Transform(scale: deanDarkFitEntity.jointTransforms[index].scale, rotation:deanDarkFitEntity.jointTransforms[index].rotation, translation:deanDarkFitEntity.jointTransforms[index].translation))
+                        //                                deanLightFitTransforms.append(Transform(scale:deanLightFitEntity.jointTransforms[index].scale, rotation:deanLightFitEntity.jointTransforms[index].rotation, translation:deanLightFitEntity.jointTransforms[index].translation))
                         
-                        guard let rightForearmData = nextJointData.first(where: { jointData in
-                            jointData.d.name == "right_forearm_joint"
-                        })  else {
-                            print("No left forearm")
-                            continue
-                        }
+                        //                                kaiDarkFitTransforms.append(Transform(scale: kaiDarkFitEntity.jointTransforms[index].scale, rotation:kaiDarkFitEntity.jointTransforms[index].rotation, translation:kaiDarkFitEntity.jointTransforms[index].translation))
+                        //                                kaiLightFitTransforms.append(Transform(scale:kaiLightFitEntity.jointTransforms[index].scale, rotation:kaiLightFitEntity.jointTransforms[index].rotation, translation:kaiLightFitEntity.jointTransforms[index].translation))
+                        
+                        Task { @MainActor in
+                            if let nextModel = nextJointData[key]!.first {
+                                if nextModel.d.a < 1.0 {
+                                    print("Not tracked \(nextModel.d.ident)")
+                                }
+                                
+                                let nextAnchorData = nextModel.a
+                                let nextTranslation =  SIMD3<Float>(Float(nextAnchorData.x), Float(nextAnchorData.y), Float(nextAnchorData.z))
+                                let nextRotation = simd_quatf(real:Float(nextAnchorData.r), imag: SIMD3<Float>(Float(nextAnchorData.ix), Float(nextAnchorData.iy), Float(nextAnchorData.iz)))
+                                
+                                let transform = Transform(scale: SIMD3(1,1,1), rotation:nextRotation, translation:nextTranslation)
+                                
+                                gageDarkFitAnchor.transform.translation.x = sessionManager.deviceOrigin.transform.translation.x + sin(Float.pi * 0) * 0.5 * nextTranslation.z + nextTranslation.x
+                                gageDarkFitAnchor.transform.translation.y = characterOffset.y
+                                gageDarkFitAnchor.transform.translation.z =
+                                sessionManager.deviceOrigin.transform.translation.z + cos(Float.pi * 0) * 0.5 * nextTranslation.z
+                                gageDarkFitAnchor.transform.rotation = transform.rotation
+                                
+                                
+                                jesseLightFitAnchor.transform.translation.x =  sessionManager.deviceOrigin.transform.translation.x + sin(Float.pi * 1 / 4) * 0.5 * nextTranslation.z + nextTranslation.x
+                                jesseLightFitAnchor.transform.translation.y = characterOffset.y
+                                jesseLightFitAnchor.transform.translation.z =   sessionManager.deviceOrigin.transform.translation.z +
+                                cos(Float.pi * 1 / 4) * 0.5 * nextTranslation.z
+                                jesseLightFitAnchor.transform.rotation = transform.rotation
+                                
+                                gageLightFitAnchor.transform.translation.x =  sessionManager.deviceOrigin.transform.translation.x + sin(Float.pi * 2 / 4) * 0.5 * nextTranslation.z + nextTranslation.x
+                                gageLightFitAnchor.transform.translation.y = characterOffset.y
+                                gageLightFitAnchor.transform.translation.z =
+                                sessionManager.deviceOrigin.transform.translation.z + cos(Float.pi * 2 / 4) * 0.5 * nextTranslation.z
+                                gageLightFitAnchor.transform.rotation = transform.rotation
+                                
+                                jesseDarkFitAnchor.transform.translation.x =  sessionManager.deviceOrigin.transform.translation.x + sin(Float.pi * 3 / 4) * 0.5 * nextTranslation.z + nextTranslation.x
+                                jesseDarkFitAnchor.transform.translation.y = characterOffset.y
+                                jesseDarkFitAnchor.transform.translation.z =  sessionManager.deviceOrigin.transform.translation.z +
+                                cos(Float.pi * 3 / 4) * 0.5 * nextTranslation.z
+                                jesseDarkFitAnchor.transform.rotation = transform.rotation
+                                
+                                deanLightFitAnchor.transform.translation.x =  sessionManager.deviceOrigin.transform.translation.x + sin(Float.pi * 4 / 4) * 0.5 * nextTranslation.z + nextTranslation.x
+                                deanLightFitAnchor.transform.translation.y = characterOffset.y
+                                deanLightFitAnchor.transform.translation.z =  sessionManager.deviceOrigin.transform.translation.z +
+                                cos(Float.pi * 4 / 4) * 0.5 * nextTranslation.z
+                                deanLightFitAnchor.transform.rotation = transform.rotation
+                                
+                                deanLightFitRumbaAnchor.transform.translation.x =  sessionManager.deviceOrigin.transform.translation.x + sin(Float.pi * 5 / 4) * 1.0 * nextTranslation.z + nextTranslation.x
+                                deanLightFitRumbaAnchor.transform.translation.y = 0
+                                deanLightFitRumbaAnchor.transform.translation.z =  sessionManager.deviceOrigin.transform.translation.z +
+                                cos(Float.pi * 5 / 4) * 1.0 * nextTranslation.z
+                                deanLightFitRumbaAnchor.transform.rotation = transform.rotation
+                                print(nextModel.d.ident)
+                                print(nextModel.d.t)
 
-                        guard let rightArmData = nextJointData.first(where: { jointData in
-                            jointData.d.name == "right_arm_joint"
-                        })  else {
-                            print("No left arm")
-                            continue
+                            }
                         }
-
-                        guard let rightShoulderData = nextJointData.first(where: { jointData in
-                            jointData.d.name == "right_shoulder_1_joint"
-                        })  else {
-                            print("No left shoulder")
-                            continue
-                        }
-                        
-                        guard let spine7Data = nextJointData.first(where: { jointData in
-                            jointData.d.name == "spine_7_joint"
-                        })  else {
-                            print("No spine 7")
-                            continue
-                        }
-
-                        guard let spine6Data = nextJointData.first(where: { jointData in
-                            jointData.d.name == "spine_6_joint"
-                        })  else {
-                            print("No spine 7")
-                            continue
-                        }
-
-                        
-                        guard let spine5Data = nextJointData.first(where: { jointData in
-                            jointData.d.name == "spine_5_joint"
-                        })  else {
-                            print("No spine 7")
-                            continue
-                        }
-
-                        
-                        guard let spine4Data = nextJointData.first(where: { jointData in
-                            jointData.d.name == "spine_4_joint"
-                        })  else {
-                            print("No spine 7")
-                            continue
-                        }
-
-                        
-                        guard let spine3Data = nextJointData.first(where: { jointData in
-                            jointData.d.name == "spine_3_joint"
-                        })  else {
-                            print("No spine 7")
-                            continue
-                        }
-
-                        
-                        guard let spine2Data = nextJointData.first(where: { jointData in
-                            jointData.d.name == "spine_2_joint"
-                        })  else {
-                            print("No spine 7")
-                            continue
-                        }
-
-                        
-                        
-                        guard let spine1Data = nextJointData.first(where: { jointData in
-                            jointData.d.name == "spine_1_joint"
-                        })  else {
-                            print("No spine 7")
-                            continue
-                        }
-
-                        guard let hipsData = nextJointData.first(where: { jointData in
-                            jointData.d.name == "hips_joint"
-                        })  else {
-                            print("No spine 7")
-                            continue
-                        }
-                        
-                        let finalTransform = Transform(matrix: rightHandTransform.matrix * rightForearmData.transform.matrix * rightArmData.transform.matrix * rightShoulderData.transform.matrix * spine7Data.transform.matrix *
-                                                       spine6Data.transform.matrix * spine5Data.transform.matrix * spine4Data.transform.matrix * spine3Data.transform.matrix * spine2Data.transform.matrix * spine1Data.transform.matrix * hipsData.transform.matrix)
-                       
-                        characterRightHandAnchor.transform.translation = sessionManager.rightHandLocation.transform.translation
-                        characterRightHandAnchor.transform.rotation = characterAnchor.transform.rotation
-                        guard var particleComponent = characterRightHandAnchor.components[ParticleEmitterComponent.self] else {
-                            continue
-                        }
-                        
-                                            
-                        let characterWorldSpaceTransform = originEntity.convert(transform: characterAnchor.transform, to:characterRightHandAnchor)
-                        
-                        particleComponent.mainEmitter.attractionCenter.x =  characterWorldSpaceTransform.translation.x - characterRightHandAnchor.transform.translation.x
-                        particleComponent.mainEmitter.attractionCenter.y = characterRightHandAnchor.transform.translation.y
-                        particleComponent.mainEmitter.attractionCenter.z = characterWorldSpaceTransform.translation.z - characterRightHandAnchor.transform.translation.z
-    
-                        characterRightHandAnchor.components[ParticleEmitterComponent.self] = particleComponent
-
+                        print("Finished skeleton update \(key) \(browserModel.frameCount) \(browserModel.displayLinkTimestamp)")
                     }
                 }
             }
-//            print("Device location: \(sessionManager.deviceLocation.transform.translation)")
-//            print("Right Hand location: \(characterRightHandAnchor.transform.translation)")
-//            print("Left Hand location: \(characterLeftHandAnchor.transform.translation)")
+            
+            print("Gage dark fit transforms count: \(gageDarkFitTransforms.count)")
+            if !gageDarkFitTransforms.isEmpty {
+                let count = gageDarkFitTransforms.count
+                let firstIndex = 0
+                let secondIndex = gageDarkFitTransforms.count > 1 ? 1 : 0
+                let animation = FromToByAnimation(jointNames: gageDarkFitEntity.jointNames,name:UUID().uuidString, from:JointTransforms(gageDarkFitEntity.jointTransforms), to:JointTransforms(gageDarkFitTransforms[secondIndex]), by:JointTransforms(gageDarkFitTransforms[firstIndex]), duration:browserModel.frameDuration * Double(count), isAdditive: false, bindTarget: .jointTransforms, blendLayer:100, fillMode: .forwards )
+                do {
+                    gageDarkFitAnimationResource.append(try AnimationResource.generate(with: AnimationView(source: animation)))
+                } catch {
+                    print(error)
+                }
+            }
+            
+            
+            print("Jesse light fit transforms count: \(jesseLightFitTransforms.count)")
+            if !jesseLightFitTransforms.isEmpty {
+                let count = jesseLightFitTransforms.count
+                let firstIndex = 0
+                let secondIndex = jesseLightFitTransforms.count > 1 ? 1 : 0
+                
+                let animation = FromToByAnimation(jointNames: jesseLightFitEntity.jointNames,name:UUID().uuidString, from:JointTransforms(jesseLightFitEntity.jointTransforms), to:JointTransforms(jesseLightFitTransforms[secondIndex]), by:JointTransforms(jesseLightFitTransforms[firstIndex]), duration:browserModel.frameDuration * Double(count), isAdditive: false, bindTarget: .jointTransforms, blendLayer:100, fillMode: .forwards )
+                do {
+                    jesseLightFitAnimationResource.append(try AnimationResource.generate(with: AnimationView(source: animation)))
+                } catch {
+                    print(error)
+                }
+                
+            }
+            
+            print("Gage light fit transforms count: \(gageLightFitTransforms.count)")
+            if !gageLightFitTransforms.isEmpty {
+                let count = gageLightFitTransforms.count
+                let firstIndex = 0
+                let secondIndex = gageLightFitTransforms.count > 1 ? 1 : 0
+                
+                let animation = FromToByAnimation(jointNames: gageLightFitEntity.jointNames,name:UUID().uuidString, from:JointTransforms(gageLightFitEntity.jointTransforms), to:JointTransforms(gageLightFitTransforms[secondIndex]), by:JointTransforms(gageLightFitTransforms[firstIndex]), duration:browserModel.frameDuration * Double(count),  isAdditive: false, bindTarget: .jointTransforms, blendLayer:100, fillMode: .forwards )
+                do {
+                    gageLightFitAnimationResource.append(try AnimationResource.generate(with: AnimationView(source: animation)))
+                } catch {
+                    print(error)
+                }
+            }
+            
+            print("Jesse dark fit transforms count: \(jesseDarkFitTransforms.count)")
+            if !jesseDarkFitTransforms.isEmpty {
+                let count = gageLightFitTransforms.count
+                let firstIndex = 0
+                let secondIndex = gageLightFitTransforms.count > 1 ? 1 : 0
+                
+                let animation = FromToByAnimation(jointNames: jesseDarkFitEntity.jointNames,name:UUID().uuidString, from:JointTransforms(jesseDarkFitEntity.jointTransforms), to:JointTransforms(gageLightFitTransforms[secondIndex]), by:JointTransforms(jesseDarkFitTransforms[firstIndex]), duration:browserModel.frameDuration * Double(count), isAdditive: false, bindTarget: .jointTransforms, blendLayer:100, fillMode: .forwards )
+                do {
+                    jesseDarkFitAnimationResource.append(try AnimationResource.generate(with: AnimationView(source: animation)))
+                } catch {
+                    print(error)
+                }
+            }
+                
+                
+                
+                /*
+                 
+                 
+                 if browserModel.jointDataHistory.count > 40 {
+                 let nextJointData = browserModel.jointDataHistory[40]
+                 Task { @MainActor in
+                 for index in 0..<nextJointData.count {
+                 let nextModel = nextJointData[index]
+                 
+                 let nextTranslation =  nextModel.translation
+                 let nextRotation = nextModel.orientation
+                 
+                 guard let deanLightFitIndex = deanLightFitEntity.jointNames.firstIndex(where: { jointName in
+                 jointName.hasSuffix(nextModel.d.name)
+                 }) else {
+                 if nextModel.d.name == "root" {
+                 deanLightFitEntity.jointTransforms[0] = Transform(scale: nextModel.scale, rotation:nextRotation, translation:nextTranslation)
+                 }
+                 continue
+                 }
+                 
+                 deanLightFitEntity.jointTransforms[deanLightFitIndex] = Transform(scale: nextModel.scale, rotation:nextRotation, translation:nextTranslation)
+                 }
+                 }
+                 }
+                 
+                 //                    if browserModel.jointDataHistory.count > 300 {
+                 //                        let nextJointData = browserModel.jointDataHistory[300]
+                 //                        for index in 0..<nextJointData.count {
+                 //                            let nextModel = nextJointData[index]
+                 //
+                 //                            let nextTranslation =  nextModel.translation
+                 //                            let nextRotation = nextModel.orientation
+                 //
+                 //                            guard let deanLightFitIndex = deanLightFitEntity.jointNames.firstIndex(where: { jointName in
+                 //                                jointName.hasSuffix(nextModel.d.name)
+                 //                            }) else {
+                 //                                if nextModel.d.name == "root" {
+                 //                                    deanLightFitEntity.jointTransforms[0] = Transform(scale: nextModel.scale, rotation:nextRotation, translation:nextTranslation)
+                 //                                }
+                 //                                continue
+                 //                            }
+                 //
+                 //                            deanLightFitEntity.jointTransforms[deanLightFitIndex] = Transform(scale: nextModel.scale, rotation:nextRotation, translation:nextTranslation)
+                 //                        }
+                 //                    }
+                 
+                 if browserModel.jointDataHistory.count > 60 {
+                 //                        let nextJointData = browserModel.jointDataHistory[360]
+                 //                        for index in 0..<nextJointData.count {
+                 //                            let nextModel = nextJointData[index]
+                 //
+                 //                            let nextTranslation =  nextModel.translation
+                 //                            let nextRotation = nextModel.orientation
+                 //
+                 //                            guard let deanLightFitIndex = deanLightFitEntity.jointNames.firstIndex(where: { jointName in
+                 //                                jointName.hasSuffix(nextModel.d.name)
+                 //                            }) else {
+                 //                                if nextModel.d.name == "root" {
+                 //                                    deanLightFitRumbaEntity.jointTransforms[0] = Transform(scale: nextModel.scale, rotation:nextRotation, translation:nextTranslation)
+                 //                                }
+                 //                                continue
+                 //                            }
+                 //
+                 //                            deanLightFitRumbaEntity.jointTransforms[deanLightFitIndex] = Transform(scale: nextModel.scale, rotation:nextRotation, translation:nextTranslation)
+                 //                        }
+                 }
+                 */
+
+
+            
+            gageDarkFitTransforms.removeAll()
+            jesseLightFitTransforms.removeAll()
+            gageLightFitTransforms.removeAll()
+            jesseDarkFitTransforms.removeAll()
+            deanDarkFitTransforms.removeAll()
+            deanLightFitTransforms.removeAll()
+            kaiDarkFitTransforms.removeAll()
+            kaiLightFitTransforms.removeAll()
+            browserModel.allData.removeAll()
+            
+            Task { @MainActor in
+                do {
+                    print("Playing animation resources")
+                    
+                    if !gageDarkFitAnimationResource.isEmpty {
+                        let gageDarkFitController =  gageDarkFitEntity.playAnimation(try AnimationResource.sequence(with: gageDarkFitAnimationResource))
+                    }
+                    //
+                    //                    if !gageLightFitAnimationResource.isEmpty {
+                    //                        let gageLightFitController =  gageLightFitEntity.playAnimation(try AnimationResource.sequence(with: gageLightFitAnimationResource))
+                    //                    }
+                    //
+                    //                    if !jesseDarkFitAnimationResource.isEmpty {
+                    //                        let jesseDarkFitController =  jesseDarkFitEntity.playAnimation(try AnimationResource.sequence(with: jesseDarkFitAnimationResource))
+                    //                    }
+                    //
+                    //                    if !jesseLightFitAnimationResource.isEmpty {
+                    //                        let jesseLightFitController =  jesseLightFitEntity.playAnimation(try AnimationResource.sequence(with: jesseLightFitAnimationResource))
+                    //                    }
+                    
+                    //                    let deanDarkFitController =  deanDarkFitEntity.playAnimation(try AnimationResource.sequence(with: deanDarkFitAnimationResource))
+                    //                    deanDarkFitController.resume()
+                    
+                    //                    let deanLightFitController =  deanLightFitEntity.playAnimation(try AnimationResource.sequence(with: deanLightFitAnimationResource))
+                    //                    deanLightFitController.resume()
+                    
+                    //                    let kaiDarkFitController =  kaiDarkFitEntity.playAnimation(try AnimationResource.sequence(with: kaiDarkFitAnimationResource))
+                    //                    kaiDarkFitController.resume()
+                    //
+                    //                    let kaiLightFitController =  kaiLightFitEntity.playAnimation(try AnimationResource.sequence(with: kaiLightFitAnimationResource))
+                    //                    kaiLightFitController.resume()
+                    gageDarkFitAnimationResource.removeAll()
+//                    gageLightFitAnimationResource.removeAll()
+//                    jesseDarkFitAnimationResource.removeAll()
+//                    jesseLightFitAnimationResource.removeAll()
+                } catch {
+                    print(error)
+                }
+            }
         }
     }
 }
 
+
 #Preview {
     let model = NearbyServiceBrowserModel()
-    return ImmersiveView(browserModel: model)
+    return ImmersiveView(browserModel: model, playerModel: PlayerModel())
         .previewLayout(.sizeThatFits)
 }

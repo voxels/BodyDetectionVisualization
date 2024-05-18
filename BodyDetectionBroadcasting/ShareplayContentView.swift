@@ -17,6 +17,7 @@ struct ShareplayContentView: View {
 
     @ObservedObject var browserModel:NearbyServiceBrowserModel
     @ObservedObject var shareplayModel:ContentViewShareplayModel
+    public var playerModel:PlayerModel
     #if os(visionOS)
     @State private var showImmersiveSpace = false
     @State private var immersiveSpaceIsShown = false
@@ -32,6 +33,8 @@ struct ShareplayContentView: View {
                     for await dancingSession in DanceCoordinator.sessions() {
                         print("found coordinator session \(dancingSession.activity.id)")
                         shareplayModel.configureGroupSession(dancingSession)
+                        playerModel.player.playbackCoordinator.coordinateWithSession(dancingSession)
+                        playerModel.audioPlayer.playbackCoordinator.coordinateWithSession(dancingSession)
                     }
                 }
 
@@ -76,5 +79,5 @@ struct ShareplayContentView: View {
 #Preview() {
     let  model = NearbyServiceBrowserModel()
     let shareplayModel = ContentViewShareplayModel()
-    return ShareplayContentView(browserModel: model, shareplayModel: shareplayModel)
+    return ShareplayContentView(browserModel: model, shareplayModel: shareplayModel, playerModel: PlayerModel())
 }
