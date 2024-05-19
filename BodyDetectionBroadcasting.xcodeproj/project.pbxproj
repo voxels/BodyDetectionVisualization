@@ -24,7 +24,6 @@
 		1EC72AB22B98F0900040D73B /* NearbyShareplayBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC72AB12B98F0900040D73B /* NearbyShareplayBrowser.swift */; };
 		1EC72AB42B991DBE0040D73B /* ShareplayImmersiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC72AB32B991DBE0040D73B /* ShareplayImmersiveView.swift */; };
 		1EC72AB92B9B3E830040D73B /* ShareplayViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC72AB82B9B3E830040D73B /* ShareplayViewContainer.swift */; };
-		1EFE58D72BB87C8200FD70A0 /* dancefloor.mov in Resources */ = {isa = PBXBuildFile; fileRef = 1EFE58D62BB87C8200FD70A0 /* dancefloor.mov */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +65,6 @@
 		1EC72AB12B98F0900040D73B /* NearbyShareplayBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyShareplayBrowser.swift; sourceTree = "<group>"; };
 		1EC72AB32B991DBE0040D73B /* ShareplayImmersiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareplayImmersiveView.swift; sourceTree = "<group>"; };
 		1EC72AB82B9B3E830040D73B /* ShareplayViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareplayViewContainer.swift; sourceTree = "<group>"; };
-		1EFE58D62BB87C8200FD70A0 /* dancefloor.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = dancefloor.mov; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,7 +122,6 @@
 				1EC72AAB2B98EB760040D73B /* ContentViewShareplayModel.swift */,
 				1E095B762B7BA77E00147119 /* ImmersiveView.swift */,
 				1EC72AB32B991DBE0040D73B /* ShareplayImmersiveView.swift */,
-				1EFE58D62BB87C8200FD70A0 /* dancefloor.mov */,
 				1E9C49A42BAC633900D19E57 /* PlayerModel.swift */,
 				1E4C822D2B91FA95004F75B2 /* SessionManager.swift */,
 				1EC72AAD2B98EBC50040D73B /* JointData.swift */,
@@ -281,7 +278,6 @@
 			files = (
 				1E095B7C2B7BA77F00147119 /* Preview Assets.xcassets in Resources */,
 				1E095B792B7BA77F00147119 /* Assets.xcassets in Resources */,
-				1EFE58D72BB87C8200FD70A0 /* dancefloor.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

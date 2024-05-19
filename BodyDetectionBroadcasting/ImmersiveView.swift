@@ -198,9 +198,53 @@ struct ImmersiveView: View {
         .task {
             await sessionManager.processDeviceAnchorUpdates()
         }
-        .onChange(of: browserModel.displayLinkTimestamp, { oldValue, newValue in
-            update()
-        })
+        .task {
+            await sessionManager.run(function: update, withFrequency: 60)
+        }.onChange(of: browserModel.frameCount) { oldValue, newValue in
+            runAnimation()
+        }
+    }
+    
+    func runAnimation() {
+        Task { @MainActor in
+            do {
+                print("Playing animation resources")
+                
+                if !gageDarkFitAnimationResource.isEmpty {
+                    let gageDarkFitController =  gageDarkFitEntity?.playAnimation(try AnimationResource.sequence(with: gageDarkFitAnimationResource))
+                }
+//
+//                if !gageLightFitAnimationResource.isEmpty {
+//                    let gageLightFitController =  gageLightFitEntity?.playAnimation(try AnimationResource.sequence(with: gageLightFitAnimationResource))
+//                }
+//
+//                if !jesseDarkFitAnimationResource.isEmpty {
+//                    let jesseDarkFitController =  jesseDarkFitEntity?.playAnimation(try AnimationResource.sequence(with: jesseDarkFitAnimationResource))
+//                }
+//
+//                if !jesseLightFitAnimationResource.isEmpty {
+//                    let jesseLightFitController =  jesseLightFitEntity?.playAnimation(try AnimationResource.sequence(with: jesseLightFitAnimationResource))
+//                }
+
+                //                    let deanDarkFitController =  deanDarkFitEntity.playAnimation(try AnimationResource.sequence(with: deanDarkFitAnimationResource))
+                //                    deanDarkFitController.resume()
+                
+                //                    let deanLightFitController =  deanLightFitEntity.playAnimation(try AnimationResource.sequence(with: deanLightFitAnimationResource))
+                //                    deanLightFitController.resume()
+                
+                //                    let kaiDarkFitController =  kaiDarkFitEntity.playAnimation(try AnimationResource.sequence(with: kaiDarkFitAnimationResource))
+                //                    kaiDarkFitController.resume()
+                //
+                //                    let kaiLightFitController =  kaiLightFitEntity.playAnimation(try AnimationResource.sequence(with: kaiLightFitAnimationResource))
+                //                    kaiLightFitController.resume()
+                gageDarkFitAnimationResource.removeAll()
+//                    gageLightFitAnimationResource.removeAll()
+//                    jesseDarkFitAnimationResource.removeAll()
+//                    jesseLightFitAnimationResource.removeAll()
+            } catch {
+                print(error)
+            }
+        }
     }
     
     func update() {
@@ -226,9 +270,9 @@ struct ImmersiveView: View {
                         let jointData = nextJointData[key]!
 
                             for index in 0..<gageDarkFitEntity.jointTransforms.count {
-                                guard let nextModel = jointData.filter({ data in
+                                guard let nextModel = jointData.first(where: { data in
                                     return gageDarkFitEntity.jointNames[index].hasSuffix(data.d.name)
-                                }).first else {
+                                }) else {
                                     rawGageDarkFitTransforms.append(Transform(scale: gageDarkFitEntity.jointTransforms[index].scale, rotation:gageDarkFitEntity.jointTransforms[index].rotation, translation:gageDarkFitEntity.jointTransforms[index].translation))
                                     continue
                                 }
@@ -259,7 +303,7 @@ struct ImmersiveView: View {
 //                            }
 //                            jesseLightFitTransforms.append(rawJesseLightFitTransforms)
 //                        }
-//                        
+                        
 //                        Task { @MainActor in
 //                            for index in 0..<gageLightFitEntity.jointTransforms.count {
 //                                guard let nextModel = jointData.filter({ data in
@@ -277,8 +321,8 @@ struct ImmersiveView: View {
 //                            }
 //                            gageLightFitTransforms.append(rawGageLightFitTransforms)
 //                        }
-//                        
-//                        
+                        
+                        
 //                        Task { @MainActor in
 //                            for index in 0..<jesseDarkFitEntity.jointTransforms.count {
 //                                guard let nextModel = jointData.filter({ data in
@@ -502,46 +546,6 @@ struct ImmersiveView: View {
             kaiDarkFitTransforms.removeAll()
             kaiLightFitTransforms.removeAll()
             browserModel.allData.removeAll()
-            
-            Task { @MainActor in
-                do {
-                    print("Playing animation resources")
-                    
-                    if !gageDarkFitAnimationResource.isEmpty {
-                        let gageDarkFitController =  gageDarkFitEntity.playAnimation(try AnimationResource.sequence(with: gageDarkFitAnimationResource))
-                    }
-                    //
-                    //                    if !gageLightFitAnimationResource.isEmpty {
-                    //                        let gageLightFitController =  gageLightFitEntity.playAnimation(try AnimationResource.sequence(with: gageLightFitAnimationResource))
-                    //                    }
-                    //
-                    //                    if !jesseDarkFitAnimationResource.isEmpty {
-                    //                        let jesseDarkFitController =  jesseDarkFitEntity.playAnimation(try AnimationResource.sequence(with: jesseDarkFitAnimationResource))
-                    //                    }
-                    //
-                    //                    if !jesseLightFitAnimationResource.isEmpty {
-                    //                        let jesseLightFitController =  jesseLightFitEntity.playAnimation(try AnimationResource.sequence(with: jesseLightFitAnimationResource))
-                    //                    }
-                    
-                    //                    let deanDarkFitController =  deanDarkFitEntity.playAnimation(try AnimationResource.sequence(with: deanDarkFitAnimationResource))
-                    //                    deanDarkFitController.resume()
-                    
-                    //                    let deanLightFitController =  deanLightFitEntity.playAnimation(try AnimationResource.sequence(with: deanLightFitAnimationResource))
-                    //                    deanLightFitController.resume()
-                    
-                    //                    let kaiDarkFitController =  kaiDarkFitEntity.playAnimation(try AnimationResource.sequence(with: kaiDarkFitAnimationResource))
-                    //                    kaiDarkFitController.resume()
-                    //
-                    //                    let kaiLightFitController =  kaiLightFitEntity.playAnimation(try AnimationResource.sequence(with: kaiLightFitAnimationResource))
-                    //                    kaiLightFitController.resume()
-                    gageDarkFitAnimationResource.removeAll()
-//                    gageLightFitAnimationResource.removeAll()
-//                    jesseDarkFitAnimationResource.removeAll()
-//                    jesseLightFitAnimationResource.removeAll()
-                } catch {
-                    print(error)
-                }
-            }
         }
     }
 }
