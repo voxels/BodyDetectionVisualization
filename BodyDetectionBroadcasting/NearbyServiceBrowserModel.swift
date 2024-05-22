@@ -18,7 +18,14 @@ open class NearbyServiceBrowserModel :NSObject, ObservableObject {
     @Published public var isConnected:Bool = false
     public var jointRawData = [String:[[String:Any]]]()
     public var allData:[Data] = []
-    public var nextJointData:[JointData]?
+    public var firstJointData:[String:[JointData]]?
+    public var nextJointData:[String:[JointData]]? {
+        didSet {
+            if let nextJointData = nextJointData, firstJointData == nil {
+                firstJointData = nextJointData
+            }
+        }
+    }
     public var lastJointData:Data = Data()
     public var jointDataHistory:[[String:[JointData]]] = []
     @Published public var frameCount:Int = 0
@@ -118,12 +125,6 @@ extension NearbyServiceBrowserModel : MCSessionDelegate {
     public func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         //print("did receive data \(data)")
         allData.append(data)
-        Task { @MainActor in
-            countDataFrames += 1
-            if countDataFrames % 2 == 0 {
-                frameCount += 1
-            }
-        }
     }
     
     public func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {

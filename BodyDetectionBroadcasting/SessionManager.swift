@@ -196,8 +196,8 @@ open class SessionManager: ObservableObject {
 extension SessionManager {
     /// Run a given function at an approximate frequency.
     ///
-    /// > Note: This method doesn’t take into account the time it takes to run the given function itself.
-    @MainActor
+    /// > Note: This method doesn’t take into account the time it takes to run the given function itself
+    ///
     func run(function: () -> Void, withFrequency hz: UInt64) async {
         while true {
             if Task.isCancelled {

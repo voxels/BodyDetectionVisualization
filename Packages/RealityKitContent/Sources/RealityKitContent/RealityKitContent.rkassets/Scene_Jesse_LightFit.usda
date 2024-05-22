@@ -10,55 +10,163 @@
 
 def Xform "Root"
 {
-    def "jesse_lightfit" (
+    reorder nameChildren = ["jesse_lightfit_shaders", "jesse_lightfit"]
+    def "jesse_lightfit_shaders" (
         active = true
-        prepend references = @jesse_lightfit/jesse_lightfit.usdz@
+        references = @jesse_lightfit/jesse_lightfit_shaders.usdz@
     )
     {
+        reorder nameChildren = ["Materials", "Geom", "MaterialEx10_1"]
         float3 xformOp:scale = (1, 1, 1)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         over "Materials"
         {
-            over "Material_0"
+            reorder nameChildren = ["MaterialEx10_1", "MaterialEx10"]
+            def Material "MaterialEx10_1"
+            {
+                token outputs:mtlx:surface.connect = </Root/jesse_lightfit_shaders/Materials/MaterialEx10_1/PreviewSurface.outputs:out>
+                token outputs:realitykit:vertex
+                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (474.41406, 127.25781)
+                float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
+                int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 721
+
+                def Shader "PreviewSurface"
+                {
+                    uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                    float inputs:clearcoat
+                    float inputs:clearcoatRoughness
+                    color3f inputs:diffuseColor.connect = </Root/jesse_lightfit_shaders/Materials/MaterialEx10_1/RealitykitEnvironmentRadiance.outputs:specularRadiance>
+                    color3f inputs:emissiveColor.connect = </Root/jesse_lightfit_shaders/Materials/MaterialEx10_1/Image.outputs:out>
+                    float inputs:ior = 1.5
+                    float inputs:metallic.connect = </Root/jesse_lightfit_shaders/Materials/MaterialEx10_1/Image_2.outputs:out>
+                    float3 inputs:normal.connect = </Root/jesse_lightfit_shaders/Materials/MaterialEx10_1/Image_1.outputs:out>
+                    float inputs:occlusion = 1
+                    float inputs:opacity
+                    float inputs:roughness = 0
+                    token outputs:out
+                    float2 ui:nodegraph:node:pos = (306.96094, 242.53125)
+                    float2 ui:nodegraph:node:size = (159.5, 307)
+                    int ui:nodegraph:node:stackingOrder = 748
+                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["Advanced", "inputs:emissiveColor", "inputs:emissiveColor", "inputs:opacity", "inputs:normal"]
+                }
+
+                def Shader "SurfaceViewDirection"
+                {
+                    uniform token info:id = "ND_realitykit_surface_view_direction"
+                    float3 outputs:viewDirection
+                    float2 ui:nodegraph:node:pos = (-304.23584, 137.43224)
+                    float2 ui:nodegraph:node:size = (216.5, 81)
+                    int ui:nodegraph:node:stackingOrder = 721
+                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+                }
+
+                def Shader "RealitykitEnvironmentRadiance"
+                {
+                    uniform token info:id = "ND_realitykit_environment_radiance"
+                    color3f inputs:baseColor = (0, 0, 0) (
+                        colorSpace = "srgb_texture"
+                    )
+                    half inputs:metallic = 1.5
+                    float3 inputs:normal.connect = </Root/jesse_lightfit_shaders/Materials/MaterialEx10_1/Multiply_1.outputs:out>
+                    half inputs:roughness = 0
+                    half inputs:specular = 0
+                    color3f outputs:diffuseRadiance
+                    color3f outputs:specularRadiance
+                    float2 ui:nodegraph:node:pos = (23.535126, 128.4755)
+                    float2 ui:nodegraph:node:size = (244.5, 199)
+                    int ui:nodegraph:node:stackingOrder = 721
+                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:specular", "inputs:metallic", "inputs:metallic", "inputs:roughness", "inputs:roughness", "inputs:baseColor"]
+                }
+
+                def Shader "Multiply_1"
+                {
+                    uniform token info:id = "ND_multiply_vector3"
+                    float3 inputs:in1.connect = </Root/jesse_lightfit_shaders/Materials/MaterialEx10_1/SurfaceViewDirection.outputs:viewDirection>
+                    float3 inputs:in2 = (-1, -1, -1)
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-146.94885, 168.05429)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 721
+                }
+
+                def Shader "Image"
+                {
+                    uniform token info:id = "ND_image_color3"
+                    asset inputs:file = @jesse_lightfit/texgen_2.png@
+                    color3f outputs:out
+                    float2 ui:nodegraph:node:pos = (128.26562, 345.70703)
+                    float2 ui:nodegraph:node:size = (148.5, 199)
+                    int ui:nodegraph:node:stackingOrder = 745
+                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:file", "inputs:file", "inputs:file", "inputs:default", "inputs:texcoord", "inputs:uaddressmode"]
+                }
+
+                def Shader "Image_1"
+                {
+                    uniform token info:id = "ND_image_vector3"
+                    float3 inputs:default
+                    asset inputs:file = @jesse_lightfit/texgen_0.png@
+                    float2 inputs:texcoord
+                    string inputs:uaddressmode
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-73.19531, 325.83203)
+                    float2 ui:nodegraph:node:size = (148.5, 199)
+                    int ui:nodegraph:node:stackingOrder = 750
+                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:file"]
+                }
+
+                def Shader "Image_2"
+                {
+                    uniform token info:id = "ND_image_float"
+                    asset inputs:file = @jesse_lightfit/texgen_2_color.png@
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-250.44531, 335.82422)
+                    float2 ui:nodegraph:node:size = (148.5, 199)
+                    int ui:nodegraph:node:stackingOrder = 752
+                }
+            }
+
+            over "MaterialEx10"
             {
                 token outputs:mtlx:surface
                 token outputs:realitykit:vertex
+            }
+        }
 
-                over "surfaceShader"
+        over "Geom"
+        {
+            over "Root"
+            {
+                over "jesse_lightfit"
                 {
-                    color3f inputs:diffuseColor.connect = </Root/jesse_lightfit/Materials/Material_0/diffuseColor.outputs:rgb>
-                    delete float inputs:metallic.connect = </Root/jesse_lightfit/Materials/Material_0/metallic_roughness_occlusion_texture.outputs:b>
-                    float inputs:roughness.connect = </Root/jesse_lightfit/Materials/Material_0/roughness.outputs:r>
-                }
-
-                def Shader "diffuseColor"
-                {
-                    uniform token info:id = "UsdUVTexture"
-                    asset inputs:file = @jesse_lightfit/texgen_2.png@
-                    float2 inputs:st.connect = </Root/jesse_lightfit/Materials/Material_0/diffuseColor/TexCoordReader.outputs:result>
-                    color3f outputs:rgb
-
-                    def Shader "TexCoordReader"
+                    over "Geom_001"
                     {
-                        uniform token info:id = "UsdPrimvarReader_float2"
-                        token inputs:varname.connect = </Root/jesse_lightfit/Materials/Material_0/surfaceShader.inputs:frame:stPrimvarName>
-                        float2 outputs:result
-                    }
-                }
-
-                def Shader "roughness"
-                {
-                    uniform token info:id = "UsdUVTexture"
-                    asset inputs:file = @jesse_lightfit/texgen_1.png@
-                    float2 inputs:st.connect = </Root/jesse_lightfit/Materials/Material_0/roughness/TexCoordReader.outputs:result>
-                    float outputs:r
-
-                    def Shader "TexCoordReader"
-                    {
-                        uniform token info:id = "UsdPrimvarReader_float2"
-                        token inputs:varname.connect = </Root/jesse_lightfit/Materials/Material_0/surfaceShader.inputs:frame:stPrimvarName>
-                        float2 outputs:result
+                        over "biped_robot"
+                        {
+                            over "Geom"
+                            {
+                                over "biped_robot_ace"
+                                {
+                                    over "biped_robot_ace_skeleton"
+                                    {
+                                        over "Skeleton_93"
+                                        {
+                                            over "Skeleton_94"
+                                            {
+                                                over "Mesh_0_92_93" (
+                                                    prepend apiSchemas = ["MaterialBindingAPI"]
+                                                )
+                                                {
+                                                    rel material:binding = </Root/jesse_lightfit_shaders/Materials/MaterialEx10_1> (
+                                                        bindMaterialAs = "weakerThanDescendants"
+                                                    )
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

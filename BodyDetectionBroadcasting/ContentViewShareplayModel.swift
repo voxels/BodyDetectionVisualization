@@ -41,7 +41,7 @@ open class ContentViewShareplayModel: NSObject, ObservableObject {
     @Published public var lastSkeletonData:[String:SkeletonJointData]?
     private var decodeTask:Task<Void, Never>?
 
-    let skipFrames:Int = 3
+    let skipFrames:Int = 2
     public var frameCount:Int = 0
     public var displayLink:CADisplayLink!
     

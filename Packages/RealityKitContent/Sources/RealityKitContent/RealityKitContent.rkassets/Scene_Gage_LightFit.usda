@@ -10,100 +10,1181 @@
 
 def Xform "Root"
 {
-    def "gage_lightfit" (
+    reorder nameChildren = ["gage_lightfit_shaders", "gage_lightfit"]
+    def "gage_lightfit_shaders" (
         active = true
-        prepend references = @gage_lightfit/gage_lightfit.usdz@
+        references = @gage_lightfit/gage_lightfit_shaders.usdz@
     )
     {
+        reorder nameChildren = ["Materials", "Geom", "MaterialEx03_2", "MaterialEx03_3"]
         float3 xformOp:scale = (1, 1, 1)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         over "Materials"
         {
-            over "poly_0_001"
+            reorder nameChildren = ["MaterialEx03_1", "MaterialEx03", "MaterialEx03_2", "MaterialEx03_3"]
+            over "MaterialEx03"
             {
-                token inputs:frame:stPrimvarName = "st"
                 token outputs:mtlx:surface
                 token outputs:realitykit:vertex
+            }
 
-                over "surfaceShader"
+            over "MaterialEx03_1"
+            {
+                token outputs:mtlx:surface
+                token outputs:realitykit:vertex
+                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 109.5)
+                float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
+            }
+
+            def Material "MaterialEx03_2"
+            {
+                token outputs:mtlx:surface.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/PreviewSurface.outputs:out>
+                token outputs:realitykit:vertex
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:mtlx:surface"]
+                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1481.6837, -283.77017)
+                float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
+                int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1172
+
+                def Shader "PreviewSurface"
                 {
-                    color3f inputs:diffuseColor.connect = </Root/gage_lightfit/Materials/poly_0_001/diffuseColor.outputs:rgb>
-                    delete float inputs:metallic.connect = </Root/gage_lightfit/Materials/poly_0_001/metallic_roughness_texture.outputs:b>
-                    float inputs:roughness.connect = </Root/gage_lightfit/Materials/poly_0_001/roughness.outputs:r>
+                    uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                    float inputs:clearcoat
+                    float inputs:clearcoatRoughness
+                    color3f inputs:diffuseColor = (0, 0, 0) (
+                        colorSpace = "srgb_texture"
+                    )
+                    color3f inputs:diffuseColor.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Image.outputs:out>
+                    color3f inputs:emissiveColor.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Add_10.outputs:out>
+                    float inputs:ior
+                    float inputs:metallic.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Image_2.outputs:out>
+                    float3 inputs:normal
+                    float inputs:occlusion
+                    float inputs:opacity
+                    float inputs:opacityThreshold
+                    float inputs:roughness
+                    token outputs:out
+                    float2 ui:nodegraph:node:pos = (1178.6328, -325.32733)
+                    float2 ui:nodegraph:node:size = (159.5, 307)
+                    int ui:nodegraph:node:stackingOrder = 1176
+                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["Advanced"]
                 }
 
-                def Shader "diffuseColor"
+                def Shader "Position"
                 {
-                    uniform token info:id = "UsdUVTexture"
-                    asset inputs:file = @gage_lightfit/texgen_0.png@
-                    float2 inputs:st.connect = </Root/gage_lightfit/Materials/poly_0_001/diffuseColor/TexCoordReader.outputs:result>
-                    color3f outputs:rgb
-
-                    def Shader "TexCoordReader"
-                    {
-                        uniform token info:id = "UsdPrimvarReader_float2"
-                        token inputs:varname.connect = </Root/gage_lightfit/Materials/poly_0_001/surfaceShader.inputs:frame:stPrimvarName>
-                        float2 outputs:result
-                    }
+                    uniform token info:id = "ND_position_vector3"
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-2308.357, -468.90225)
+                    float2 ui:nodegraph:node:size = (133.5, 40)
+                    int ui:nodegraph:node:stackingOrder = 1156
                 }
 
-                def Shader "roughness"
+                def Shader "Multiply"
                 {
-                    uniform token info:id = "UsdUVTexture"
-                    asset inputs:file = @gage_lightfit/texgen_1.png@
-                    float2 inputs:st.connect = </Root/gage_lightfit/Materials/poly_0_001/roughness/TexCoordReader.outputs:result>
-                    float outputs:r
+                    uniform token info:id = "ND_multiply_vector3"
+                    float3 inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Position.outputs:out>
+                    float3 inputs:in2 = (2, 2, 2)
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-2181.1184, -463.85928)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
 
-                    def Shader "TexCoordReader"
-                    {
-                        uniform token info:id = "UsdPrimvarReader_float2"
-                        token inputs:varname.connect = </Root/gage_lightfit/Materials/poly_0_001/surfaceShader.inputs:frame:stPrimvarName>
-                        float2 outputs:result
-                    }
+                def Shader "Subtract"
+                {
+                    uniform token info:id = "ND_subtract_vector3"
+                    float3 inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Multiply.outputs:out>
+                    float3 inputs:in2 = (1, 1, 1)
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-2085.7395, -456.66788)
+                    float2 ui:nodegraph:node:size = (61.5, 36)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Separate3"
+                {
+                    uniform token info:id = "ND_separate3_vector3"
+                    float3 inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Subtract.outputs:out>
+                    float outputs:outx
+                    float outputs:outy
+                    float outputs:outz
+                    float2 ui:nodegraph:node:pos = (-1944.4467, -435.96085)
+                    float2 ui:nodegraph:node:size = (115.5, 145)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Multiply_1"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Separate3.outputs:outy>
+                    float inputs:in2 = -1
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-1833.0873, -390.78116)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "DotProduct"
+                {
+                    uniform token info:id = "ND_dotproduct_vector3"
+                    float3 inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Multiply_3.outputs:out>
+                    float3 inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Combine3_2.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-1421.6932, -401.15472)
+                    float2 ui:nodegraph:node:size = (153.5, 53)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Separate3_1"
+                {
+                    uniform token info:id = "ND_separate3_vector3"
+                    float3 inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Combine3_2.outputs:out>
+                    float outputs:outx
+                    float outputs:outy
+                    float outputs:outz
+                    float2 ui:nodegraph:node:pos = (-1428.0671, -268.73898)
+                    float2 ui:nodegraph:node:size = (127.5, 145)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Time"
+                {
+                    uniform token info:id = "ND_time_float"
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-1176.451, -27.902613)
+                    float2 ui:nodegraph:node:size = (122.5, 53)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Combine3_2"
+                {
+                    uniform token info:id = "ND_combine3_vector3"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Separate3.outputs:outx>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Multiply_1.outputs:out>
+                    float inputs:in3.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Separate3.outputs:outz>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-1697.6526, -391.81598)
+                    float2 ui:nodegraph:node:size = (160, 54)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Multiply_3"
+                {
+                    uniform token info:id = "ND_multiply_vector3"
+                    float3 inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Combine3_2.outputs:out>
+                    float3 inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Combine3_2.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-1548.4355, -453.48553)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Combine3"
+                {
+                    uniform token info:id = "ND_combine3_vector3"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Separate3_1.outputs:outx>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/DotProduct.outputs:out>
+                    float inputs:in3.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Separate3_1.outputs:outz>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-1186.776, -286.4197)
+                    float2 ui:nodegraph:node:size = (145, 54)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Multiply_2"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/DotProduct.outputs:out>
+                    float inputs:in2 = 1.7
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-1212.6207, -101.73837)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Multiply_4"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Separate3_1.outputs:outx>
+                    float inputs:in2 = 6.6
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-1209.4108, -156.2492)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Add"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Multiply_4.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Multiply_2.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-1103.2401, -124.96439)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Add_1"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Add.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Time.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-988.9852, -83.93218)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Sin"
+                {
+                    uniform token info:id = "ND_sin_float"
+                    float inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Add_1.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-853.9575, -84.05429)
+                    float2 ui:nodegraph:node:size = (116, 40)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Add_2"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Sin.outputs:out>
+                    float inputs:in2 = 1.25
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-744.78485, -74.53899)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Sin_1"
+                {
+                    uniform token info:id = "ND_sin_float"
+                    float inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Time.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-966.0246, 31.481512)
+                    float2 ui:nodegraph:node:size = (118, 53)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Multiply_5"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Sin_1.outputs:out>
+                    float inputs:in2 = 0.5
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-843.3569, 37.378826)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Add_3"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Multiply_5.outputs:out>
+                    float inputs:in2 = 0.5
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-747.6205, 45.591652)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Mix"
+                {
+                    uniform token info:id = "ND_mix_float"
+                    float inputs:bg = 0.29
+                    float inputs:fg = 0.15
+                    float inputs:mix.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Add_3.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-598.82635, 77.85503)
+                    float2 ui:nodegraph:node:size = (109, 145)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Add_4"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/DotProduct.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Time.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-639.7061, -378.78455)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Sin_2"
+                {
+                    uniform token info:id = "ND_sin_float"
+                    float inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Add_4.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-324.3655, -392.4941)
+                    float2 ui:nodegraph:node:size = (121.5, 53)
+                    int ui:nodegraph:node:stackingOrder = 801
+                }
+
+                def Shader "Multiply_6"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Sin_2.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Add_2.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-185.80374, -374.50598)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 804
+                }
+
+                def Shader "Add_5"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Multiply_6.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Separate3_1.outputs:outx>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-74.44253, -338.6048)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 808
+                }
+
+                def Shader "Sin_3"
+                {
+                    uniform token info:id = "ND_sin_float"
+                    float inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Add_5.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (45.05974, -325.05228)
+                    float2 ui:nodegraph:node:size = (121, 53)
+                    int ui:nodegraph:node:stackingOrder = 1002
+                }
+
+                def Shader "Divide"
+                {
+                    uniform token info:id = "ND_divide_float"
+                    float inputs:in1 = 1
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Sin_3.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (191.39406, -321.2786)
+                    float2 ui:nodegraph:node:size = (61.5, 36)
+                    int ui:nodegraph:node:stackingOrder = 814
+                }
+
+                def Shader "Absval"
+                {
+                    uniform token info:id = "ND_absval_float"
+                    float inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Divide.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (321.89664, -326.1305)
+                    float2 ui:nodegraph:node:size = (121.5, 53)
+                    int ui:nodegraph:node:stackingOrder = 819
+                }
+
+                def Shader "Multiply_7"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Absval.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Mix.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (450.44757, -318.55582)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1037
+                }
+
+                def Shader "Constant"
+                {
+                    uniform token info:id = "ND_constant_vector3"
+                    float3 inputs:value = (0.2, 0.03, 0.13)
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (437.41367, -409.5405)
+                    float2 ui:nodegraph:node:size = (154.5, 53)
+                    int ui:nodegraph:node:stackingOrder = 1184
+                }
+
+                def Shader "Multiply_8"
+                {
+                    uniform token info:id = "ND_multiply_vector3FA"
+                    float3 inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Constant.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Multiply_7.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (588.21094, -294.2896)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1047
+                }
+
+                def Shader "Convert"
+                {
+                    uniform token info:id = "ND_convert_vector3_color3"
+                    float3 inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Add_9.outputs:out>
+                    color3f outputs:out
+                    float2 ui:nodegraph:node:pos = (787.79224, -222.40971)
+                    float2 ui:nodegraph:node:size = (135.5, 40)
+                    int ui:nodegraph:node:stackingOrder = 1171
+                }
+
+                def Shader "Cos"
+                {
+                    uniform token info:id = "ND_cos_float"
+                    float inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Add_6.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-172.82372, 214.46198)
+                    float2 ui:nodegraph:node:size = (116, 40)
+                    int ui:nodegraph:node:stackingOrder = 916
+                }
+
+                def Shader "Add_6"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Add_4.outputs:out>
+                    float inputs:in2 = 1
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-293.83557, 215.0892)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 858
+                }
+
+                def Shader "Multiply_9"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Add_2.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Cos.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-58.83434, 187.27318)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 994
+                }
+
+                def Shader "Add_7"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Multiply_9.outputs:out>
+                    float inputs:in2 = 0.1
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (24.545166, 197.21382)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1001
+                }
+
+                def Shader "Sin_4"
+                {
+                    uniform token info:id = "ND_sin_float"
+                    float inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Add_8.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (218.97076, 142.49501)
+                    float2 ui:nodegraph:node:size = (121, 53)
+                    int ui:nodegraph:node:stackingOrder = 1007
+                }
+
+                def Shader "Add_8"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Separate3_1.outputs:outx>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Add_7.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (97.4476, 133.05994)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1010
+                }
+
+                def Shader "Divide_1"
+                {
+                    uniform token info:id = "ND_divide_float"
+                    float inputs:in1 = 1
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Sin_4.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (296.95773, 65.59648)
+                    float2 ui:nodegraph:node:size = (61.5, 36)
+                    int ui:nodegraph:node:stackingOrder = 1033
+                }
+
+                def Shader "Absval_1"
+                {
+                    uniform token info:id = "ND_absval_float"
+                    float inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Divide_1.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (420.39255, 64.768745)
+                    float2 ui:nodegraph:node:size = (134, 53)
+                    int ui:nodegraph:node:stackingOrder = 1036
+                }
+
+                def Shader "Multiply_10"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Mix.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Absval_1.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (544.162, 29.859432)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1040
+                }
+
+                def Shader "Constant_1"
+                {
+                    uniform token info:id = "ND_constant_vector3"
+                    float3 inputs:value = (0.4, 0.2, 0.15)
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (494.16016, -60.91585)
+                    float2 ui:nodegraph:node:size = (154.5, 53)
+                    int ui:nodegraph:node:stackingOrder = 1180
+                }
+
+                def Shader "Multiply_11"
+                {
+                    uniform token info:id = "ND_multiply_vector3FA"
+                    float3 inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Constant_1.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Multiply_10.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (641.5652, -15.011896)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1050
+                }
+
+                def Shader "Add_9"
+                {
+                    uniform token info:id = "ND_add_vector3"
+                    float3 inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Multiply_8.outputs:out>
+                    float3 inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Multiply_11.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (715.8569, -107.21965)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1053
+                }
+
+                def Shader "Image"
+                {
+                    uniform token info:id = "ND_image_color3"
+                    asset inputs:file = @gage_lightfit/texgen_2.png@
+                    color3f outputs:out
+                    float2 ui:nodegraph:node:pos = (753.65826, -441.6977)
+                    float2 ui:nodegraph:node:size = (148.5, 199)
+                    int ui:nodegraph:node:stackingOrder = 1170
+                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:uaddressmode"]
+                }
+
+                def Shader "Add_10"
+                {
+                    uniform token info:id = "ND_add_color3"
+                    color3f inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Convert.outputs:out>
+                    color3f inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2/Image_1.outputs:out>
+                    color3f outputs:out
+                    float2 ui:nodegraph:node:pos = (988.45233, -79.888466)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1178
+                }
+
+                def Shader "Image_1"
+                {
+                    uniform token info:id = "ND_image_color3"
+                    asset inputs:file = @gage_lightfit/texgen_2_color.png@
+                    color3f outputs:out
+                    float2 ui:nodegraph:node:pos = (784.64404, 70.12702)
+                    float2 ui:nodegraph:node:size = (148.5, 199)
+                    int ui:nodegraph:node:stackingOrder = 1179
+                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:file"]
+                }
+
+                def Shader "Image_2"
+                {
+                    uniform token info:id = "ND_image_float"
+                    asset inputs:file = @gage_lightfit/texgen_2_metal.png@
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (975.4517, -310.19635)
+                    float2 ui:nodegraph:node:size = (148.5, 199)
+                    int ui:nodegraph:node:stackingOrder = 1182
+                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:file"]
                 }
             }
 
-            over "poly_0"
+            def Material "MaterialEx03_3"
             {
-                token inputs:frame:stPrimvarName = "st"
-                token outputs:mtlx:surface
+                token outputs:mtlx:surface.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/PreviewSurface.outputs:out>
                 token outputs:realitykit:vertex
+                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1209.7546, -282.96652)
+                float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
+                int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1165
 
-                over "surfaceShader"
+                def Shader "PreviewSurface"
                 {
-                    color3f inputs:diffuseColor.connect = </Root/gage_lightfit/Materials/poly_0/diffuseColor.outputs:rgb>
-                    delete float inputs:metallic.connect = </Root/gage_lightfit/Materials/poly_0/metallic_roughness_texture.outputs:b>
-                    float inputs:roughness.connect = </Root/gage_lightfit/Materials/poly_0/roughness.outputs:r>
+                    uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                    float inputs:clearcoat
+                    float inputs:clearcoatRoughness
+                    color3f inputs:diffuseColor = (0, 0, 0) (
+                        colorSpace = "srgb_texture"
+                    )
+                    color3f inputs:diffuseColor.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Image.outputs:out>
+                    color3f inputs:emissiveColor.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Add_10.outputs:out>
+                    float inputs:ior
+                    float inputs:metallic.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Image_2.outputs:out>
+                    float3 inputs:normal
+                    float inputs:occlusion
+                    float inputs:opacity
+                    float inputs:opacityThreshold
+                    float inputs:roughness
+                    token outputs:out
+                    float2 ui:nodegraph:node:pos = (956.54443, -279.79474)
+                    float2 ui:nodegraph:node:size = (159.5, 307)
+                    int ui:nodegraph:node:stackingOrder = 1167
+                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["Advanced"]
                 }
 
-                def Shader "diffuseColor"
+                def Shader "Position"
                 {
-                    uniform token info:id = "UsdUVTexture"
-                    asset inputs:file = @gage_lightfit/texgen_2.png@
-                    float2 inputs:st.connect = </Root/gage_lightfit/Materials/poly_0/diffuseColor/TexCoordReader.outputs:result>
-                    color3f outputs:rgb
-
-                    def Shader "TexCoordReader"
-                    {
-                        uniform token info:id = "UsdPrimvarReader_float2"
-                        token inputs:varname.connect = </Root/gage_lightfit/Materials/poly_0/surfaceShader.inputs:frame:stPrimvarName>
-                        float2 outputs:result
-                    }
+                    uniform token info:id = "ND_position_vector3"
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-2308.357, -468.90225)
+                    float2 ui:nodegraph:node:size = (133.5, 40)
+                    int ui:nodegraph:node:stackingOrder = 1156
                 }
 
-                def Shader "roughness"
+                def Shader "Multiply"
                 {
-                    uniform token info:id = "UsdUVTexture"
-                    asset inputs:file = @gage_lightfit/texgen_3.png@
-                    float2 inputs:st.connect = </Root/gage_lightfit/Materials/poly_0/roughness/TexCoordReader.outputs:result>
-                    float outputs:r
+                    uniform token info:id = "ND_multiply_vector3"
+                    float3 inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Position.outputs:out>
+                    float3 inputs:in2 = (2, 2, 2)
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-2181.1184, -463.85928)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
 
-                    def Shader "TexCoordReader"
+                def Shader "Subtract"
+                {
+                    uniform token info:id = "ND_subtract_vector3"
+                    float3 inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Multiply.outputs:out>
+                    float3 inputs:in2 = (1, 1, 1)
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-2085.7395, -456.66788)
+                    float2 ui:nodegraph:node:size = (61.5, 36)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Separate3"
+                {
+                    uniform token info:id = "ND_separate3_vector3"
+                    float3 inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Subtract.outputs:out>
+                    float outputs:outx
+                    float outputs:outy
+                    float outputs:outz
+                    float2 ui:nodegraph:node:pos = (-1944.4467, -435.96085)
+                    float2 ui:nodegraph:node:size = (115.5, 145)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Multiply_1"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Separate3.outputs:outy>
+                    float inputs:in2 = -1
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-1833.0873, -390.78116)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "DotProduct"
+                {
+                    uniform token info:id = "ND_dotproduct_vector3"
+                    float3 inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Multiply_3.outputs:out>
+                    float3 inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Combine3_2.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-1421.6932, -401.15472)
+                    float2 ui:nodegraph:node:size = (153.5, 53)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Separate3_1"
+                {
+                    uniform token info:id = "ND_separate3_vector3"
+                    float3 inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Combine3_2.outputs:out>
+                    float outputs:outx
+                    float outputs:outy
+                    float outputs:outz
+                    float2 ui:nodegraph:node:pos = (-1428.0671, -268.73898)
+                    float2 ui:nodegraph:node:size = (127.5, 145)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Time"
+                {
+                    uniform token info:id = "ND_time_float"
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-1176.451, -27.902613)
+                    float2 ui:nodegraph:node:size = (122.5, 53)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Combine3_2"
+                {
+                    uniform token info:id = "ND_combine3_vector3"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Separate3.outputs:outx>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Multiply_1.outputs:out>
+                    float inputs:in3.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Separate3.outputs:outz>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-1697.6526, -391.81598)
+                    float2 ui:nodegraph:node:size = (160, 54)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Multiply_3"
+                {
+                    uniform token info:id = "ND_multiply_vector3"
+                    float3 inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Combine3_2.outputs:out>
+                    float3 inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Combine3_2.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-1548.4355, -453.48553)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Combine3"
+                {
+                    uniform token info:id = "ND_combine3_vector3"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Separate3_1.outputs:outx>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/DotProduct.outputs:out>
+                    float inputs:in3.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Separate3_1.outputs:outz>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-1186.776, -286.4197)
+                    float2 ui:nodegraph:node:size = (145, 54)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Multiply_2"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/DotProduct.outputs:out>
+                    float inputs:in2 = 1.7
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-1212.6207, -101.73837)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Multiply_4"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Separate3_1.outputs:outx>
+                    float inputs:in2 = 6.6
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-1209.4108, -156.2492)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Add"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Multiply_4.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Multiply_2.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-1103.2401, -124.96439)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Add_1"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Add.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Time.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-988.9852, -83.93218)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Sin"
+                {
+                    uniform token info:id = "ND_sin_float"
+                    float inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Add_1.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-853.9575, -84.05429)
+                    float2 ui:nodegraph:node:size = (116, 40)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Add_2"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Sin.outputs:out>
+                    float inputs:in2 = 1.25
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-744.78485, -74.53899)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Sin_1"
+                {
+                    uniform token info:id = "ND_sin_float"
+                    float inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Time.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-966.0246, 31.481512)
+                    float2 ui:nodegraph:node:size = (118, 53)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Multiply_5"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Sin_1.outputs:out>
+                    float inputs:in2 = 0.5
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-843.3569, 37.378826)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Add_3"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Multiply_5.outputs:out>
+                    float inputs:in2 = 0.5
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-747.6205, 45.591652)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Mix"
+                {
+                    uniform token info:id = "ND_mix_float"
+                    float inputs:bg = 0.29
+                    float inputs:fg = 0.15
+                    float inputs:mix.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Add_3.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-598.82635, 77.85503)
+                    float2 ui:nodegraph:node:size = (109, 145)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Add_4"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/DotProduct.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Time.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-639.7061, -378.78455)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1156
+                }
+
+                def Shader "Sin_2"
+                {
+                    uniform token info:id = "ND_sin_float"
+                    float inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Add_4.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-324.3655, -392.4941)
+                    float2 ui:nodegraph:node:size = (121.5, 53)
+                    int ui:nodegraph:node:stackingOrder = 801
+                }
+
+                def Shader "Multiply_6"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Sin_2.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Add_2.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-185.80374, -374.50598)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 804
+                }
+
+                def Shader "Add_5"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Multiply_6.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Separate3_1.outputs:outx>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-74.44253, -338.6048)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 808
+                }
+
+                def Shader "Sin_3"
+                {
+                    uniform token info:id = "ND_sin_float"
+                    float inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Add_5.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (45.05974, -325.05228)
+                    float2 ui:nodegraph:node:size = (121, 53)
+                    int ui:nodegraph:node:stackingOrder = 1002
+                }
+
+                def Shader "Divide"
+                {
+                    uniform token info:id = "ND_divide_float"
+                    float inputs:in1 = 1
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Sin_3.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (191.39406, -321.2786)
+                    float2 ui:nodegraph:node:size = (61.5, 36)
+                    int ui:nodegraph:node:stackingOrder = 814
+                }
+
+                def Shader "Absval"
+                {
+                    uniform token info:id = "ND_absval_float"
+                    float inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Divide.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (321.89664, -326.1305)
+                    float2 ui:nodegraph:node:size = (121.5, 53)
+                    int ui:nodegraph:node:stackingOrder = 819
+                }
+
+                def Shader "Multiply_7"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Absval.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Mix.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (450.44757, -318.55582)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1037
+                }
+
+                def Shader "Constant"
+                {
+                    uniform token info:id = "ND_constant_vector3"
+                    float3 inputs:value = (0.13, 0.02, 0.26)
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (437.41367, -409.5405)
+                    float2 ui:nodegraph:node:size = (154.5, 53)
+                    int ui:nodegraph:node:stackingOrder = 1172
+                }
+
+                def Shader "Multiply_8"
+                {
+                    uniform token info:id = "ND_multiply_vector3FA"
+                    float3 inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Constant.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Multiply_7.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (588.21094, -294.2896)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1047
+                }
+
+                def Shader "Convert"
+                {
+                    uniform token info:id = "ND_convert_vector3_color3"
+                    float3 inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Add_9.outputs:out>
+                    color3f outputs:out
+                    float2 ui:nodegraph:node:pos = (787.79224, -222.40971)
+                    float2 ui:nodegraph:node:size = (135.5, 40)
+                    int ui:nodegraph:node:stackingOrder = 1161
+                }
+
+                def Shader "Cos"
+                {
+                    uniform token info:id = "ND_cos_float"
+                    float inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Add_6.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-172.82372, 214.46198)
+                    float2 ui:nodegraph:node:size = (116, 40)
+                    int ui:nodegraph:node:stackingOrder = 916
+                }
+
+                def Shader "Add_6"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Add_4.outputs:out>
+                    float inputs:in2 = 1
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-293.83557, 215.0892)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 858
+                }
+
+                def Shader "Multiply_9"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Add_2.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Cos.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-58.83434, 187.27318)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 994
+                }
+
+                def Shader "Add_7"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Multiply_9.outputs:out>
+                    float inputs:in2 = 0.1
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (24.545166, 197.21382)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1001
+                }
+
+                def Shader "Sin_4"
+                {
+                    uniform token info:id = "ND_sin_float"
+                    float inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Add_8.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (218.97076, 142.49501)
+                    float2 ui:nodegraph:node:size = (121, 53)
+                    int ui:nodegraph:node:stackingOrder = 1007
+                }
+
+                def Shader "Add_8"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Separate3_1.outputs:outx>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Add_7.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (97.4476, 133.05994)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1010
+                }
+
+                def Shader "Divide_1"
+                {
+                    uniform token info:id = "ND_divide_float"
+                    float inputs:in1 = 1
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Sin_4.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (296.95773, 65.59648)
+                    float2 ui:nodegraph:node:size = (61.5, 36)
+                    int ui:nodegraph:node:stackingOrder = 1033
+                }
+
+                def Shader "Absval_1"
+                {
+                    uniform token info:id = "ND_absval_float"
+                    float inputs:in.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Divide_1.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (420.39255, 64.768745)
+                    float2 ui:nodegraph:node:size = (134, 53)
+                    int ui:nodegraph:node:stackingOrder = 1036
+                }
+
+                def Shader "Multiply_10"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Mix.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Absval_1.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (544.162, 29.859432)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1040
+                }
+
+                def Shader "Constant_1"
+                {
+                    uniform token info:id = "ND_constant_vector3"
+                    float3 inputs:value = (0.04, 0.01, 0.2)
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (494.16016, -60.91585)
+                    float2 ui:nodegraph:node:size = (154.5, 53)
+                    int ui:nodegraph:node:stackingOrder = 1171
+                }
+
+                def Shader "Multiply_11"
+                {
+                    uniform token info:id = "ND_multiply_vector3FA"
+                    float3 inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Constant_1.outputs:out>
+                    float inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Multiply_10.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (641.5652, -15.011896)
+                    float2 ui:nodegraph:node:size = (60, 36)
+                    int ui:nodegraph:node:stackingOrder = 1050
+                }
+
+                def Shader "Add_9"
+                {
+                    uniform token info:id = "ND_add_vector3"
+                    float3 inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Multiply_8.outputs:out>
+                    float3 inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Multiply_11.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (715.8569, -107.21965)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1053
+                }
+
+                def Shader "Image"
+                {
+                    uniform token info:id = "ND_image_color3"
+                    asset inputs:file = @gage_lightfit/texgen_0.png@
+                    color3f outputs:out
+                    float2 ui:nodegraph:node:pos = (753.65826, -441.6977)
+                    float2 ui:nodegraph:node:size = (148.5, 199)
+                    int ui:nodegraph:node:stackingOrder = 1173
+                }
+
+                def Shader "Add_10"
+                {
+                    uniform token info:id = "ND_add_color3"
+                    color3f inputs:in1.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Convert.outputs:out>
+                    color3f inputs:in2.connect = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3/Image_1.outputs:out>
+                    color3f outputs:out
+                    float2 ui:nodegraph:node:pos = (834.0318, -50.057167)
+                    float2 ui:nodegraph:node:size = (61.5, 36.5)
+                    int ui:nodegraph:node:stackingOrder = 1174
+                }
+
+                def Shader "Image_1"
+                {
+                    uniform token info:id = "ND_image_color3"
+                    asset inputs:file = @gage_lightfit/texgen_0_color.png@
+                    color3f outputs:out
+                    float2 ui:nodegraph:node:pos = (781.9637, 51.3397)
+                    float2 ui:nodegraph:node:size = (148.5, 199)
+                    int ui:nodegraph:node:stackingOrder = 1175
+                }
+
+                def Shader "Image_2"
+                {
+                    uniform token info:id = "ND_image_float"
+                    asset inputs:file = @gage_lightfit/texgen_0_metal.png@
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (769.64343, -312.43222)
+                    float2 ui:nodegraph:node:size = (148.5, 199)
+                    int ui:nodegraph:node:stackingOrder = 1177
+                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:default"]
+                }
+            }
+        }
+
+        over "Geom"
+        {
+            over "Root"
+            {
+                over "gage_lightfit"
+                {
+                    over "Geom_001"
                     {
-                        uniform token info:id = "UsdPrimvarReader_float2"
-                        token inputs:varname.connect = </Root/gage_lightfit/Materials/poly_0/surfaceShader.inputs:frame:stPrimvarName>
-                        float2 outputs:result
+                        over "biped_robot"
+                        {
+                            over "Geom"
+                            {
+                                over "biped_robot_ace"
+                                {
+                                    over "biped_robot_ace_skeleton"
+                                    {
+                                        over "Skeleton_92"
+                                        {
+                                            over "Skeleton_94"
+                                            {
+                                                over "primitive_0_92"
+                                                {
+                                                    over "primitive_0" (
+                                                        prepend apiSchemas = ["MaterialBindingAPI"]
+                                                    )
+                                                    {
+                                                        rel material:binding = </Root/gage_lightfit_shaders/Materials/MaterialEx03_3> (
+                                                            bindMaterialAs = "weakerThanDescendants"
+                                                        )
+                                                    }
+
+                                                    over "primitive_1" (
+                                                        prepend apiSchemas = ["MaterialBindingAPI"]
+                                                    )
+                                                    {
+                                                        rel material:binding = </Root/gage_lightfit_shaders/Materials/MaterialEx03_2> (
+                                                            bindMaterialAs = "weakerThanDescendants"
+                                                        )
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
