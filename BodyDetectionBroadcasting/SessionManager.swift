@@ -172,13 +172,14 @@ open class SessionManager: ObservableObject {
 
 
     @MainActor
-    private func updateDevicePlacementLocation(_ deviceAnchor: DeviceAnchor) async {
-        deviceLocation.transform = Transform(matrix: deviceAnchor.originFromAnchorTransform)
-        
+    private func updateDevicePlacementLocation(_ deviceAnchor: DeviceAnchor) async
+    {
         if deviceOrigin.name.isEmpty {
             deviceOrigin.transform = Transform(matrix:deviceAnchor.originFromAnchorTransform)
             deviceOrigin.name = "deviceOrigin"
         }
+        
+        deviceLocation.transform = Transform(matrix: deviceAnchor.originFromAnchorTransform)
     }
 
     @MainActor

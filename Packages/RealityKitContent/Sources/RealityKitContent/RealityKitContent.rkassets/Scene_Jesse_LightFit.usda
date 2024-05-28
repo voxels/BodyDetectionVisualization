@@ -10,22 +10,21 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["jesse_lightfit_shaders", "jesse_lightfit"]
-    def "jesse_lightfit_shaders" (
+    reorder nameChildren = ["jesse_lightfit", "jesse_lightfit_shaders"]
+    def "jesse_lightfit" (
         active = true
-        references = @jesse_lightfit/jesse_lightfit_shaders.usdz@
+        references = @jesse_lightfit/jesse_lightfit.usdz@
     )
     {
-        reorder nameChildren = ["Materials", "Geom", "MaterialEx10_1"]
         float3 xformOp:scale = (1, 1, 1)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         over "Materials"
         {
-            reorder nameChildren = ["MaterialEx10_1", "MaterialEx10"]
+            reorder nameChildren = ["MaterialEx10_1", "defaultMat_001"]
             def Material "MaterialEx10_1"
             {
-                token outputs:mtlx:surface.connect = </Root/jesse_lightfit_shaders/Materials/MaterialEx10_1/PreviewSurface.outputs:out>
+                token outputs:mtlx:surface.connect = </Root/jesse_lightfit/Materials/MaterialEx10_1/PreviewSurface.outputs:out>
                 token outputs:realitykit:vertex
                 float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (474.41406, 127.25781)
                 float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
@@ -36,11 +35,11 @@ def Xform "Root"
                     uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
                     float inputs:clearcoat
                     float inputs:clearcoatRoughness
-                    color3f inputs:diffuseColor.connect = </Root/jesse_lightfit_shaders/Materials/MaterialEx10_1/RealitykitEnvironmentRadiance.outputs:specularRadiance>
-                    color3f inputs:emissiveColor.connect = </Root/jesse_lightfit_shaders/Materials/MaterialEx10_1/Image.outputs:out>
+                    color3f inputs:diffuseColor.connect = </Root/jesse_lightfit/Materials/MaterialEx10_1/RealitykitEnvironmentRadiance.outputs:specularRadiance>
+                    color3f inputs:emissiveColor.connect = </Root/jesse_lightfit/Materials/MaterialEx10_1/Image.outputs:out>
                     float inputs:ior = 1.5
-                    float inputs:metallic.connect = </Root/jesse_lightfit_shaders/Materials/MaterialEx10_1/Image_2.outputs:out>
-                    float3 inputs:normal.connect = </Root/jesse_lightfit_shaders/Materials/MaterialEx10_1/Image_1.outputs:out>
+                    float inputs:metallic
+                    float3 inputs:normal
                     float inputs:occlusion = 1
                     float inputs:opacity
                     float inputs:roughness = 0
@@ -68,7 +67,7 @@ def Xform "Root"
                         colorSpace = "srgb_texture"
                     )
                     half inputs:metallic = 1.5
-                    float3 inputs:normal.connect = </Root/jesse_lightfit_shaders/Materials/MaterialEx10_1/Multiply_1.outputs:out>
+                    float3 inputs:normal.connect = </Root/jesse_lightfit/Materials/MaterialEx10_1/Multiply_1.outputs:out>
                     half inputs:roughness = 0
                     half inputs:specular = 0
                     color3f outputs:diffuseRadiance
@@ -82,7 +81,7 @@ def Xform "Root"
                 def Shader "Multiply_1"
                 {
                     uniform token info:id = "ND_multiply_vector3"
-                    float3 inputs:in1.connect = </Root/jesse_lightfit_shaders/Materials/MaterialEx10_1/SurfaceViewDirection.outputs:viewDirection>
+                    float3 inputs:in1.connect = </Root/jesse_lightfit/Materials/MaterialEx10_1/SurfaceViewDirection.outputs:viewDirection>
                     float3 inputs:in2 = (-1, -1, -1)
                     float3 outputs:out
                     float2 ui:nodegraph:node:pos = (-146.94885, 168.05429)
@@ -93,78 +92,33 @@ def Xform "Root"
                 def Shader "Image"
                 {
                     uniform token info:id = "ND_image_color3"
-                    asset inputs:file = @jesse_lightfit/texgen_2.png@
+                    asset inputs:file = @jesse_lightfit/texgen_0.png@
                     color3f outputs:out
                     float2 ui:nodegraph:node:pos = (128.26562, 345.70703)
                     float2 ui:nodegraph:node:size = (148.5, 199)
-                    int ui:nodegraph:node:stackingOrder = 745
+                    int ui:nodegraph:node:stackingOrder = 754
                     string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:file", "inputs:file", "inputs:file", "inputs:default", "inputs:texcoord", "inputs:uaddressmode"]
                 }
-
-                def Shader "Image_1"
-                {
-                    uniform token info:id = "ND_image_vector3"
-                    float3 inputs:default
-                    asset inputs:file = @jesse_lightfit/texgen_0.png@
-                    float2 inputs:texcoord
-                    string inputs:uaddressmode
-                    float3 outputs:out
-                    float2 ui:nodegraph:node:pos = (-73.19531, 325.83203)
-                    float2 ui:nodegraph:node:size = (148.5, 199)
-                    int ui:nodegraph:node:stackingOrder = 750
-                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:file"]
-                }
-
-                def Shader "Image_2"
-                {
-                    uniform token info:id = "ND_image_float"
-                    asset inputs:file = @jesse_lightfit/texgen_2_color.png@
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (-250.44531, 335.82422)
-                    float2 ui:nodegraph:node:size = (148.5, 199)
-                    int ui:nodegraph:node:stackingOrder = 752
-                }
-            }
-
-            over "MaterialEx10"
-            {
-                token outputs:mtlx:surface
-                token outputs:realitykit:vertex
             }
         }
 
         over "Geom"
         {
-            over "Root"
+            over "biped_robot_ace"
             {
-                over "jesse_lightfit"
+                over "biped_robot_ace_skeleton"
                 {
-                    over "Geom_001"
+                    over "root"
                     {
-                        over "biped_robot"
+                        over "hips_joint_92"
                         {
-                            over "Geom"
+                            over "jesse_zbrush_93" (
+                                prepend apiSchemas = ["MaterialBindingAPI"]
+                            )
                             {
-                                over "biped_robot_ace"
-                                {
-                                    over "biped_robot_ace_skeleton"
-                                    {
-                                        over "Skeleton_93"
-                                        {
-                                            over "Skeleton_94"
-                                            {
-                                                over "Mesh_0_92_93" (
-                                                    prepend apiSchemas = ["MaterialBindingAPI"]
-                                                )
-                                                {
-                                                    rel material:binding = </Root/jesse_lightfit_shaders/Materials/MaterialEx10_1> (
-                                                        bindMaterialAs = "weakerThanDescendants"
-                                                    )
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                rel material:binding = </Root/jesse_lightfit/Materials/MaterialEx10_1> (
+                                    bindMaterialAs = "weakerThanDescendants"
+                                )
                             }
                         }
                     }
