@@ -28,6 +28,7 @@ struct ImmersiveView: View {
     @State private var jesseLightFitEntity: ModelEntity?
     @State private var deanLightFitEntity:ModelEntity?
     @State private var deanDarkFitEntity:ModelEntity?
+    
     @State private var characterOffset: SIMD3<Float> = [0, 0.94, 0] // Offset the character by one meter to the left
     @State private var characterOrder:[String] = [String]()
     @State private var characterAnchor = AnchorEntity()
@@ -51,14 +52,14 @@ struct ImmersiveView: View {
     @State private var floorModel:ModelEntity?
     @State private var displayedFrameCount = 0
     
-    @State private var gageDarkFitAnimationResource:[AnimationResource] = []
-    @State private var gageLightFitAnimationResource:[AnimationResource] = []
-    @State private var jesseDarkFitAnimationResource:[AnimationResource] = []
-    @State private var jesseLightFitAnimationResource:[AnimationResource] = []
-    @State private var deanDarkFitAnimationResource:[AnimationResource] = []
-    @State private var deanLightFitAnimationResource:[AnimationResource] = []
-    @State private var kaiDarkFitAnimationResource:[AnimationResource] = []
-    @State private var kaiLightFitAnimationResource:[AnimationResource] = []
+    @State private var gageDarkFitAnimationResource:AnimationResource?
+    @State private var gageLightFitAnimationResource:AnimationResource?
+    @State private var jesseDarkFitAnimationResource:AnimationResource?
+    @State private var jesseLightFitAnimationResource:AnimationResource?
+    @State private var deanDarkFitAnimationResource:AnimationResource?
+    @State private var deanLightFitAnimationResource:AnimationResource?
+    @State private var kaiDarkFitAnimationResource:AnimationResource?
+    @State private var kaiLightFitAnimationResource:AnimationResource?
     
     
     @State private var gageDarkFitTransforms = [[Transform]]()
@@ -97,7 +98,7 @@ struct ImmersiveView: View {
                 if selectedFit == .GageDarkFit {
                     let gageDarkFitScene = try await Entity(named: "Scene_Gage_DarkFit", in: realityKitContentBundle)
                     print(gageDarkFitScene)
-                    if let model = gageDarkFitScene.findEntity(named: "Skeleton_92") as? ModelEntity {
+                    if let model = gageDarkFitScene.findEntity(named: "hips_joint_90") as? ModelEntity {
                         //print(model.name)
                         print("Found skeleton")
                         gageDarkFitEntity = model
@@ -110,7 +111,7 @@ struct ImmersiveView: View {
                 {
                     let jesseDarkFitScene = try await Entity(named: "Scene_Jesse_DarkFit", in: realityKitContentBundle)
                     print(jesseDarkFitScene)
-                    if let model = jesseDarkFitScene.findEntity(named: "Skeleton_95") as? ModelEntity {
+                    if let model = jesseDarkFitScene.findEntity(named: "hips_joint_90") as? ModelEntity {
                         //print(model.name)
                         print("Found skeleton")
                         jesseDarkFitEntity = model
@@ -122,7 +123,7 @@ struct ImmersiveView: View {
                 if selectedFit == .JesseLightFit {
                     let jesseLightFitScene = try await Entity(named: "Scene_Jesse_LightFit", in: realityKitContentBundle)
                     print(jesseLightFitScene)
-                    if let model = jesseLightFitScene.findEntity(named: "hips_joint_92") as? ModelEntity {
+                    if let model = jesseLightFitScene.findEntity(named: "hips_joint_90") as? ModelEntity {
                         //print(model.name)
                         print("Found skeleton")
                         jesseLightFitEntity = model
@@ -146,7 +147,7 @@ struct ImmersiveView: View {
                 if selectedFit == .DeanLightFit {
                     let deanLightFitScene = try await Entity(named: "Scene_Dean_LightFit", in: realityKitContentBundle)
                     print(deanLightFitScene)
-                    if let model = deanLightFitScene.findEntity(named: "hips_joint_93") as? ModelEntity {
+                    if let model = deanLightFitScene.findEntity(named: "hips_joint_90") as? ModelEntity {
                         //print(model.name)
                         print("Found skeleton")
                         deanLightFitEntity = model
@@ -158,7 +159,7 @@ struct ImmersiveView: View {
                 if selectedFit == .DeanDarkFit {
                     let deanDarkFitScene = try await Entity(named: "Scene_Dean_DarkFit", in: realityKitContentBundle)
                     print(deanDarkFitScene)
-                    if let model = deanDarkFitScene.findEntity(named: "hips_joint_93") as? ModelEntity {
+                    if let model = deanDarkFitScene.findEntity(named: "hips_joint_90") as? ModelEntity {
                         //print(model.name)
                         print("Found skeleton")
                         deanDarkFitEntity = model
@@ -198,17 +199,30 @@ struct ImmersiveView: View {
                     return
                 }
                 domeEntity = sphereModel
-                let videoMaterial = VideoMaterial(avPlayer: playerModel.player)
-                domeEntity?.model?.materials = [videoMaterial]
+//                let videoMaterial = VideoMaterial(avPlayer: playerModel.player)
+//                domeEntity?.model?.materials = [videoMaterial]
                 //scene.addChild(domeEntity!)
             } catch {
                 print(error)
             }
         }
+        .task {
+            browserModel.fitSelected = selectedFit != nil
+        }
+        .onChange(of: selectedFit, { oldValue, newValue in
+            if newValue != nil {
+                browserModel.fitSelected = true
+            } else {
+                browserModel.fitSelected = false
+            }
+        })
         .onChange(of: isPaused, { oldValue, newValue in
             if newValue{
                 browserModel.firstJointData = nil
             }
+        })
+        .onChange(of: browserModel.frameCount, { oldValue, newValue in
+            updateEntities()
         })
         .task {
             // Monitors changes in authorization. For example, the user may revoke authorization in Settings.
@@ -222,87 +236,52 @@ struct ImmersiveView: View {
         .task {
             await sessionManager.processDeviceAnchorUpdates()
         }
-        .task {
-            await sessionManager.run(function: updateParticles, withFrequency: 60)
-        }
-        .task(priority: .high) {
-            await sessionManager.run(function: update, withFrequency: 60)
-        }
-        .task(priority: .high) {
-            await sessionManager.run(function: updateAnchors, withFrequency: 30)
-        }
-        .task(priority: .high) {
-            await sessionManager.run(function: updateDarkFitGage, withFrequency: 30)
-        }
-        .task(priority: .high, {
-            await sessionManager.run(function: updateLightFitGage, withFrequency: 30)
-        })
-        .task(priority: .high, {
-            await sessionManager.run(function: updateJesseLightFit, withFrequency: 30)
-        })
-        .task(priority: .high, {
-            await sessionManager.run(function: updateJesseDarkFit, withFrequency: 30)
-        })
-        .task(priority: .high, {
-            await sessionManager.run(function: updateDeanLightFit, withFrequency: 30)
-        })
-        .task(priority: .high, {
-            await sessionManager.run(function: updateDeanDarkFit, withFrequency: 30)
-        })
-        .task(priority: .userInitiated) {
-            await sessionManager.run(function: runAnimation, withFrequency:30)
-        }
     }
     
     
     func updateJesseLightFit() {
-        guard let jesseLightFitEntity = jesseLightFitEntity, let nextJointData = browserModel.nextJointData, !isPaused, selectedFit == .JesseLightFit else {
+        guard let jesseLightFitEntity = jesseLightFitEntity, let nextJointData = browserModel.nextJointData,  !isPaused, selectedFit == .JesseLightFit else {
             return
         }
         
-        var rawJesseLightFitTransforms = [Transform]()
+        var rawJesseLightFitTransforms = Array(repeating: Transform(), count: jesseLightFitEntity.jointNames.count)
         
         guard let _ = nextJointData.keys.first else {
             return
         }
         
         for key in [nextJointData.keys.first!] {
-            print("Joints count: \(nextJointData[key]!.count) for \(key)")
+//            print("Joints count: \(nextJointData[key]!.count) for \(key)")
             let jointData = nextJointData[key]!
-            
-            
-            for index in 0..<jesseLightFitEntity.jointTransforms.count {
-                guard let nextModel = jointData.filter({ data in
-                    return jesseLightFitEntity.jointNames[index].hasSuffix(data.d.name)
-                }).first else {
-                    rawJesseLightFitTransforms.append(Transform(scale:jesseLightFitEntity.jointTransforms[index].scale, rotation:jesseLightFitEntity.jointTransforms[index].rotation, translation:jesseLightFitEntity.jointTransforms[index].translation))
+//            print(jointData.count)
+            for joint in jointData {
+//                print(joint.d.i)
+//                print(joint.d.name)
+                guard let index = jesseLightFitEntity.jointNames.firstIndex(where: { data in
+                    data.hasSuffix(joint.d.name)
+                }) else {
+//                    print("Missing joint: \(joint.d.name)")
                     continue
-                    
                 }
+
+                let nextModel = joint
+//                print(index)
+//                print(jesseLightFitEntity.jointNames[index])
+//                print()
+
                 let nextTranslation =  nextModel.translation
                 let nextRotation = nextModel.orientation
                 
-                
-                rawJesseLightFitTransforms.append(Transform(scale: nextModel.scale, rotation:nextRotation, translation:nextTranslation))
-                
+                rawJesseLightFitTransforms[index] = Transform(scale: nextModel.scale, rotation:nextRotation, translation:nextTranslation)
             }
-            jesseLightFitTransforms.append(rawJesseLightFitTransforms)
-        }
-        
-        print("Jesse light fit transforms count: \(jesseLightFitTransforms.count)")
-        if !jesseLightFitTransforms.isEmpty {
-            let firstIndex = 0
-            let secondIndex = jesseLightFitTransforms.count > 1 ? 1 : 0
-            
-            let animation = FromToByAnimation(jointNames: jesseLightFitEntity.jointNames,name:UUID().uuidString, from:JointTransforms(jesseLightFitEntity.jointTransforms), to:JointTransforms(jesseLightFitTransforms[secondIndex]), by:JointTransforms(jesseLightFitTransforms[firstIndex]), duration:browserModel.frameDuration * Double(browserModel.skipFrames), isAdditive: false, bindTarget: .jointTransforms, blendLayer:100, fillMode: .forwards )
+                        
+            let animation = FromToByAnimation(jointNames:jesseLightFitEntity.jointNames,name:UUID().uuidString,  to:JointTransforms(rawJesseLightFitTransforms),  duration:browserModel.frameDuration, isAdditive: false, bindTarget: .jointTransforms, blendLayer:0, fillMode: .forwards )
             do {
-                jesseLightFitAnimationResource.append(try AnimationResource.generate(with: AnimationView(source: animation)))
+                jesseLightFitEntity.playAnimation(try AnimationResource.generate(with: animation))
             } catch {
                 print(error)
             }
-            
         }
-        jesseLightFitTransforms.removeAll()
     }
     
     
@@ -345,7 +324,7 @@ struct ImmersiveView: View {
                 
                 let animation = FromToByAnimation(jointNames: jesseDarkFitEntity.jointNames,name:UUID().uuidString, from:JointTransforms(jesseDarkFitEntity.jointTransforms), to:JointTransforms(jesseDarkFitTransforms[secondIndex]), by:JointTransforms(jesseDarkFitTransforms[firstIndex]), duration:browserModel.frameDuration * Double(browserModel.skipFrames), isAdditive: false, bindTarget: .jointTransforms, blendLayer:0, fillMode: .forwards )
                 do {
-                    jesseDarkFitAnimationResource.append(try AnimationResource.generate(with: AnimationView(source: animation)))
+                    jesseDarkFitAnimationResource = try AnimationResource.generate(with: AnimationView(source: animation))
                 } catch {
                     print(error)
                 }
@@ -398,7 +377,7 @@ struct ImmersiveView: View {
             
             let animation = FromToByAnimation(jointNames: deanLightFitEntity.jointNames,name:UUID().uuidString, from:JointTransforms(deanLightFitEntity.jointTransforms), to:JointTransforms(deanLightFitTransforms[secondIndex]), by:JointTransforms(deanLightFitTransforms[firstIndex]), duration:browserModel.frameDuration * Double(browserModel.skipFrames), isAdditive: false, bindTarget: .jointTransforms, blendLayer:100, fillMode: .forwards )
             do {
-                deanLightFitAnimationResource.append(try AnimationResource.generate(with: AnimationView(source: animation)))
+                deanLightFitAnimationResource = try AnimationResource.generate(with: AnimationView(source: animation))
             } catch {
                 print(error)
             }
@@ -448,7 +427,7 @@ struct ImmersiveView: View {
                 
                 let animation = FromToByAnimation(jointNames: deanDarkFitEntity.jointNames,name:UUID().uuidString, from:JointTransforms(deanDarkFitEntity.jointTransforms), to:JointTransforms(deanDarkFitTransforms[secondIndex]), by:JointTransforms(deanDarkFitTransforms[firstIndex]), duration:browserModel.frameDuration * Double(browserModel.skipFrames), isAdditive: false, bindTarget: .jointTransforms, blendLayer:0, fillMode: .forwards )
                 do {
-                    deanDarkFitAnimationResource.append(try AnimationResource.generate(with: AnimationView(source: animation)))
+                    deanDarkFitAnimationResource = try AnimationResource.generate(with: AnimationView(source: animation))
                 } catch {
                     print(error)
                 }
@@ -492,9 +471,9 @@ struct ImmersiveView: View {
         if !gageDarkFitTransforms.isEmpty {
             let firstIndex = 0
             let secondIndex = gageDarkFitTransforms.count > 1 ? 1 : 0
-            let animation = FromToByAnimation(jointNames: gageDarkFitEntity.jointNames,name:UUID().uuidString, from:JointTransforms(gageDarkFitEntity.jointTransforms), to:JointTransforms(gageDarkFitTransforms[secondIndex]), by:JointTransforms(gageDarkFitTransforms[firstIndex]), duration:browserModel.frameDuration * Double(browserModel.skipFrames), isAdditive: false, bindTarget: .jointTransforms, blendLayer:0, fillMode: .forwards )
+            let animation = FromToByAnimation(jointNames: gageDarkFitEntity.jointNames,name:UUID().uuidString, from:JointTransforms(gageDarkFitTransforms[firstIndex]), to:JointTransforms(gageDarkFitTransforms[secondIndex]), duration:browserModel.frameDuration * Double(browserModel.skipFrames), isAdditive: false, bindTarget: .jointTransforms, blendLayer:0, fillMode: .forwards )
             do {
-                gageDarkFitAnimationResource.append(try AnimationResource.generate(with: AnimationView(source: animation)))
+                gageDarkFitAnimationResource = try AnimationResource.generate(with: AnimationView(source: animation))
             } catch {
                 print(error)
             }
@@ -505,7 +484,6 @@ struct ImmersiveView: View {
     }
     
     func updateLightFitGage() {
-        
         guard let gageLightFitEntity = gageLightFitEntity, let nextJointData = browserModel.nextJointData, !isPaused, selectedFit == .GageLightFit else {
             return
         }
@@ -541,9 +519,9 @@ struct ImmersiveView: View {
                 let firstIndex = 0
                 let secondIndex = gageLightFitTransforms.count > 1 ? 1 : 0
                 
-                let animation = FromToByAnimation(jointNames: gageLightFitEntity.jointNames,name:UUID().uuidString, from:JointTransforms(gageLightFitEntity.jointTransforms), to:JointTransforms(gageLightFitTransforms[secondIndex]), by:JointTransforms(gageLightFitTransforms[firstIndex]), duration:browserModel.frameDuration * Double(browserModel.skipFrames),  isAdditive: false, bindTarget: .jointTransforms, blendLayer:0, fillMode: .forwards )
+                let animation = FromToByAnimation(jointNames: gageLightFitEntity.jointNames,name:UUID().uuidString, from:JointTransforms(gageLightFitTransforms[firstIndex]), to:JointTransforms(gageLightFitTransforms[secondIndex]),  duration:browserModel.frameDuration * Double(browserModel.skipFrames),  isAdditive: false, bindTarget: .jointTransforms, blendLayer:0, fillMode: .forwards )
                 do {
-                    gageLightFitAnimationResource.append(try AnimationResource.generate(with: AnimationView(source: animation)))
+                    gageLightFitAnimationResource = try AnimationResource.generate(with: AnimationView(source: animation))
                 } catch {
                     print(error)
                 }
@@ -577,71 +555,58 @@ struct ImmersiveView: View {
                 
                 let transform = Transform(scale: SIMD3(1,1,1), rotation:nextRotation, translation:nextTranslation)
                 
-                let radiusScale:Float = 0.85
+                let radiusScale:Float = 0.75
+                let rotationAngle:Float = 0
                 
                 if selectedFit == .GageDarkFit {
-                    Task { @MainActor in
-                        gageDarkFitAnchor.transform.translation.x = deviceOrigin.transform.translation.x + sin(Float.pi * 0) * radiusScale * nextTranslation.z + nextTranslation.x
+                        gageDarkFitAnchor.transform.translation.x = deviceOrigin.transform.translation.x + sin(Float.pi * rotationAngle) * radiusScale * nextTranslation.z + nextTranslation.x
                         gageDarkFitAnchor.transform.translation.y = characterOffset.y
                         gageDarkFitAnchor.transform.translation.z =
-                        sessionManager.deviceOrigin.transform.translation.z + cos(Float.pi * 0) * radiusScale * nextTranslation.z
+                        sessionManager.deviceOrigin.transform.translation.z + cos(Float.pi * rotationAngle) * radiusScale * nextTranslation.z
                         gageDarkFitAnchor.transform.rotation = transform.rotation
-                    }
                 }
                 
                 if selectedFit == .GageLightFit {
-                    Task { @MainActor in
-                        
-                        gageLightFitAnchor.transform.translation.x =  deviceOrigin.transform.translation.x + sin(Float.pi * 0) * radiusScale * nextTranslation.z + nextTranslation.x
+ 
+                        gageLightFitAnchor.transform.translation.x =  deviceOrigin.transform.translation.x + sin(Float.pi * rotationAngle) * radiusScale * nextTranslation.z + nextTranslation.x
                         gageLightFitAnchor.transform.translation.y = characterOffset.y
                         gageLightFitAnchor.transform.translation.z =
-                        deviceOrigin.transform.translation.z + cos(Float.pi * 0) * radiusScale * nextTranslation.z
+                        deviceOrigin.transform.translation.z + cos(Float.pi * rotationAngle) * radiusScale * nextTranslation.z
                         gageLightFitAnchor.transform.rotation = transform.rotation
-                    }
                 }
                 
                 
                 if selectedFit == .JesseLightFit {
-                    Task { @MainActor in
-                        jesseLightFitAnchor.transform.translation.x =  deviceOrigin.transform.translation.x + sin(Float.pi * 0) * radiusScale * nextTranslation.z + nextTranslation.x
+                        jesseLightFitAnchor.transform.translation.x =  deviceOrigin.transform.translation.x + sin(Float.pi * rotationAngle) * radiusScale * nextTranslation.z + nextTranslation.x
                         jesseLightFitAnchor.transform.translation.y = characterOffset.y
                         jesseLightFitAnchor.transform.translation.z =  deviceOrigin.transform.translation.z +
-                        cos(Float.pi * 0) * radiusScale * nextTranslation.z
+                        cos(Float.pi * rotationAngle) * radiusScale * nextTranslation.z
                         jesseLightFitAnchor.transform.rotation = transform.rotation
-                    }
                 }
                 
                 if selectedFit == .JesseDarkFit {
-                    Task { @MainActor in
-                        jesseDarkFitAnchor.transform.translation.x =  deviceOrigin.transform.translation.x + sin(Float.pi * 0) * radiusScale * nextTranslation.z + nextTranslation.x
+                        jesseDarkFitAnchor.transform.translation.x =  deviceOrigin.transform.translation.x + sin(Float.pi * rotationAngle) * radiusScale * nextTranslation.z + nextTranslation.x
                         jesseDarkFitAnchor.transform.translation.y = characterOffset.y
                         jesseDarkFitAnchor.transform.translation.z =  deviceOrigin.transform.translation.z +
-                        cos(Float.pi * 0) * radiusScale * nextTranslation.z
+                        cos(Float.pi * rotationAngle) * radiusScale * nextTranslation.z
                         jesseDarkFitAnchor.transform.rotation = transform.rotation
                         
-                    }
                 }
                 
                 if selectedFit == .DeanLightFit {
-                    Task { @MainActor in
-                        
-                        deanLightFitAnchor.transform.translation.x =  deviceOrigin.transform.translation.x + sin(Float.pi * 0) * radiusScale * nextTranslation.z + nextTranslation.x
+                        deanLightFitAnchor.transform.translation.x =  deviceOrigin.transform.translation.x + sin(Float.pi * rotationAngle) * radiusScale * nextTranslation.z + nextTranslation.x
                         deanLightFitAnchor.transform.translation.y = characterOffset.y
                         deanLightFitAnchor.transform.translation.z =  deviceOrigin.transform.translation.z +
-                        cos(Float.pi * 0) * radiusScale * nextTranslation.z
+                        cos(Float.pi * rotationAngle) * radiusScale * nextTranslation.z
                         deanLightFitAnchor.transform.rotation = transform.rotation
-                    }
                 }
                 
                 if selectedFit == .DeanDarkFit {
-                    Task { @MainActor in
-                        
-                        deanDarkFitAnchor.transform.translation.x = deviceOrigin.transform.translation.x + sin(Float.pi * 0) * nextTranslation.z + nextTranslation.x
+                        deanDarkFitAnchor.transform.translation.x = deviceOrigin.transform.translation.x + sin(Float.pi * rotationAngle) * nextTranslation.z + nextTranslation.x
                         deanDarkFitAnchor.transform.translation.y = characterOffset.y
                         deanDarkFitAnchor.transform.translation.z = deviceOrigin.transform.translation.z +
-                        cos(Float.pi * 0) * nextTranslation.z
+                        cos(Float.pi * rotationAngle) * nextTranslation.z
                         deanDarkFitAnchor.transform.rotation = transform.rotation
-                    }
                 }
                 //            print(nextModel.d.ident)
                 //            print(nextModel.d.t)
@@ -649,20 +614,23 @@ struct ImmersiveView: View {
         }
     }
     
-    @MainActor
     func updateParticles() {
-        Task{@MainActor in
-            guard let originEntity = originEntity else {
-                return
-            }
-            characterLeftHandAnchor.transform.translation = sessionManager.leftHandLocation.transform.translation
-            characterLeftHandAnchor.transform.rotation = characterAnchor.transform.rotation
+        guard let originEntity = originEntity  else {
+            return
+        }
+
+        let leftHandLocation = sessionManager.leftHandLocation
+        let rightHandLocation = sessionManager.rightHandLocation
+        let anchor = characterAnchor
+
+            characterLeftHandAnchor.transform.translation = leftHandLocation.transform.translation
+            characterLeftHandAnchor.transform.rotation = anchor.transform.rotation
             guard var particleComponent = characterLeftHandAnchor.components[ParticleEmitterComponent.self] else {
                 return
             }
             
             
-            let characterWorldSpaceTransform = originEntity.convert(transform: characterAnchor.transform, to:characterLeftHandAnchor)
+            let characterWorldSpaceTransform = originEntity.convert(transform: anchor.transform, to:characterLeftHandAnchor)
             
             particleComponent.mainEmitter.attractionCenter.x =  characterWorldSpaceTransform.translation.x - characterLeftHandAnchor.transform.translation.x
             particleComponent.mainEmitter.attractionCenter.y = characterLeftHandAnchor.transform.translation.y - characterOffset.y
@@ -670,14 +638,14 @@ struct ImmersiveView: View {
             
             characterLeftHandAnchor.components[ParticleEmitterComponent.self] = particleComponent
             
-            characterRightHandAnchor.transform.translation = sessionManager.rightHandLocation.transform.translation
+            characterRightHandAnchor.transform.translation = rightHandLocation.transform.translation
             characterRightHandAnchor.transform.rotation = characterAnchor.transform.rotation
             guard var particleComponent = characterRightHandAnchor.components[ParticleEmitterComponent.self] else {
                 return
             }
             
             
-            let rightCharacterWorldSpaceTransform = originEntity.convert(transform: characterAnchor.transform, to:characterRightHandAnchor)
+            let rightCharacterWorldSpaceTransform = originEntity.convert(transform: anchor.transform, to:characterRightHandAnchor)
             
             particleComponent.mainEmitter.attractionCenter.x =  rightCharacterWorldSpaceTransform.translation.x - characterRightHandAnchor.transform.translation.x
             particleComponent.mainEmitter.attractionCenter.y = characterRightHandAnchor.transform.translation.y - characterOffset.y
@@ -689,78 +657,18 @@ struct ImmersiveView: View {
             //                        print("Right hand attraction: \(particleComponent.mainEmitter.attractionCenter)")
             
             characterRightHandAnchor.components[ParticleEmitterComponent.self] = particleComponent
-        }
     }
     
-    func updateFrame() {
-        browserModel.frameCount += 1
-    }
-    
-    func runAnimation() {
-        
-        do {
-            print("Playing animation resources")
-            
-            if !gageDarkFitAnimationResource.isEmpty {
-                print(gageDarkFitAnimationResource.count)
-                let gageDarkFitController =  gageDarkFitEntity.playAnimation(try AnimationResource.sequence(with: gageDarkFitAnimationResource))
-            }
-            
-            if !gageLightFitAnimationResource.isEmpty {
-                let gageLightFitController =  gageLightFitEntity?.playAnimation(try AnimationResource.sequence(with: gageLightFitAnimationResource))
-            }
-            
-            if !jesseDarkFitAnimationResource.isEmpty {
-                let jesseDarkFitController =  jesseDarkFitEntity?.playAnimation(try AnimationResource.sequence(with: jesseDarkFitAnimationResource))
-            }
-            
-            if !jesseLightFitAnimationResource.isEmpty {
-                let jesseLightFitController =  jesseLightFitEntity?.playAnimation(try AnimationResource.sequence(with: jesseLightFitAnimationResource))
-            }
-            
-            if !deanDarkFitAnimationResource.isEmpty {
-                let deanDarkFitController =  deanDarkFitEntity?.playAnimation(try AnimationResource.sequence(with: deanDarkFitAnimationResource))
-            }
-            
-            if !deanLightFitAnimationResource.isEmpty {
-                let deanLightFitController =  deanLightFitEntity?.playAnimation(try AnimationResource.sequence(with: deanLightFitAnimationResource))
-            }
-            //                    let kaiDarkFitController =  kaiDarkFitEntity.playAnimation(try AnimationResource.sequence(with: kaiDarkFitAnimationResource))
-            //                    kaiDarkFitController.resume()
-            //
-            //                    let kaiLightFitController =  kaiLightFitEntity.playAnimation(try AnimationResource.sequence(with: kaiLightFitAnimationResource))
-            //                    kaiLightFitController.resume()
-            gageDarkFitAnimationResource.removeAll()
-            gageLightFitAnimationResource.removeAll()
-            jesseDarkFitAnimationResource.removeAll()
-            jesseLightFitAnimationResource.removeAll()
-            deanLightFitAnimationResource.removeAll()
-            deanDarkFitAnimationResource.removeAll()
-        } catch {
-            print(error)
-        }
-        print("finished playing animations")
-    }
-    
-    func update() {
-        if let _ = originEntity, browserModel.allData.count >= 1 {
-            
-            displayedFrameCount = min(browserModel.allData.count, 2)
-            
-            //            print("update \(browserModel.allData.count) frames left")
-            //            print("displayed frame count: \(displayedFrameCount)")
-            let allData = browserModel.allData.suffix(displayedFrameCount)
-            
-            for data in allData {
-                if let next = browserModel.decodeFrame(data:data) {
-                    //                        print("Finished decoding")
-                    browserModel.nextJointData = next
-                    //                        print("Finished skeleton update \(browserModel.nextJointData?.keys) \(browserModel.frameCount) \(browserModel.displayLinkTimestamp)")
-                }
-            }
-        }
-        
-        browserModel.allData.removeAll()
+    func updateEntities() {
+//        updateParticles()
+        print(sceneEntity?.children)
+//        updateAnchors()
+        updateDarkFitGage()
+        updateLightFitGage()
+        updateJesseDarkFit()
+        updateJesseLightFit()        
+        updateDeanDarkFit()
+        updateDeanLightFit()
     }
 }
 

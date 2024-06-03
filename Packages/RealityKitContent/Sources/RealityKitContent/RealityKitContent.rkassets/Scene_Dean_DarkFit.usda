@@ -10,187 +10,56 @@
 
 def Xform "Root"
 {
-    def "dean_darkfit" (
+    def "dean_darkfit_final" (
         active = true
-        references = @dean_darkfit/dean_darkfit.usdz@
+        prepend references = @final/dean_darkfit_final.usdz@
     )
     {
-        reorder nameChildren = ["Materials", "Geom", "MaterialEx09"]
         float3 xformOp:scale = (1, 1, 1)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         over "Materials"
         {
-            reorder nameChildren = ["FINAL_DEAN_DARK", "MaterialEx09"]
-            def Material "MaterialEx09"
+            over "FINAL_DEAN_DARK"
             {
-                token outputs:mtlx:surface.connect = </Root/dean_darkfit/Materials/MaterialEx09/UnlitSurface.outputs:out>
+                token inputs:frame:stPrimvarName = "st"
+                token outputs:mtlx:surface
                 token outputs:realitykit:vertex
-                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:realitykit:vertex"]
-                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (828.865, -51.084892)
-                float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
-                int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 293
 
-                def Shader "UnlitSurface"
+                over "surfaceShader"
                 {
-                    uniform token info:id = "ND_realitykit_unlit_surfaceshader"
-                    bool inputs:applyPostProcessToneMap
-                    color3f inputs:color.connect = </Root/dean_darkfit/Materials/MaterialEx09/Overlay.outputs:out>
-                    bool inputs:hasPremultipliedAlpha
-                    float inputs:opacity
-                    float inputs:opacityThreshold
-                    token outputs:out
-                    float2 ui:nodegraph:node:pos = (549.1953, -49.20703)
-                    float2 ui:nodegraph:node:size = (194.5, 181)
-                    int ui:nodegraph:node:stackingOrder = 133
+                    color3f inputs:diffuseColor.connect = </Root/dean_darkfit_final/Materials/FINAL_DEAN_DARK/diffuseColor.outputs:rgb>
+                    color3f inputs:emissiveColor = (0, 0, 0)
+                    color3f inputs:emissiveColor.connect = </Root/dean_darkfit_final/Materials/FINAL_DEAN_DARK/emissiveColor.outputs:rgb>
                 }
 
-                def Shader "Texcoord"
+                def Shader "diffuseColor"
                 {
-                    uniform token info:id = "ND_texcoord_vector2"
-                    float2 outputs:out
-                    float2 ui:nodegraph:node:pos = (-573.6697, -95.06069)
-                    float2 ui:nodegraph:node:size = (180.5, 53)
-                    int ui:nodegraph:node:stackingOrder = 272
-                }
+                    uniform token info:id = "UsdUVTexture"
+                    asset inputs:file = @Materials/DEAN_DARK_DIFFUSION_painting_edited.png@
+                    float2 inputs:st.connect = </Root/dean_darkfit_final/Materials/FINAL_DEAN_DARK/diffuseColor/TexCoordReader.outputs:result>
+                    color3f outputs:rgb
 
-                def Shader "Separate2"
-                {
-                    uniform token info:id = "ND_separate2_vector2"
-                    float2 inputs:in.connect = </Root/dean_darkfit/Materials/MaterialEx09/Multiply.outputs:out>
-                    float outputs:outx
-                    float outputs:outy
-                    float2 ui:nodegraph:node:pos = (-337.4249, -89.38712)
-                    float2 ui:nodegraph:node:size = (115, 127)
-                    int ui:nodegraph:node:stackingOrder = 272
-                }
-
-                def Shader "Combine3_1"
-                {
-                    uniform token info:id = "ND_combine3_vector3"
-                    float inputs:in1.connect = </Root/dean_darkfit/Materials/MaterialEx09/Separate2.outputs:outx>
-                    float inputs:in2.connect = </Root/dean_darkfit/Materials/MaterialEx09/Separate2.outputs:outy>
-                    float inputs:in3.connect = </Root/dean_darkfit/Materials/MaterialEx09/Multiply_1.outputs:out>
-                    float3 outputs:out
-                    float2 ui:nodegraph:node:pos = (-189.07318, -45.043297)
-                    float2 ui:nodegraph:node:size = (157, 54)
-                    int ui:nodegraph:node:stackingOrder = 272
-                }
-
-                def Shader "Multiply"
-                {
-                    uniform token info:id = "ND_multiply_vector2"
-                    float2 inputs:in1.connect = </Root/dean_darkfit/Materials/MaterialEx09/Texcoord.outputs:out>
-                    float2 inputs:in2 = (20, 20)
-                    float2 outputs:out
-                    float2 ui:nodegraph:node:pos = (-441.89413, -85.75292)
-                    float2 ui:nodegraph:node:size = (60, 36)
-                    int ui:nodegraph:node:stackingOrder = 272
-                }
-
-                def Shader "Time"
-                {
-                    uniform token info:id = "ND_time_float"
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (-541.4288, 20.852156)
-                    float2 ui:nodegraph:node:size = (122.5, 53)
-                    int ui:nodegraph:node:stackingOrder = 272
-                }
-
-                def Shader "Multiply_1"
-                {
-                    uniform token info:id = "ND_multiply_float"
-                    float inputs:in1.connect = </Root/dean_darkfit/Materials/MaterialEx09/Time.outputs:out>
-                    float inputs:in2 = 0.6
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (-440.30405, 30.697676)
-                    float2 ui:nodegraph:node:size = (60, 36)
-                    int ui:nodegraph:node:stackingOrder = 280
-                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
-                }
-
-                def Shader "Color_1"
-                {
-                    uniform token info:id = "ND_constant_color3"
-                    color3f inputs:value = (1, 0.4653648, 0.07304395) (
-                        colorSpace = "srgb_texture"
-                    )
-                    color3f outputs:out
-                    float2 ui:nodegraph:node:pos = (-204.21547, -243.42857)
-                    float2 ui:nodegraph:node:size = (151, 53)
-                    int ui:nodegraph:node:stackingOrder = 290
-                }
-
-                def Shader "Color_2"
-                {
-                    uniform token info:id = "ND_constant_color3"
-                    color3f inputs:value = (0.4513868, 0.99309605, 1) (
-                        colorSpace = "srgb_texture"
-                    )
-                    color3f outputs:out
-                    float2 ui:nodegraph:node:pos = (60.123547, -162.24261)
-                    float2 ui:nodegraph:node:size = (151, 53)
-                    int ui:nodegraph:node:stackingOrder = 300
-                }
-
-                def Shader "Fractal3D"
-                {
-                    uniform token info:id = "ND_fractal3d_float"
-                    float inputs:amplitude
-                    float inputs:diminish
-                    float inputs:lacunarity
-                    int inputs:octaves
-                    float3 inputs:position.connect = </Root/dean_darkfit/Materials/MaterialEx09/Combine3_1.outputs:out>
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (33.43575, -12.341937)
-                    float2 ui:nodegraph:node:size = (130.5, 181)
-                    int ui:nodegraph:node:stackingOrder = 288
-                }
-
-                def Shader "Image"
-                {
-                    uniform token info:id = "ND_image_color3"
-                    asset inputs:file = @dean_darkfit/texgen_0.png@
-                    string inputs:filtertype
-                    color3f outputs:out
-                    float2 ui:nodegraph:node:pos = (125.286995, -273.15155)
-                    float2 ui:nodegraph:node:size = (148.5, 199)
-                    int ui:nodegraph:node:stackingOrder = 291
-                }
-
-                def Shader "Overlay"
-                {
-                    uniform token info:id = "ND_overlay_color3"
-                    color3f inputs:bg.connect = </Root/dean_darkfit/Materials/MaterialEx09/Image.outputs:out>
-                    color3f inputs:fg.connect = </Root/dean_darkfit/Materials/MaterialEx09/Color_2.outputs:out>
-                    float inputs:mix.connect = </Root/dean_darkfit/Materials/MaterialEx09/Fractal3D.outputs:out>
-                    color3f outputs:out
-                    float2 ui:nodegraph:node:pos = (371.52438, -179.35298)
-                    float2 ui:nodegraph:node:size = (109, 145)
-                    int ui:nodegraph:node:stackingOrder = 299
-                }
-            }
-        }
-
-        over "Geom"
-        {
-            over "biped_robot_ace"
-            {
-                over "biped_robot_ace_skeleton"
-                {
-                    over "root"
+                    def Shader "TexCoordReader"
                     {
-                        over "hips_joint_93"
-                        {
-                            over "hands_feet_join_94" (
-                                prepend apiSchemas = ["MaterialBindingAPI"]
-                            )
-                            {
-                                rel material:binding = </Root/dean_darkfit/Materials/MaterialEx09> (
-                                    bindMaterialAs = "weakerThanDescendants"
-                                )
-                            }
-                        }
+                        uniform token info:id = "UsdPrimvarReader_float2"
+                        token inputs:varname.connect = </Root/dean_darkfit_final/Materials/FINAL_DEAN_DARK/surfaceShader.inputs:frame:stPrimvarName>
+                        float2 outputs:result
+                    }
+                }
+
+                def Shader "emissiveColor"
+                {
+                    uniform token info:id = "UsdUVTexture"
+                    asset inputs:file = @Materials/DEAN_DARK_DIFFUSION_painting_edited.png@
+                    float2 inputs:st.connect = </Root/dean_darkfit_final/Materials/FINAL_DEAN_DARK/emissiveColor/TexCoordReader.outputs:result>
+                    color3f outputs:rgb
+
+                    def Shader "TexCoordReader"
+                    {
+                        uniform token info:id = "UsdPrimvarReader_float2"
+                        token inputs:varname.connect = </Root/dean_darkfit_final/Materials/FINAL_DEAN_DARK/surfaceShader.inputs:frame:stPrimvarName>
+                        float2 outputs:result
                     }
                 }
             }

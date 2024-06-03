@@ -1,15 +1,15 @@
 {
-  "advancedEditorSelectedIdentifier" : "ShaderGraphEditorPluginID",
+  "advancedEditorSelectedIdentifier" : "ProjectBrowser",
   "openSceneRelativePaths" : [
     "Immersive.usda",
     "Scene_Gage_DarkFit.usda",
-    "Scene_Dean_LightFit_Rumba.usda",
-    "Scene_Dean_LightFit_Uprock.usda",
     "Scene_Dean_LightFit.usda",
     "Scene_Gage_LightFit.usda",
     "Scene_Jesse_DarkFit.usda",
     "Scene_Jesse_LightFit.usda",
-    "Scene_Dean_DarkFit.usda"
+    "Scene_Dean_DarkFit.usda",
+    "Scene_Kai_Darkfit.usda",
+    "Scene_Kai_LightFit.usda"
   ],
   "recentIdentifiers" : {
     "3B2EEA46-DD04-45A1-B64A-669043704DB0" : [
@@ -22,6 +22,9 @@
 
     ],
     "49BC533D-554E-4FFC-A526-67591F0387B8" : [
+
+    ],
+    "70AC65FA-B4FB-4274-A230-5B35A57DD7F0" : [
 
     ],
     "80F4117B-87C6-48E6-AE30-B0259CB4A257" : [
@@ -645,6 +648,74 @@
           0,
           0.07839584,
           0.15052795,
+          1
+        ]
+      }
+    ],
+    "70AC65FA-B4FB-4274-A230-5B35A57DD7F0" : [
+      {
+        "date" : 738867159.842345,
+        "title" : "Untitled",
+        "transform" : [
+          0.99999994,
+          0,
+          0,
+          0,
+          0,
+          0.8660254,
+          -0.49999994,
+          0,
+          0,
+          0.49999994,
+          0.8660254,
+          0,
+          0.14030209,
+          0.99908197,
+          1.3308141,
+          1
+        ]
+      },
+      {
+        "date" : 738867152.984922,
+        "title" : "Untitled",
+        "transform" : [
+          0.99999994,
+          0,
+          0,
+          0,
+          0,
+          0.8660254,
+          -0.49999994,
+          0,
+          0,
+          0.49999994,
+          0.8660254,
+          0,
+          0,
+          0.8260298,
+          1.4307256,
+          1
+        ]
+      },
+      {
+        "date" : 738867135.798483,
+        "title" : "Untitled",
+        "transform" : [
+          0.99999994,
+          0,
+          -0,
+          0,
+          -0,
+          0.8660254,
+          -0.49999994,
+          0,
+          0,
+          0.49999994,
+          0.8660254,
+          0,
+          0,
+          0.20873435,
+          0.36153856,
           1
         ]
       }
@@ -1363,6 +1434,74 @@
         ]
       }
     ],
+    "9469CE94-28B8-424A-A426-C1588CB1E0F5" : [
+      {
+        "date" : 738867216.38842,
+        "title" : "Untitled",
+        "transform" : [
+          0.9999464,
+          0,
+          -0.010345274,
+          0,
+          -0.005172637,
+          0.8660254,
+          -0.49997318,
+          0,
+          0.00895927,
+          0.49999994,
+          0.865979,
+          0,
+          0.14269128,
+          1.1447502,
+          1.7649894,
+          1
+        ]
+      },
+      {
+        "date" : 738867208.603993,
+        "title" : "Untitled",
+        "transform" : [
+          0.9999464,
+          0,
+          -0.010345274,
+          0,
+          -0.005172637,
+          0.8660254,
+          -0.49997318,
+          0,
+          0.00895927,
+          0.49999994,
+          0.865979,
+          0,
+          0.01883326,
+          1.0510486,
+          1.8203722,
+          1
+        ]
+      },
+      {
+        "date" : 738867186.474116,
+        "title" : "Untitled",
+        "transform" : [
+          0.99999994,
+          0,
+          -0,
+          0,
+          -0,
+          0.8660254,
+          -0.49999994,
+          0,
+          0,
+          0.49999994,
+          0.8660254,
+          0,
+          0,
+          0.20873435,
+          0.36153856,
+          1
+        ]
+      }
+    ],
     "27881FC7-5F5A-42DC-A11A-ECF0E7CAF394" : [
       {
         "date" : 737909377.745225,
@@ -1432,6 +1571,28 @@
       }
     ],
     "34756391-5CA3-419F-BBA8-85224330CCB4" : [
+      {
+        "date" : 738868571.867493,
+        "title" : "Untitled",
+        "transform" : [
+          0.99999994,
+          0,
+          0,
+          0,
+          0,
+          0.8660572,
+          -0.49994484,
+          0,
+          0,
+          0.49994484,
+          0.8660572,
+          0,
+          0.095085815,
+          0.815025,
+          1.4189917,
+          1
+        ]
+      },
       {
         "date" : 737981507.293436,
         "title" : "Untitled",
@@ -2102,5 +2263,5 @@
       }
     ]
   },
-  "selectedSceneRelativePath" : "Scene_Dean_LightFit_Uprock.usda"
+  "selectedSceneRelativePath" : "Scene_Gage_DarkFit.usda"
 }

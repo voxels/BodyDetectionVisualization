@@ -115,7 +115,7 @@ open class SessionManager: ObservableObject {
     
     @MainActor
     func processDeviceAnchorUpdates() async {
-        await asyncRun(function: self.queryAndProcessLatestDeviceAnchor, withFrequency: 30)
+        await asyncRun(function: self.queryAndProcessLatestDeviceAnchor, withFrequency: 60)
     }
     
     /// Updates the scene reconstruction meshes as new data arrives from ARKit.

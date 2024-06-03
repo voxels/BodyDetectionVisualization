@@ -11,516 +11,57 @@
 def Xform "Root"
 {
     reorder nameChildren = ["jesse_darkfit_shaders", "jesse_darkfit"]
-    def "jesse_darkfit_shaders" (
+    def "jesse_darkfit_final" (
         active = true
-        references = @jesse_darkfit/jesse_darkfit_shaders.usdz@
+        prepend references = @final/jesse_darkfit_final.usdz@
     )
     {
-        reorder nameChildren = ["Materials", "Geom", "MaterialEx08_2", "MaterialEx08_3"]
         float3 xformOp:scale = (1, 1, 1)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         over "Materials"
         {
-            reorder nameChildren = ["darkfit_material_0", "darkfit_material_1", "MaterialEx08", "MaterialEx08_1"]
-            over "MaterialEx08"
+            over "defaultMat_002"
             {
+                token inputs:frame:stPrimvarName = "st"
                 token outputs:mtlx:surface
                 token outputs:realitykit:vertex
-                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 109.5)
-                float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
-            }
 
-            over "MaterialEx08_1"
-            {
-                token outputs:mtlx:surface
-                token outputs:realitykit:vertex
-            }
-
-            def Material "darkfit_material_0"
-            {
-                token outputs:mtlx:surface.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/PreviewSurface.outputs:out>
-                token outputs:realitykit:vertex
-                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (73.109436, 516.9398)
-                float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
-                int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 843
-
-                def Shader "PreviewSurface"
+                over "surfaceShader"
                 {
-                    uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
-                    float inputs:clearcoat
-                    float inputs:clearcoatRoughness = 0.01
-                    color3f inputs:diffuseColor = (0, 0, 0) (
-                        colorSpace = "srgb_texture"
-                    )
-                    color3f inputs:diffuseColor.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Image_1.outputs:out>
-                    color3f inputs:emissiveColor.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Combine3_1.outputs:out>
-                    float inputs:ior
-                    float inputs:metallic
-                    float3 inputs:normal
-                    float inputs:occlusion
-                    float inputs:opacity.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Separate4.outputs:outa>
-                    float inputs:opacityThreshold
+                    color3f inputs:diffuseColor.connect = </Root/jesse_darkfit_final/Materials/defaultMat_002/diffuseColor.outputs:rgb>
+                    color3f inputs:emissiveColor = (0, 0, 0)
+                    color3f inputs:emissiveColor.connect = </Root/jesse_darkfit_final/Materials/defaultMat_002/emissiveColor.outputs:rgb>
                     float inputs:roughness = 1
-                    token outputs:out
-                    float2 ui:nodegraph:node:pos = (-133.13495, 400.09323)
-                    float2 ui:nodegraph:node:size = (159.5, 307)
-                    int ui:nodegraph:node:stackingOrder = 929
-                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["Advanced"]
                 }
 
-                def Shader "Add"
+                def Shader "diffuseColor"
                 {
-                    uniform token info:id = "ND_add_float"
-                    float inputs:in1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Sin.outputs:out>
-                    float inputs:in2 = 0
-                    float inputs:in2.connect = None
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (-1318.036, 375.86105)
-                    float2 ui:nodegraph:node:size = (61.5, 36.5)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
+                    uniform token info:id = "UsdUVTexture"
+                    asset inputs:file = @Materials/JESSE_dark_low.png@
+                    float2 inputs:st.connect = </Root/jesse_darkfit_final/Materials/defaultMat_002/diffuseColor/TexCoordReader.outputs:result>
+                    color3f outputs:rgb
 
-                def Shader "Time"
-                {
-                    uniform token info:id = "ND_time_float"
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (-1545.5695, 367.14188)
-                    float2 ui:nodegraph:node:size = (122.5, 53)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Divide"
-                {
-                    uniform token info:id = "ND_divide_float"
-                    float inputs:in1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Add.outputs:out>
-                    float inputs:in2 = 1
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (-1244.163, 384.89664)
-                    float2 ui:nodegraph:node:size = (61.5, 36)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Sin"
-                {
-                    uniform token info:id = "ND_sin_float"
-                    float inputs:in.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Time.outputs:out>
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (-1417.6028, 366.98)
-                    float2 ui:nodegraph:node:size = (116, 40)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Noise2D"
-                {
-                    uniform token info:id = "ND_noise2d_float"
-                    float inputs:amplitude
-                    float inputs:pivot
-                    float2 inputs:texcoord.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Multiply.outputs:out>
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (-1072.235, 215.11006)
-                    float2 ui:nodegraph:node:size = (148.5, 145)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Texcoord"
-                {
-                    uniform token info:id = "ND_texcoord_vector2"
-                    float2 outputs:out
-                    float2 ui:nodegraph:node:pos = (-1407.5166, 240.57834)
-                    float2 ui:nodegraph:node:size = (180.5, 53)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Multiply"
-                {
-                    uniform token info:id = "ND_multiply_vector2"
-                    float2 inputs:in1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Texcoord.outputs:out>
-                    float2 inputs:in2 = (30, 30)
-                    float2 outputs:out
-                    float2 ui:nodegraph:node:pos = (-1239.9606, 242.75264)
-                    float2 ui:nodegraph:node:size = (60, 36)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Ifgreater_1"
-                {
-                    uniform token info:id = "ND_ifgreater_color4"
-                    color4f inputs:in1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Ifgreater_2.outputs:out>
-                    color4f inputs:in2.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Base_Color.outputs:out>
-                    float inputs:value1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Noise2D.outputs:out>
-                    float inputs:value2.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Divide.outputs:out>
-                    color4f outputs:out
-                    float2 ui:nodegraph:node:pos = (-652.7713, 539.6466)
-                    float2 ui:nodegraph:node:size = (113.5, 163)
-                    int ui:nodegraph:node:stackingOrder = 930
-                }
-
-                def Shader "Image"
-                {
-                    uniform token info:id = "ND_image_color4"
-                    asset inputs:file = @jesse_darkfit/texgen_0.png@
-                    string inputs:filtertype
-                    string inputs:vaddressmode
-                    color4f outputs:out
-                    float2 ui:nodegraph:node:pos = (-1288.741, 527.2869)
-                    float2 ui:nodegraph:node:size = (148.5, 199)
-                    int ui:nodegraph:node:stackingOrder = 932
-                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:texcoord", "inputs:file"]
-                }
-
-                def Shader "Separate4"
-                {
-                    uniform token info:id = "ND_separate4_color4"
-                    color4f inputs:in.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Ifgreater_1.outputs:out>
-                    float outputs:outa
-                    float outputs:outb
-                    float outputs:outg
-                    float outputs:outr
-                    float2 ui:nodegraph:node:pos = (-510.02136, 615.5495)
-                    float2 ui:nodegraph:node:size = (115.5, 163)
-                    int ui:nodegraph:node:stackingOrder = 922
-                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:outa"]
-                }
-
-                def Shader "Combine3_1"
-                {
-                    uniform token info:id = "ND_combine3_color3"
-                    float inputs:in1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Separate4.outputs:outr>
-                    float inputs:in2.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Separate4.outputs:outg>
-                    float inputs:in3.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Separate4.outputs:outb>
-                    color3f outputs:out
-                    float2 ui:nodegraph:node:pos = (-340.0534, 365.98615)
-                    float2 ui:nodegraph:node:size = (157, 54)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Base_Color"
-                {
-                    uniform token info:id = "ND_constant_color4"
-                    color4f inputs:value = (0, 0, 0, 0) (
-                        colorSpace = "srgb_texture"
-                    )
-                    color4f outputs:out
-                    float2 ui:nodegraph:node:pos = (-1294.3197, 745.685)
-                    float2 ui:nodegraph:node:size = (157, 53)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Ifgreater_2"
-                {
-                    uniform token info:id = "ND_ifgreater_color4"
-                    color4f inputs:in1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Image.outputs:out>
-                    color4f inputs:in2.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Line_Color.outputs:out>
-                    float inputs:value1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Noise2D.outputs:out>
-                    float inputs:value2.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Add_1.outputs:out>
-                    color4f outputs:out
-                    float2 ui:nodegraph:node:pos = (-830.59393, 277.5717)
-                    float2 ui:nodegraph:node:size = (117, 163)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Add_1"
-                {
-                    uniform token info:id = "ND_add_float"
-                    float inputs:in1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0/Divide.outputs:out>
-                    float inputs:in2 = 0.05
-                    float inputs:in2.connect = None
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (-1086.3646, 385.87546)
-                    float2 ui:nodegraph:node:size = (61.5, 36.5)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Line_Color"
-                {
-                    uniform token info:id = "ND_constant_color4"
-                    color4f inputs:value = (1, 0.18573886, 0.573395, 1) (
-                        colorSpace = "srgb_texture"
-                    )
-                    color4f outputs:out
-                    float2 ui:nodegraph:node:pos = (-1288.5363, 678.02124)
-                    float2 ui:nodegraph:node:size = (152.5, 53)
-                    int ui:nodegraph:node:stackingOrder = 931
-                }
-
-                def Shader "Image_1"
-                {
-                    uniform token info:id = "ND_image_color3"
-                    color3f inputs:default = (0.999996, 1, 1) (
-                        colorSpace = "srgb_texture"
-                    )
-                    asset inputs:file = @jesse_darkfit/texgen_0.png@
-                    color3f outputs:out
-                    float2 ui:nodegraph:node:pos = (-362.55038, 185.1288)
-                    float2 ui:nodegraph:node:size = (148.5, 199)
-                    int ui:nodegraph:node:stackingOrder = 928
-                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:file"]
-                }
-            }
-
-            def Material "darkfit_material_1"
-            {
-                token outputs:mtlx:surface.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/PreviewSurface.outputs:out>
-                token outputs:realitykit:vertex
-                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (73.109436, 516.9398)
-                float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
-                int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 843
-
-                def Shader "PreviewSurface"
-                {
-                    uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
-                    float inputs:clearcoat
-                    float inputs:clearcoatRoughness = 0.01
-                    color3f inputs:diffuseColor = (0, 0, 0) (
-                        colorSpace = "srgb_texture"
-                    )
-                    color3f inputs:emissiveColor.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Combine3_1.outputs:out>
-                    float inputs:ior
-                    float inputs:metallic.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Image_1.outputs:out>
-                    float3 inputs:normal
-                    float inputs:occlusion
-                    float inputs:opacity.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Separate4.outputs:outa>
-                    float inputs:opacityThreshold
-                    float inputs:roughness = 1
-                    token outputs:out
-                    float2 ui:nodegraph:node:pos = (-84.951355, 428.40573)
-                    float2 ui:nodegraph:node:size = (159.5, 307)
-                    int ui:nodegraph:node:stackingOrder = 925
-                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["Advanced"]
-                }
-
-                def Shader "Add"
-                {
-                    uniform token info:id = "ND_add_float"
-                    float inputs:in1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Sin.outputs:out>
-                    float inputs:in2 = 0
-                    float inputs:in2.connect = None
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (-1318.036, 375.86105)
-                    float2 ui:nodegraph:node:size = (61.5, 36.5)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Time"
-                {
-                    uniform token info:id = "ND_time_float"
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (-1545.5695, 367.14188)
-                    float2 ui:nodegraph:node:size = (122.5, 53)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Divide"
-                {
-                    uniform token info:id = "ND_divide_float"
-                    float inputs:in1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Add.outputs:out>
-                    float inputs:in2 = 1
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (-1244.163, 384.89664)
-                    float2 ui:nodegraph:node:size = (61.5, 36)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Sin"
-                {
-                    uniform token info:id = "ND_sin_float"
-                    float inputs:in.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Time.outputs:out>
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (-1417.6028, 366.98)
-                    float2 ui:nodegraph:node:size = (116, 40)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Noise2D"
-                {
-                    uniform token info:id = "ND_noise2d_float"
-                    float inputs:amplitude
-                    float inputs:pivot
-                    float2 inputs:texcoord.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Multiply.outputs:out>
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (-1072.235, 215.11006)
-                    float2 ui:nodegraph:node:size = (148.5, 145)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Texcoord"
-                {
-                    uniform token info:id = "ND_texcoord_vector2"
-                    float2 outputs:out
-                    float2 ui:nodegraph:node:pos = (-1407.5166, 240.57834)
-                    float2 ui:nodegraph:node:size = (180.5, 53)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Multiply"
-                {
-                    uniform token info:id = "ND_multiply_vector2"
-                    float2 inputs:in1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Texcoord.outputs:out>
-                    float2 inputs:in2 = (30, 30)
-                    float2 outputs:out
-                    float2 ui:nodegraph:node:pos = (-1239.9606, 242.75264)
-                    float2 ui:nodegraph:node:size = (60, 36)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Ifgreater_1"
-                {
-                    uniform token info:id = "ND_ifgreater_color4"
-                    color4f inputs:in1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Ifgreater_2.outputs:out>
-                    color4f inputs:in2.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Base_Color.outputs:out>
-                    float inputs:value1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Noise2D.outputs:out>
-                    float inputs:value2.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Divide.outputs:out>
-                    color4f outputs:out
-                    float2 ui:nodegraph:node:pos = (-652.7713, 539.6466)
-                    float2 ui:nodegraph:node:size = (113.5, 163)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Image"
-                {
-                    uniform token info:id = "ND_image_color4"
-                    asset inputs:file = @jesse_darkfit/texgen_2.png@
-                    string inputs:filtertype
-                    string inputs:vaddressmode
-                    color4f outputs:out
-                    float2 ui:nodegraph:node:pos = (-1288.741, 527.2869)
-                    float2 ui:nodegraph:node:size = (148.5, 199)
-                    int ui:nodegraph:node:stackingOrder = 923
-                }
-
-                def Shader "Separate4"
-                {
-                    uniform token info:id = "ND_separate4_color4"
-                    color4f inputs:in.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Ifgreater_1.outputs:out>
-                    float outputs:outa
-                    float outputs:outb
-                    float outputs:outg
-                    float outputs:outr
-                    float2 ui:nodegraph:node:pos = (-510.02136, 615.5495)
-                    float2 ui:nodegraph:node:size = (115.5, 163)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Combine3_1"
-                {
-                    uniform token info:id = "ND_combine3_color3"
-                    float inputs:in1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Separate4.outputs:outr>
-                    float inputs:in2.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Separate4.outputs:outg>
-                    float inputs:in3.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Separate4.outputs:outb>
-                    color3f outputs:out
-                    float2 ui:nodegraph:node:pos = (-340.0534, 365.98615)
-                    float2 ui:nodegraph:node:size = (157, 54)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Base_Color"
-                {
-                    uniform token info:id = "ND_constant_color4"
-                    color4f inputs:value = (0, 0, 0, 0) (
-                        colorSpace = "srgb_texture"
-                    )
-                    color4f outputs:out
-                    float2 ui:nodegraph:node:pos = (-1294.3197, 745.685)
-                    float2 ui:nodegraph:node:size = (157, 53)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Ifgreater_2"
-                {
-                    uniform token info:id = "ND_ifgreater_color4"
-                    color4f inputs:in1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Image.outputs:out>
-                    color4f inputs:in2.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Line_Color.outputs:out>
-                    float inputs:value1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Noise2D.outputs:out>
-                    float inputs:value2.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Add_1.outputs:out>
-                    color4f outputs:out
-                    float2 ui:nodegraph:node:pos = (-830.59393, 277.5717)
-                    float2 ui:nodegraph:node:size = (117, 163)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Add_1"
-                {
-                    uniform token info:id = "ND_add_float"
-                    float inputs:in1.connect = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1/Divide.outputs:out>
-                    float inputs:in2 = 0.05
-                    float inputs:in2.connect = None
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (-1086.3646, 385.87546)
-                    float2 ui:nodegraph:node:size = (61.5, 36.5)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Line_Color"
-                {
-                    uniform token info:id = "ND_constant_color4"
-                    color4f inputs:value = (0.83060277, 0.9575687, 1, 1) (
-                        colorSpace = "srgb_texture"
-                    )
-                    color4f outputs:out
-                    float2 ui:nodegraph:node:pos = (-1288.5363, 678.02124)
-                    float2 ui:nodegraph:node:size = (152.5, 53)
-                    int ui:nodegraph:node:stackingOrder = 922
-                }
-
-                def Shader "Image_1"
-                {
-                    uniform token info:id = "ND_image_float"
-                    asset inputs:file
-                    float outputs:out
-                    float2 ui:nodegraph:node:pos = (-337.34375, 312.08203)
-                    float2 ui:nodegraph:node:size = (148.5, 199)
-                    int ui:nodegraph:node:stackingOrder = 929
-                }
-            }
-        }
-
-        over "Geom"
-        {
-            over "Root"
-            {
-                over "jesse_darkfit"
-                {
-                    over "Geom_001"
+                    def Shader "TexCoordReader"
                     {
-                        over "biped_robot"
-                        {
-                            over "Geom"
-                            {
-                                over "biped_robot_ace"
-                                {
-                                    over "biped_robot_ace_skeleton"
-                                    {
-                                        over "Skeleton_93"
-                                        {
-                                            over "Skeleton_95"
-                                            {
-                                                over "primitive_0_93"
-                                                {
-                                                    over "primitive_0" (
-                                                        prepend apiSchemas = ["MaterialBindingAPI"]
-                                                    )
-                                                    {
-                                                        rel material:binding = </Root/jesse_darkfit_shaders/Materials/darkfit_material_0> (
-                                                            bindMaterialAs = "weakerThanDescendants"
-                                                        )
-                                                    }
+                        uniform token info:id = "UsdPrimvarReader_float2"
+                        token inputs:varname.connect = </Root/jesse_darkfit_final/Materials/defaultMat_002/surfaceShader.inputs:frame:stPrimvarName>
+                        float2 outputs:result
+                    }
+                }
 
-                                                    over "primitive_1" (
-                                                        prepend apiSchemas = ["MaterialBindingAPI"]
-                                                    )
-                                                    {
-                                                        rel material:binding = </Root/jesse_darkfit_shaders/Materials/darkfit_material_1> (
-                                                            bindMaterialAs = "weakerThanDescendants"
-                                                        )
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                def Shader "emissiveColor"
+                {
+                    uniform token info:id = "UsdUVTexture"
+                    asset inputs:file = @Materials/JESSE_dark_low.png@
+                    float2 inputs:st.connect = </Root/jesse_darkfit_final/Materials/defaultMat_002/emissiveColor/TexCoordReader.outputs:result>
+                    color3f outputs:rgb
+
+                    def Shader "TexCoordReader"
+                    {
+                        uniform token info:id = "UsdPrimvarReader_float2"
+                        token inputs:varname.connect = </Root/jesse_darkfit_final/Materials/defaultMat_002/surfaceShader.inputs:frame:stPrimvarName>
+                        float2 outputs:result
                     }
                 }
             }

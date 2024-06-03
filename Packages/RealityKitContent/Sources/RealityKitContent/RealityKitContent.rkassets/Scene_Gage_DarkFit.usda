@@ -10,13 +10,61 @@
 
 def Xform "Root"
 {
-    def "gage_darkfit" (
+    def "gage_darkfit_final" (
         active = true
-        prepend references = @gage_darkfit/gage_darkfit.usdz@
+        prepend references = @final/gage_darkfit_final.usdz@
     )
     {
         float3 xformOp:scale = (1, 1, 1)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "Materials"
+        {
+            over "defaultMat_002_002"
+            {
+                token inputs:frame:stPrimvarName = "st"
+                token outputs:mtlx:surface
+                token outputs:realitykit:vertex
+
+                over "surfaceShader"
+                {
+                    color3f inputs:diffuseColor.connect = </Root/gage_darkfit_final/Materials/defaultMat_002_002/diffuseColor.outputs:rgb>
+                    color3f inputs:emissiveColor = (0, 0, 0)
+                    color3f inputs:emissiveColor.connect = </Root/gage_darkfit_final/Materials/defaultMat_002_002/emissiveColor.outputs:rgb>
+                    float inputs:roughness = 1
+                }
+
+                def Shader "diffuseColor"
+                {
+                    uniform token info:id = "UsdUVTexture"
+                    asset inputs:file = @Materials/GAGE_DARK_LOW.png@
+                    float2 inputs:st.connect = </Root/gage_darkfit_final/Materials/defaultMat_002_002/diffuseColor/TexCoordReader.outputs:result>
+                    color3f outputs:rgb
+
+                    def Shader "TexCoordReader"
+                    {
+                        uniform token info:id = "UsdPrimvarReader_float2"
+                        token inputs:varname.connect = </Root/gage_darkfit_final/Materials/defaultMat_002_002/surfaceShader.inputs:frame:stPrimvarName>
+                        float2 outputs:result
+                    }
+                }
+
+                def Shader "emissiveColor"
+                {
+                    uniform token info:id = "UsdUVTexture"
+                    asset inputs:file = @Materials/GAGE_DARK_LOW.png@
+                    float2 inputs:st.connect = </Root/gage_darkfit_final/Materials/defaultMat_002_002/emissiveColor/TexCoordReader.outputs:result>
+                    color3f outputs:rgb
+
+                    def Shader "TexCoordReader"
+                    {
+                        uniform token info:id = "UsdPrimvarReader_float2"
+                        token inputs:varname.connect = </Root/gage_darkfit_final/Materials/defaultMat_002_002/surfaceShader.inputs:frame:stPrimvarName>
+                        float2 outputs:result
+                    }
+                }
+            }
+        }
     }
 }
 
