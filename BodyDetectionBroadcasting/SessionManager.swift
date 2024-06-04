@@ -114,8 +114,8 @@ open class SessionManager: ObservableObject {
     }
     
     @MainActor
-    func processDeviceAnchorUpdates() async {
-        await asyncRun(function: self.queryAndProcessLatestDeviceAnchor, withFrequency: 60)
+    func processDeviceAnchorUpdates() async throws {
+        try await asyncRun(function: self.queryAndProcessLatestDeviceAnchor, withFrequency: 30)
     }
     
     /// Updates the scene reconstruction meshes as new data arrives from ARKit.
@@ -218,7 +218,7 @@ extension SessionManager {
         }
     }
     
-    func asyncRun(function: () async -> Void, withFrequency hz: UInt64) async {
+    func asyncRun(function: () async throws -> Void, withFrequency hz: UInt64) async throws {
         while true {
             if Task.isCancelled {
                 return
@@ -226,14 +226,9 @@ extension SessionManager {
             
             // Sleep for 1 s / hz before calling the function.
             let nanoSecondsToSleep: UInt64 = NSEC_PER_SEC / hz
-            do {
-                try await Task.sleep(nanoseconds: nanoSecondsToSleep)
-            } catch {
-                // Sleep fails when the Task is cancelled. Exit the loop.
-                return
-            }
+            try await Task.sleep(nanoseconds: nanoSecondsToSleep)
             
-            await function()
+            try await function()
         }
     }
 }

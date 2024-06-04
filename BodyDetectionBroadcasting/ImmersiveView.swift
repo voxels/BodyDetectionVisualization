@@ -66,7 +66,11 @@ struct ImmersiveView: View {
             await sessionManager.runARKitSession()
         }
         .task {
-            await sessionManager.processDeviceAnchorUpdates()
+            do {
+                try await sessionManager.processDeviceAnchorUpdates()
+            } catch {
+                print(error)
+            }
         }
     }
     
@@ -186,14 +190,13 @@ struct ImmersiveView: View {
         
         browserModel.cancelCurrentUpdateTask()
         
-        browserModel.updateTask = Task {
+        browserModel.updateTask = Task { @MainActor in
             await updateAnchors()
             await updateFit()
             updateParticles()
             browserModel.updateTask = nil
         }
     }
-    
     
     func updateFit() async {
         guard let fitEntity = browserModel.skeletonIdentityEntity, let nextJointData = browserModel.nextJointData,  !isPaused else {
@@ -232,9 +235,9 @@ struct ImmersiveView: View {
             }
             
             await MainActor.run {
-                withAnimation {
+//                withAnimation {
                     fitEntity.jointTransforms = rawTransforms
-                }
+//                }
 //                let animation = FromToByAnimation(jointNames:fitEntity.jointNames,name:UUID().uuidString,  to:JointTransforms(rawTransforms),  duration:browserModel.frameDuration, isAdditive: false, bindTarget: .jointTransforms, blendLayer:0, fillMode: .forwards )
 //                do {
 //                    fitEntity.playAnimation(try AnimationResource.generate(with: animation), transitionDuration: browserModel.frameDuration / 2)
@@ -246,7 +249,6 @@ struct ImmersiveView: View {
         }
     }
     
-    @MainActor
     func updateAnchors() async {
         guard let nextJointData = browserModel.nextJointData, let _ = nextJointData.keys.first, !isPaused else {
             return
@@ -269,11 +271,13 @@ struct ImmersiveView: View {
                 let radiusScale:Float = 0.75
                 let rotationAngle:Float = 0
                 
-                browserModel.characterAnchor.transform.translation.x = deviceOrigin.transform.translation.x + sin(Float.pi * rotationAngle) * radiusScale * nextTranslation.z + nextTranslation.x
-                browserModel.characterAnchor.transform.translation.y = characterOffset.y
-                browserModel.characterAnchor.transform.translation.z =
-                sessionManager.deviceOrigin.transform.translation.z + cos(Float.pi * rotationAngle) * radiusScale * nextTranslation.z
-                browserModel.characterAnchor.transform.rotation = transform.rotation
+                await MainActor.run {
+                    browserModel.characterAnchor.transform.translation.x = deviceOrigin.transform.translation.x + sin(Float.pi * rotationAngle) * radiusScale * nextTranslation.z + nextTranslation.x
+                    browserModel.characterAnchor.transform.translation.y = characterOffset.y
+                    browserModel.characterAnchor.transform.translation.z =
+                    sessionManager.deviceOrigin.transform.translation.z + cos(Float.pi * rotationAngle) * radiusScale * nextTranslation.z
+                    browserModel.characterAnchor.transform.rotation = transform.rotation
+                }
             }
         }
     }

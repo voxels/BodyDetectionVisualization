@@ -109,7 +109,11 @@ struct ShareplayImmersiveView: View {
             await sessionManager.runARKitSession()
         }
         .task {
-            await sessionManager.processDeviceAnchorUpdates()
+            do {
+                try await sessionManager.processDeviceAnchorUpdates()
+            } catch {
+                print(error)
+            }
         }
         .task(priority: .low) {
             await sessionManager.processReconstructionUpdates()
