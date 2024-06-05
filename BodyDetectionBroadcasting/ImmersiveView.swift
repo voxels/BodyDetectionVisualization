@@ -8,6 +8,7 @@
 import SwiftUI
 import RealityKit
 import RealityKitContent
+import Combine
 
 struct ImmersiveView: View {
     @ObservedObject var browserModel: NearbyServiceBrowserModel
@@ -19,9 +20,10 @@ struct ImmersiveView: View {
     private let audioURLString = "http://192.168.8.179:8000/radio"
     
     @State private var characterOffset: SIMD3<Float> = [0, 0.94, 0]
+    @State private var characterRotationOffset:simd_quatf = simd_quatf(angle: -Float.pi/2, axis: SIMD3<Float>(1, 0, 0))
     
     @State private var isPaused: Bool = false
-    
+    @State private var subscription:EventSubscription?
     var tap: some Gesture {
         LongPressGesture()
             .targetedToAnyEntity()
@@ -33,28 +35,29 @@ struct ImmersiveView: View {
     
     var body: some View {
         RealityView { content in
+            subscription = content.subscribe(to: SceneEvents.Update.self, on: nil, componentType: nil) { event in
+                if browserModel.nextJointData != browserModel.firstJointData {
+                    updateEntities()
+                }
+            }
+            
             await loadInitialContent(in: content)
         }
+        .onDisappear(perform: {
+            subscription?.cancel()
+        })
         .task {
             browserModel.fitSelected = selectedFit != nil
             Task {
                 await selectFit()
             }
         }
-        .onChange(of: browserModel.frameCount, { oldValue, newValue in
-            updateEntities()
-        })
         .onChange(of: selectedFit) { oldValue, newValue in
             browserModel.fitSelected = newValue != nil
             if browserModel.fitSelected {
                 Task {
                     await selectFit()
                 }
-            }
-        }
-        .onChange(of: isPaused) { oldValue, newValue in
-            if newValue {
-                browserModel.firstJointData = nil
             }
         }
         .task {
@@ -82,15 +85,19 @@ struct ImmersiveView: View {
             browserModel.originEntity = Entity()
             browserModel.originEntity?.position = SIMD3.zero
             content.add(scene)
-            scene.addChild(browserModel.characterAnchor)
+            scene.addChild(browserModel.characterRotation)
+            browserModel.characterRotation.setOrientation(characterRotationOffset.normalized, relativeTo: nil)
                         
             setupHandAndFootAnchors(in: scene)
             
             scene.addChild(sessionManager.deviceLocation)
             scene.addChild(sessionManager.leftHandLocation)
             scene.addChild(sessionManager.rightHandLocation)
-            
+        
             setupDomeEntity(in: scene)
+            
+            
+            
         } catch {
             print(error)
         }
@@ -124,11 +131,11 @@ struct ImmersiveView: View {
     
     @MainActor
     private func removeAnchorChildren(anchor: AnchorEntity) {
-        if !anchor.children.isEmpty {
+       
             for child in anchor.children {
                 child.removeFromParent()
             }
-        }
+        
     }
     
     private func addFitEntity(named entityName: String, anchor: AnchorEntity) async {
@@ -184,21 +191,18 @@ struct ImmersiveView: View {
     }
     
     func updateEntities() {
-        if !browserModel.fitSelected {
+        if !browserModel.fitSelected || browserModel.lastFrameDisplayLinkTimestamp == browserModel.displayLinkTimestamp {
             return
         }
-        
-        browserModel.cancelCurrentUpdateTask()
-        
-        browserModel.updateTask = Task { @MainActor in
-            await updateAnchors()
-            await updateFit()
-            updateParticles()
-            browserModel.updateTask = nil
-        }
+         
+        print("Updating entities: \(browserModel.frameCount)\t\(browserModel.displayLinkTimestamp)")
+        updateFit()
+        updateAnchors()
+//        updateParticles()
     }
     
-    func updateFit() async {
+    @MainActor
+    func updateFit() {
         guard let fitEntity = browserModel.skeletonIdentityEntity, let nextJointData = browserModel.nextJointData,  !isPaused else {
             return
         }
@@ -210,7 +214,7 @@ struct ImmersiveView: View {
         }
         
         for key in [nextJointData.keys.first!] {
-                        print("Joints count: \(nextJointData[key]!.count) for \(key)")
+            print("Joints count: \(nextJointData[key]!.count) for \(key)")
             let jointData = nextJointData[key]!
             //            print(jointData.count)
             for joint in jointData {
@@ -234,22 +238,21 @@ struct ImmersiveView: View {
                 rawTransforms[index] = Transform(scale: nextModel.scale, rotation:nextRotation, translation:nextTranslation)
             }
             
-            await MainActor.run {
-//                withAnimation {
+
+            withAnimation(.linear) {
                     fitEntity.jointTransforms = rawTransforms
-//                }
+                }
 //                let animation = FromToByAnimation(jointNames:fitEntity.jointNames,name:UUID().uuidString,  to:JointTransforms(rawTransforms),  duration:browserModel.frameDuration, isAdditive: false, bindTarget: .jointTransforms, blendLayer:0, fillMode: .forwards )
 //                do {
 //                    fitEntity.playAnimation(try AnimationResource.generate(with: animation), transitionDuration: browserModel.frameDuration / 2)
-//                    
 //                } catch {
 //                    print(error)
 //                }
-            }
         }
     }
     
-    func updateAnchors() async {
+    @MainActor
+    func updateAnchors() {
         guard let nextJointData = browserModel.nextJointData, let _ = nextJointData.keys.first, !isPaused else {
             return
         }
@@ -268,16 +271,15 @@ struct ImmersiveView: View {
                 
                 let transform = Transform(scale: SIMD3(1,1,1), rotation:nextRotation, translation:nextTranslation)
                 
-                let radiusScale:Float = 0.75
-                let rotationAngle:Float = 0
+                let radiusScale:Float = 0.5
+                let rotationAngle:Float = 1
                 
-                await MainActor.run {
+
                     browserModel.characterAnchor.transform.translation.x = deviceOrigin.transform.translation.x + sin(Float.pi * rotationAngle) * radiusScale * nextTranslation.z + nextTranslation.x
                     browserModel.characterAnchor.transform.translation.y = characterOffset.y
                     browserModel.characterAnchor.transform.translation.z =
                     sessionManager.deviceOrigin.transform.translation.z + cos(Float.pi * rotationAngle) * radiusScale * nextTranslation.z
-                    browserModel.characterAnchor.transform.rotation = transform.rotation
-                }
+                    browserModel.characterAnchor.transform.rotation = transform.rotation.normalized * characterRotationOffset
             }
         }
     }

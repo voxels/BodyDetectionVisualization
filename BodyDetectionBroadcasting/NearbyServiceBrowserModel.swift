@@ -14,6 +14,7 @@ public enum NearbyServiceBrowserModelError: Error {
 }
 
 open class NearbyServiceBrowserModel: NSObject, ObservableObject {
+    public var characterRotation:AnchorEntity
     public var characterAnchor: AnchorEntity
     public var sceneEntity: Entity?
     public var originEntity: Entity?
@@ -30,7 +31,7 @@ open class NearbyServiceBrowserModel: NSObject, ObservableObject {
     public let browser: MCNearbyServiceBrowser
     @Published public var isConnected: Bool = false
     public var jointRawData = [String:[[String:Any]]]()
-    public var lastData: Data?
+    public var lastData: NSData?
     public var firstJointData: [String:[JointData]]?
     public var nextJointData: [String:[JointData]]?
     @Published public var frameCount: Int = 0
@@ -44,24 +45,38 @@ open class NearbyServiceBrowserModel: NSObject, ObservableObject {
         var decodeTask: Task<[String:[JointData]]?, Error>?
         // Initialize the task in an initializer or a method
         // An example async function that returns a value and can throw an error
-        func performDecodeAsyncOperation() async throws -> [String:[JointData]]? {
-            if let data = lastData, let decodedData = createDecodeTask(with: data) {
-                return decodedData
+    func performDecodeAsyncOperation() async -> [String:[JointData]]? {
+            if let data = lastData as Data? {
+                return await Task.detached(priority: .background) { [weak self] in
+                    return self?.createDecodeTask(with: data)
+                }.value
             }
             return nil
         }
 
         // Optionally, a method to start the task
         func startDecodeTask() async throws {
+            cancelCurrentDecodeTask()
             decodeTask = Task {
-                return try await performDecodeAsyncOperation()
+                if Task.isCancelled {
+                    print("returning cancelled task")
+                    return nil
+                }
+                return await performDecodeAsyncOperation()
             }
             try await handleDecodeTaskResult()
-            await updateFrame()
+            Task { @MainActor in
+                decodeTask = nil
+            }
         }
 
         // A method to handle the task result
         func handleDecodeTaskResult() async throws {
+            if Task.isCancelled {
+                print("Returning cancelled task with no value")
+                decodeTask = nil
+                return
+            }
             let value = await decodeTask?.result.map { result in
                 switch result {
                 case .some(let data):
@@ -72,13 +87,15 @@ open class NearbyServiceBrowserModel: NSObject, ObservableObject {
                 }
             }
             
-            if let jointData = try value?.get() {
+            if let jointData = try value?.get(), let decodeTask = decodeTask, !decodeTask.isCancelled {
                 Task { @MainActor in
-                    nextJointData = jointData
+                    if nextJointData != jointData {
+                        firstJointData = nextJointData
+                        nextJointData = jointData
+                        print("Swapped joint data")
+                    }
                 }
             }
-            
-            decodeTask = nil
         }
 
         // Optionally, a method to cancel the task
@@ -90,6 +107,8 @@ open class NearbyServiceBrowserModel: NSObject, ObservableObject {
         self.session = MCSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: .none)
         self.browser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: NearbyServiceBrowserModel.service)
         characterAnchor = AnchorEntity()
+        characterRotation = AnchorEntity()
+        characterRotation.addChild(characterAnchor)
         super.init()
         session.delegate = self
         createDisplayLink()
@@ -169,8 +188,13 @@ extension NearbyServiceBrowserModel: MCSessionDelegate {
     public func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print("Did receive data \(data) at \(displayLinkTimestamp)")
         if fitSelected {
-            cancelCurrentDecodeTask()
-            lastData = data
+            Task {
+                do {
+                    lastData = try (data as NSData).decompressed(using: .lz4)
+                } catch {
+                    print(error)
+                }
+            }
         }
     }
     
@@ -205,7 +229,7 @@ extension NearbyServiceBrowserModel: MCSessionDelegate {
     @MainActor
     public func updateFrame() {
         frameCount += 1
-        print(frameCount)
+        print("Frame: \(frameCount)\t\(displayLinkTimestamp)")
     }
     
     public func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
@@ -213,7 +237,7 @@ extension NearbyServiceBrowserModel: MCSessionDelegate {
     }
     
     public func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
-        // Handle resource receiving start logic if needed
+        // Handle resource receiving start logicf if needed
     }
     
     public func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
@@ -232,16 +256,18 @@ extension NearbyServiceBrowserModel {
 extension NearbyServiceBrowserModel {
     @MainActor @objc func onFrame(link: CADisplayLink) {
         frameDuration = link.targetTimestamp - link.timestamp
+        lastFrameDisplayLinkTimestamp = displayLinkTimestamp
         displayLinkTimestamp = link.timestamp
         
         Task {
             do {
+                cancelCurrentDecodeTask()
                 try await startDecodeTask()
             } catch {
                 print(error)
             }
         }
-    }
+   }
 }
 
 extension NearbyServiceBrowserModel {
