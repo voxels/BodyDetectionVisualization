@@ -186,11 +186,11 @@ extension NearbyServiceBrowserModel: MCSessionDelegate {
     }
     
     public func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        print("Did receive data \(data) at \(displayLinkTimestamp)")
         if fitSelected {
             Task {
                 do {
                     lastData = try (data as NSData).decompressed(using: .lz4)
+                    print("Did receive data \(data) at \(displayLinkTimestamp)")
                 } catch {
                     print(error)
                 }

@@ -239,9 +239,7 @@ struct ImmersiveView: View {
             }
             
 
-            withAnimation(.linear) {
                     fitEntity.jointTransforms = rawTransforms
-                }
 //                let animation = FromToByAnimation(jointNames:fitEntity.jointNames,name:UUID().uuidString,  to:JointTransforms(rawTransforms),  duration:browserModel.frameDuration, isAdditive: false, bindTarget: .jointTransforms, blendLayer:0, fillMode: .forwards )
 //                do {
 //                    fitEntity.playAnimation(try AnimationResource.generate(with: animation), transitionDuration: browserModel.frameDuration / 2)
