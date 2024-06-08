@@ -51,6 +51,23 @@ struct MultipeerContentView: View {
         if browserModel.isConnected {
 #if os(visionOS)
             VStack {
+                if showImmersiveSpace {
+                    HStack {
+                        Button {
+                            showImmersiveSpace = false
+                            browserModel.leaveSession()
+                            browserModel.startBrowsing()
+                        } label: {
+                            Label("Quit", systemImage: "xmark")
+                        }
+                        Spacer()
+                        Button {
+                            
+                        } label: {
+                            Label("Now Playing", systemImage: "play")
+                        }
+                    }
+                }
                 Spacer()
                 Text("Select a model")
                 ScrollView(.horizontal, showsIndicators: true) {
@@ -61,12 +78,8 @@ struct MultipeerContentView: View {
                                 .frame(maxWidth:640, maxHeight:640)
                                 .background()
                             Button {
-                                if selectedFit != nil {
-                                    selectedFit = nil
-                                } else {
-                                    selectedFit = .GageDarkFit
-                                }
-                                showImmersiveSpace.toggle()
+                                selectedFit = .GageDarkFit
+                                showImmersiveSpace = true
                             } label: {
                                 Label("Dark Gage", systemImage: "star.fill")
                             }.padding()
@@ -78,14 +91,8 @@ struct MultipeerContentView: View {
                                 .frame(maxWidth:640, maxHeight:640)
                                 .background()
                             Button {
-                                if selectedFit != nil {
-                                    selectedFit = nil
-                                } else {
-                                    selectedFit = .GageLightFit
-                                }
-
-                                showImmersiveSpace.toggle()
-
+                                selectedFit = .GageLightFit
+                                showImmersiveSpace = true
                             } label: {
                                 Label("Light Gage", systemImage: "star.fill")
                             }.padding()
@@ -99,13 +106,8 @@ struct MultipeerContentView: View {
                                 .background()
                             
                             Button {
-                                if selectedFit != nil {
-                                    selectedFit = nil
-                                } else {
-                                    selectedFit = .JesseDarkFit
-                                }
-                                showImmersiveSpace.toggle()
-
+                                selectedFit = .JesseDarkFit
+                                showImmersiveSpace = true
                             } label: {
                                 Label("Dark Jesse", systemImage: "star.fill")
                             }.padding()
@@ -118,14 +120,8 @@ struct MultipeerContentView: View {
 
                                 .background()
                             Button {
-                                
-                                    if selectedFit != nil {
-                                        selectedFit = nil
-                                    } else {
-                                        selectedFit = .JesseLightFit
-                                    }
-                                showImmersiveSpace.toggle()
-
+                                selectedFit = .JesseLightFit
+                                showImmersiveSpace = true
                             } label: {
                                 Label("Light Jesse", systemImage: "star.fill")
                             }.padding()
@@ -138,13 +134,8 @@ struct MultipeerContentView: View {
                                 .frame(maxWidth:640, maxHeight:640)
                                 .background()
                             Button {
-                                if selectedFit != nil {
-                                    selectedFit = nil
-                                } else {
-                                    selectedFit = .DeanDarkFit
-                                }
-                                showImmersiveSpace.toggle()
-
+                                selectedFit = .DeanDarkFit
+                                showImmersiveSpace = true
                             } label: {
                                 Label("Dark Dean", systemImage: "star.fill")
 
@@ -158,13 +149,8 @@ struct MultipeerContentView: View {
 
                                 .background()
                             Button {
-                                if selectedFit != nil {
-                                    selectedFit = nil
-                                } else {
-                                    selectedFit = .DeanLightFit
-                                }
-                                showImmersiveSpace.toggle()
-
+                                selectedFit = .DeanLightFit
+                                showImmersiveSpace = true
                             } label: {
                                 Label("Light Dean", systemImage: "star.fill")
                             }.padding()

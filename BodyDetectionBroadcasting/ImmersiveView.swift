@@ -36,28 +36,40 @@ struct ImmersiveView: View {
     var body: some View {
         RealityView { content in
             subscription = content.subscribe(to: SceneEvents.Update.self, on: nil, componentType: nil) { event in
-                if browserModel.nextJointData != browserModel.firstJointData {
+                if !isPaused {
                     updateEntities()
                 }
+                browserModel.lastFrameDisplayLinkTimestamp = browserModel.displayLinkTimestamp
             }
             
             await loadInitialContent(in: content)
         }
+        .gesture(SpatialTapGesture().targetedToAnyEntity().onEnded { event in
+            // Place the currently selected object when the user looks directly at the selected object’s preview.
+            isPaused.toggle()
+        })
         .onDisappear(perform: {
             subscription?.cancel()
         })
-        .task {
-            browserModel.fitSelected = selectedFit != nil
+        .onAppear(perform: {
             Task {
                 await selectFit()
+                updateAnchors()
             }
-        }
+        })
         .onChange(of: selectedFit) { oldValue, newValue in
             browserModel.fitSelected = newValue != nil
             if browserModel.fitSelected {
                 Task {
                     await selectFit()
+                    updateAnchors()
                 }
+            }
+            
+            do {
+                try browserModel.send(fitSelected: browserModel.fitSelected)
+            }catch {
+                print(error)
             }
         }
         .task {
@@ -96,8 +108,7 @@ struct ImmersiveView: View {
         
             setupDomeEntity(in: scene)
             
-            
-            
+            updateAnchors()
         } catch {
             print(error)
         }
@@ -138,6 +149,7 @@ struct ImmersiveView: View {
         
     }
     
+    @MainActor
     private func addFitEntity(named entityName: String, anchor: AnchorEntity) async {
         do {
             let fitScene = try await Entity(named: entityName, in: realityKitContentBundle)
@@ -146,6 +158,9 @@ struct ImmersiveView: View {
                 print("Found skeleton")
                 anchor.addChild(fitScene)
                 await MainActor.run {
+                    model.generateCollisionShapes(recursive:true)
+                    let previewInput = InputTargetComponent(allowedInputTypes: [.indirect])
+                    model.components[InputTargetComponent.self] = previewInput
                     browserModel.skeletonIdentityEntity = model
                 }
             }
@@ -176,7 +191,7 @@ struct ImmersiveView: View {
     
     @MainActor
     private func setupDomeEntity(in scene: Entity) {
-        guard let sphereModel = scene.findEntity(named: "Sphere") as? ModelEntity else {
+        guard let sphereModel = scene.findEntity(named: "Dome") as? ModelEntity else {
             print("did not find dome")
             return
         }
@@ -184,26 +199,21 @@ struct ImmersiveView: View {
         // let videoMaterial = VideoMaterial(avPlayer: playerModel.player)
         // domeEntity?.model?.materials = [videoMaterial]
         // scene.addChild(domeEntity
-        
-        // let videoMaterial = VideoMaterial(avPlayer: playerModel.player)
-        // domeEntity?.model?.materials = [videoMaterial]
-        // scene.addChild(domeEntity)
     }
     
     func updateEntities() {
-        if !browserModel.fitSelected || browserModel.lastFrameDisplayLinkTimestamp == browserModel.displayLinkTimestamp {
+        if !browserModel.isConnected {
+            print("not connected")
             return
         }
-         
         print("Updating entities: \(browserModel.frameCount)\t\(browserModel.displayLinkTimestamp)")
         updateFit()
-        updateAnchors()
-//        updateParticles()
+
+        //updateParticles()
     }
     
-    @MainActor
     func updateFit() {
-        guard let fitEntity = browserModel.skeletonIdentityEntity, let nextJointData = browserModel.nextJointData,  !isPaused else {
+        guard let fitEntity = browserModel.skeletonIdentityEntity, let nextJointData = browserModel.nextJointData else {
             return
         }
         
@@ -251,7 +261,7 @@ struct ImmersiveView: View {
     
     @MainActor
     func updateAnchors() {
-        guard let nextJointData = browserModel.nextJointData, let _ = nextJointData.keys.first, !isPaused else {
+        guard let nextJointData = browserModel.nextJointData, let _ = nextJointData.keys.first else {
             return
         }
         
@@ -270,14 +280,14 @@ struct ImmersiveView: View {
                 let transform = Transform(scale: SIMD3(1,1,1), rotation:nextRotation, translation:nextTranslation)
                 
                 let radiusScale:Float = 0.5
-                let rotationAngle:Float = 1
+                let rotationAngle:Float = 0
                 
 
-                    browserModel.characterAnchor.transform.translation.x = deviceOrigin.transform.translation.x + sin(Float.pi * rotationAngle) * radiusScale * nextTranslation.z + nextTranslation.x
+                    browserModel.characterAnchor.transform.translation.x = deviceOrigin.transform.translation.x + sin(Float.pi * rotationAngle) * radiusScale * nextTranslation.z
                     browserModel.characterAnchor.transform.translation.y = characterOffset.y
                     browserModel.characterAnchor.transform.translation.z =
-                    sessionManager.deviceOrigin.transform.translation.z + cos(Float.pi * rotationAngle) * radiusScale * nextTranslation.z
-                    browserModel.characterAnchor.transform.rotation = transform.rotation.normalized * characterRotationOffset
+                sessionManager.deviceOrigin.transform.translation.z + cos(Float.pi * rotationAngle) * radiusScale * nextTranslation.z
+                    browserModel.characterAnchor.transform.rotation = characterRotationOffset
             }
         }
     }

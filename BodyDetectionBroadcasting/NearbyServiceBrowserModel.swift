@@ -24,84 +24,97 @@ open class NearbyServiceBrowserModel: NSObject, ObservableObject {
     public var characterLeftFootAnchor: Entity?
     public var characterRightFootAnchor: Entity?
     @Published public var domeEntity: ModelEntity?
-
+    
     static public let service = "body-tracking"
     let myPeerId = MCPeerID(displayName: UIDevice.current.name)
     public let session: MCSession
     public let browser: MCNearbyServiceBrowser
     @Published public var isConnected: Bool = false
-    public var jointRawData = [String:[[String:Any]]]()
-    public var lastData: NSData?
+    @Published public var lastData: NSData?
     public var firstJointData: [String:[JointData]]?
     public var nextJointData: [String:[JointData]]?
     @Published public var frameCount: Int = 0
     public var fitSelected: Bool = false
     @Published var displayLinkTimestamp: Double = 0
+    private var receivedDataTimestamp:Double = 0
     @Published var lastFrameDisplayLinkTimestamp: Double = 0
     var frameDuration: Double = 0.0333333
     public var displayLink: CADisplayLink!
     public var updateTask: Task<Void, Never>?
     // Define a variable to hold the Task
-        var decodeTask: Task<[String:[JointData]]?, Error>?
-        // Initialize the task in an initializer or a method
-        // An example async function that returns a value and can throw an error
+    var decodeTask: Task<[String:[JointData]]?, Error>?
+    // Initialize the task in an initializer or a method
+    // An example async function that returns a value and can throw an error
+    
+    // Define a lock for synchronization
+    private let lock = NSLock()
+    
+    // Define a queue for background decoding
+    private let decodingQueue = DispatchQueue(label: "decodingQueue", qos: .background)
+    
     func performDecodeAsyncOperation() async -> [String:[JointData]]? {
-            if let data = lastData as Data? {
-                return await Task.detached(priority: .background) { [weak self] in
-                    return self?.createDecodeTask(with: data)
-                }.value
-            }
+        guard let data = lastData as? Data else {
             return nil
         }
-
-        // Optionally, a method to start the task
-        func startDecodeTask() async throws {
-            cancelCurrentDecodeTask()
-            decodeTask = Task {
-                if Task.isCancelled {
-                    print("returning cancelled task")
-                    return nil
-                }
-                return await performDecodeAsyncOperation()
-            }
-            try await handleDecodeTaskResult()
-            Task { @MainActor in
-                decodeTask = nil
-            }
-        }
-
-        // A method to handle the task result
-        func handleDecodeTaskResult() async throws {
+        
+        return await Task.detached(priority: .background){ [weak self] in
+            self?.createDecodeTask(with: data)
+        }.value
+    }
+    
+    // Optionally, a method to start the task
+    func startDecodeTask() async throws {
+        cancelCurrentDecodeTask()
+        decodeTask = Task(priority: .background) {
             if Task.isCancelled {
-                print("Returning cancelled task with no value")
-                decodeTask = nil
-                return
+                print("returning cancelled task")
+                return [String:[JointData]]()
             }
-            let value = await decodeTask?.result.map { result in
-                switch result {
-                case .some(let data):
-                    return data
-                case .none:
-                    print("Task failed with error")
-                    return [String:[JointData]]()
-                }
+            return await performDecodeAsyncOperation()
+        }
+        try await handleDecodeTaskResult()
+        decodeTask = nil
+    }
+    
+    // A method to handle the task result
+    func handleDecodeTaskResult() async throws {
+        if Task.isCancelled {
+            print("Returning cancelled task with no value")
+            decodeTask = nil
+            return
+        }
+        let value = await decodeTask?.result.map { result in
+            switch result {
+            case .some(let data):
+                return data
+            case .none:
+                print("Task failed with error")
+                return [String:[JointData]]()
             }
-            
-            if let jointData = try value?.get(), let decodeTask = decodeTask, !decodeTask.isCancelled {
-                Task { @MainActor in
-                    if nextJointData != jointData {
-                        firstJointData = nextJointData
-                        nextJointData = jointData
-                        print("Swapped joint data")
-                    }
+        }
+        
+        if let jointData = try value?.get() {
+            Task { @MainActor in
+                if nextJointData != jointData {
+                    nextJointData = jointData
+                    print("Swapped joint data")
                 }
             }
         }
-
-        // Optionally, a method to cancel the task
-        func cancelDecodeTask() {
-            decodeTask?.cancel()
+    }
+    
+    public func cancelCurrentDecodeTask() {
+        if let decodeTask = decodeTask, !decodeTask.isCancelled {
+            cancelDecodeTask()
+            print("cancelled decode task")
         }
+    }
+    
+    
+    // Optionally, a method to cancel the task
+    func cancelDecodeTask() {
+        decodeTask?.cancel()
+    }
     
     public override init() {
         self.session = MCSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: .none)
@@ -120,6 +133,10 @@ open class NearbyServiceBrowserModel: NSObject, ObservableObject {
     
     public func stopBrowsing() {
         browser.stopBrowsingForPeers()
+    }
+    
+    public func leaveSession() {
+        session.disconnect()
     }
     
     public func decodeFrame(data: Data?) -> [String:[JointData]]? {
@@ -151,6 +168,26 @@ open class NearbyServiceBrowserModel: NSObject, ObservableObject {
             print(error)
         }
         return nil
+    }
+    
+    public func send(fitSelected:Bool) throws {
+        guard isConnected else {
+            return
+        }
+        let isReadyDict = ["fitSelected":fitSelected]
+        let jsonData = try JSONSerialization.data(withJSONObject: isReadyDict, options: [])
+        try session.send(jsonData, toPeers: session.connectedPeers, with: .reliable)
+        print("sending fitSelected: \(isReadyDict)")
+    }
+    
+    public func send(frameReady:Bool) throws {
+        guard isConnected else {
+            return
+        }
+        let isReadyDict = ["frameReady":frameReady]
+        let jsonData = try JSONSerialization.data(withJSONObject: isReadyDict, options: [])
+        try session.send(jsonData, toPeers: session.connectedPeers, with: .unreliable)
+        print("sending frameReady: \(isReadyDict)")
     }
 }
 
@@ -186,35 +223,28 @@ extension NearbyServiceBrowserModel: MCSessionDelegate {
     }
     
     public func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        if fitSelected {
-            Task {
-                do {
-                    lastData = try (data as NSData).decompressed(using: .lz4)
-                    print("Did receive data \(data) at \(displayLinkTimestamp)")
-                } catch {
-                    print(error)
-                }
+        if receivedDataTimestamp == displayLinkTimestamp {
+            return
+        }
+        lock.lock()
+
+        Task { @MainActor in
+            defer { lock.unlock() }
+
+            do {
+                let last = try (data as NSData).decompressed(using: .lz4)
+                print("did receive data \(last.count) \(displayLinkTimestamp)")
+                lastData = last
+            } catch {
+                print(error)
             }
+            receivedDataTimestamp = displayLinkTimestamp
         }
     }
     
     public func createDecodeTask(with data:Data) -> [String:[JointData]]? {
-        return updateRawData(with: data)
-    }
-
-    
-    public func updateRawData(with data: Data) ->[String:[JointData]]? {
         return decodeFrame(data: data)
     }
-    
-    public func cancelCurrentDecodeTask() {
-        if let decodeTask = decodeTask, !decodeTask.isCancelled {
-            cancelDecodeTask()
-            print("cancelled decode task")
-        }
-        decodeTask = nil
-    }
-
     
     @MainActor
     public func cancelCurrentUpdateTask() {
@@ -222,9 +252,8 @@ extension NearbyServiceBrowserModel: MCSessionDelegate {
             updateTask.cancel()
             print("cancelled update task")
         }
-        updateTask = nil
     }
-
+    
     
     @MainActor
     public func updateFrame() {
@@ -248,7 +277,7 @@ extension NearbyServiceBrowserModel: MCSessionDelegate {
 extension NearbyServiceBrowserModel {
     private func createDisplayLink() {
         displayLink = CADisplayLink(target: self, selector: #selector(onFrame(link:)))
-        displayLink.preferredFramesPerSecond = 30
+        displayLink.preferredFramesPerSecond = 60
         displayLink.add(to: .main, forMode: .default)
     }
 }
@@ -256,18 +285,22 @@ extension NearbyServiceBrowserModel {
 extension NearbyServiceBrowserModel {
     @MainActor @objc func onFrame(link: CADisplayLink) {
         frameDuration = link.targetTimestamp - link.timestamp
-        lastFrameDisplayLinkTimestamp = displayLinkTimestamp
         displayLinkTimestamp = link.timestamp
         
-        Task {
-            do {
-                cancelCurrentDecodeTask()
-                try await startDecodeTask()
-            } catch {
-                print(error)
+        decodingQueue.async { [weak self] in
+            guard let self = self else { return }
+            self.lock.lock()
+            Task {
+                defer { self.lock.unlock() }
+
+                do {
+                    try await self.startDecodeTask()
+                } catch {
+                    print(error)
+                }
             }
         }
-   }
+    }
 }
 
 extension NearbyServiceBrowserModel {
